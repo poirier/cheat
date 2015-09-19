@@ -16,14 +16,6 @@ Things I'm always wanting to look up about
   conditionals
   loops
 
-
-.. Indices and tables
-.. ==================
-
-.. (no index entries yet) * :ref:`genindex`
-.. (no modules) * :ref:`modindex`
-.. (not needed) * :ref:`search`
-
 Misc. stuff I need to file somewhere:
 
 .. _ad-hoc-command:
