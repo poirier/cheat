@@ -9,6 +9,7 @@ Contents:
    ansible/index
    django/index
    mysql
+   postgres
 
 Indices and tables
 ==================
