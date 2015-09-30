@@ -10,6 +10,7 @@ Contents:
    :maxdepth: 2
 
    admin
+   apps
    celery
    data
    database

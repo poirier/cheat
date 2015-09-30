@@ -83,11 +83,16 @@ etc. You can set some environment variables to use as defaults for things::
 Create user
 -----------
 
-This is pretty standard::
+This is pretty standard.  To create user ``$username`` with plain text password
+``$password``::
 
     export PGUSER=master
-    createuser <username>
-    psql -c "ALTER USER <username> WITH PASSWORD 'plaintextpassword';"
+    export PGDATABASE=postgres
+    createuser -DERS $username
+    psql -c "ALTER USER $username WITH PASSWORD '$password';"
+
+Yes, none of the options in ``-DERS`` are strictly required, but if you don't
+mention them explicitly, createuser asks you about them one at a time.
 
 If not on RDS, for the user to actually do something useful like connect to postgres,
 you might also have to edit pg_hba.conf and add a line like::
@@ -101,23 +106,24 @@ password it otherwise has auth for.  E.g. to allow local connections via both un
     local   all             all                                     md5
     host    all             all             127.0.0.1/32            md5
 
-
 Create database
 ---------------
 
-If you need a database owned by ``project_user``, you'll need
+If you need a database owned by ``$project_user``, you'll need
 to create it as ``master`` and then modify the ownership and permissions::
 
     export PGUSER=master
-    createdb --template=template0 'dbname'
-    psql -c "revoke all on database 'dbname' from public;"
-    psql -c "grant all on database 'dbname' to project_user;"
-    # If you need to enable extensions etc, do that now, then:
-    psql -c "alter database 'dbname' owner to project_user;"
+    createdb --template=template0 $dbname
+    psql -c "revoke all on database $dbname from public;"
+    psql -c "grant all on database $dbname to master;"
+    psql -c "grant all on database $dbname to $project_user;"
 
-(Actually a superuser can probably create a database owned by an
-arbitrary user, but not the master RDS user; this will work either
-way.)
+If you need to enable extensions etc, do that now (see below).  When done, then::
+
+    psql -c "alter database $dbname owner to $project_user;"
+
+A superuser could create the database already owned by a specific user,
+but RDS's master user cannot.
 
 PostGIS
 -------
@@ -126,12 +132,12 @@ To enable PostGIS, as the master user::
 
     export PGUSER=master
     psql -c "create extension postgis;"
-    psql -c "alter table spatial_ref_sys OWNER TO $PROJECT_USER;"
+    psql -c "alter table spatial_ref_sys OWNER TO $project_user;"
 
-where ``$PROJECT_USER`` is the postgres user who will be using the database.
+where ``$project_user`` is the postgres user who will be using the database.
 
 (Outside of RDS, only a superuser can use ``create extension``; RDS has special
-handling for a whiteless of extensions.)
+handling for a whitelist of extensions.)
 
 Hstore
 ------
@@ -141,14 +147,20 @@ Hstore is simpler, but you still have to use the master user::
     export PGUSER=master
     psql -c "create extension hstore;"
 
+Grant read-only access to a database
+------------------------------------
+
+    $ psql -c "GRANT CONNECT ON DATABASE $dbname TO $readonly_user;"
+    $ psql -c "GRANT SELECT ON ALL TABLES IN SCHEMA PUBLIC TO $readonly_user;" $dbname
+
 Restore a dump to a new database
 --------------------------------
 
 Create the database as above, including changing ownership to the project
 user, and enabling any needed extensions. Then as the project user::
 
-    export PGUSER=project_user
-    pg_restore --no-owner --no-acl --dbname='dbname' file.dump
+    export PGUSER=$project_user
+    pg_restore --no-owner --no-acl --dbname=$dbname file.dump
 
 Note that you might get some errors during the restore if it tries to create
 extensions that already exist and that kind of thing, but those are
@@ -161,8 +173,8 @@ Dump the database
 
 This is pretty standard and can be done by the project user::
 
-    export PGUSER=project_user
-    pg_dump --file=output.dump --format=custom <dbname>
+    export PGUSER=$project_user
+    pg_dump --file=output.dump --format=custom $dbname
 
 Drop database
 -------------
@@ -173,16 +185,24 @@ you can't drop the database you're connected to, so you need to connect
 to a different database for the ``dropdb``.  The ``postgres`` database is
 as good as any::
 
-    export PGUSER=master
-    psql -c "alter database 'dbname' owner to master;"
-    PGDATABASE=postgres dropdb dbname
+    export PGUSER=master PGDATABASE=postgres
+    psql -c "alter database $dbname owner to master;"
+    psql -c "drop database if exists $dbname;"
 
 (Outside of RDS, a superuser can drop any database. A superuser still
 has to be connected to some other database when doing it, though.)
 
+Drop user
+---------
+
+This is standard too.  Just beware that you cannot drop a user if anything
+they own still exists, including things like permissions on databases.
+
+    $ export PGUSER=master
+    $ dropuser $user
+
 Postgres on RDS
 ===============
-
 
 * Add ``django-extensions`` to the requirements and `django_extensions` to the `INSTALLED_APPS` so we can use the [sqldsn](http://django-extensions.readthedocs.org/en/latest/sqldsn.html) management command to get the exact Postgres settings we need to access the database from outside of Django.  Here's how it works::
 
