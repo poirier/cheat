@@ -4,12 +4,15 @@ Welcome to Dan's Cheat Sheets's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    ansible/index
    django/index
+   elasticsearch/index
    mysql
    postgres
+   python/index
+
 
 Indices and tables
 ==================

@@ -6,15 +6,16 @@ Things I'm always wanting to look up about
 
 .. toctree::
 
+  conditionals
   configuration
   inventory
   invoking
+  loops
   playbook
   role
+  secrets
   task
   variables
-  conditionals
-  loops
 
 Misc. stuff I need to file somewhere:
 

@@ -8,6 +8,8 @@ Variables
 
 Some variables alter the behavior of ansible (see http://docs.ansible.com/intro_inventory.html#list-of-behavioral-inventory-parameters for a list).
 
+CORRECTION: Use ``ansible_ssh_user``, not ``ansible_user``.
+
 Any of them can be used anywhere Jinja2 templating is in effect.
 
 Places to define variables:

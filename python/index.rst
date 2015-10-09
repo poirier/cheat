@@ -1,5 +1,5 @@
-Python Cheatsheet
-=================
+Python
+======
 
 Contents:
 
