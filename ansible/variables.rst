@@ -7,6 +7,7 @@ Variables
 ---------
 
 Some variables alter the behavior of ansible (see http://docs.ansible.com/intro_inventory.html#list-of-behavioral-inventory-parameters for a list).
+You can set some of these using `environment variables <http://docs.ansible.com/ansible/intro_configuration.html#environmental-configuration>`_.
 
 CORRECTION: Use ``ansible_ssh_user``, not ``ansible_user``.
 

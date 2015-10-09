@@ -28,9 +28,25 @@ Providing the password to Ansible
    ``--vault-password-file <filename>``.  Most insecure, but
    more convenient than the prompt.
 #) Write a script or program that outputs the password on stdout, mark
-   it executable, and pass that: ``--vault-password-file <path-to-program>`.
+   it executable, and pass that: ``--vault-password-file <path-to-program>``.
    This makes it possible to use a local system keychain or something, which
    might be more secure than the other options.  Or worse...
+
+Ways to use it
+--------------
+
+One approach I've used is to have a single encrypted ``secrets.yml`` file in my
+base directory containing all my secret variables, and another file with very
+restrictive permissions (and outside of source control) containing my password,
+then add these arguments when running ansible::
+
+    --extra-vars @secrets.yml --vault-password-file path/to/passfile
+
+The advantage of that is that if I don't need the secrets, I can leave all
+that off and Ansible will run fine. (As opposed to having the encrypted file
+automatically read by Ansible every time.)
+
+I'm not sure if that will scale, though.
 
 Limitations
 -----------
