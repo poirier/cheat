@@ -10,6 +10,7 @@ Contents:
    django/index
    elasticsearch/index
    mysql
+   org-mode
    postgres
    python/index
 

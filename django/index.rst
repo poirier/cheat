@@ -18,6 +18,7 @@ Contents:
    email
    fabric
    forms
+   home
    logging
    migrations
    nginx
