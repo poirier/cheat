@@ -19,3 +19,5 @@ CELERY_EAGER_PROPAGATES_EXCEPTIONS: If this is True, eagerly executed tasks (app
 It’s the same as always running apply() with throw=True.
 
 CELERY_IGNORE_RESULT: Whether to store the task return values or not (tombstones). If you still want to store errors, just not successful return values, you can set CELERY_STORE_ERRORS_EVEN_IF_IGNORED.
+
+*CELERYD_HIJACK_ROOT_LOGGER:* By default any previously configured handlers on the root logger will be removed. If you want to customize your own logging handlers, then you can disable this behavior by setting CELERYD_HIJACK_ROOT_LOGGER = False.
