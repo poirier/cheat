@@ -9,6 +9,7 @@ Contents:
    ansible/index
    django/index
    elasticsearch/index
+   misc
    mysql
    org-mode
    postgres
