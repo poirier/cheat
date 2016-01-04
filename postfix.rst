@@ -1,8 +1,5 @@
-Miscellaneous
-=============
-
-Postfix management
-------------------
+Postfix
+=======
 
 Retry sending all queued mail::
 
