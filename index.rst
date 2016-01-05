@@ -14,7 +14,7 @@ Contents:
    postfix
    postgres
    python/index
-
+   salt
 
 Indices and tables
 ==================
