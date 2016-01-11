@@ -16,6 +16,7 @@ Contents:
    postgres
    python/index
    salt
+   virtualbox
 
 Indices and tables
 ==================
