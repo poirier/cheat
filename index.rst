@@ -10,6 +10,7 @@ Contents:
    debian
    django/index
    elasticsearch/index
+   i3
    mysql
    org-mode
    postfix

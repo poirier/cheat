@@ -14,6 +14,7 @@ Things I'm always wanting to look up about
   playbook
   role
   secrets
+  synchronize
   task
   variables
 
