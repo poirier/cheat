@@ -6,11 +6,15 @@ My i3 bindings
 "Ŵ" is the "windows" key
 
 Ŵ-<NUMBER>: switch to workspace NUMBER on whatever monitor it's attached to.
+
 Ŵ-Control-<ARROW>: Move current workspace to another monitor.
+
 Ŵ-Shift-Number: Move current window to another workspace.
 
 Ŵ-Control-1: Only use built-in laptop display
+
 Ŵ-Control-2: Use built-in laptop display, and external display positioned to its right
+
 Ŵ-Control-3: Use built-in laptop display, and external display positioned above it
 
 Ŵ-D: open command line at top to enter a command (output invisible, use to start new

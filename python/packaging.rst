@@ -27,3 +27,20 @@ Example setup.py::
             'urwid'
         ]
     )
+
+To include non-Python files in the packaging, create a
+`MANIFEST.in file <https://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template>`_.
+Example::
+
+    include path/to/*.conf
+
+adds the files matching path/to/*.conf.  Another::
+
+    recursive-include subdir/path *.txt *.rst
+
+adds all files matching *.txt or *.rst that are anywhere
+under subdir/path.  Finally::
+
+    prune examples/sample?/build
+
+should be obvious.
