@@ -85,7 +85,7 @@ will be returned:
         return redirect(object, permanent=True)
 
 
-https://docs.djangoproject.com/en/dev/topics/http/urls/
+https://docs.djangoproject.com/en/stable/topics/http/urls/
 
 .. code-block:: python
 

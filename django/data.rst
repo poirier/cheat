@@ -13,7 +13,7 @@ Load it again::
 Natural keys
 ------------
 
-https://docs.djangoproject.com/en/dev/topics/serialization/#natural-keys
+https://docs.djangoproject.com/en/stable/topics/serialization/#natural-keys
 
 .. code-block:: python
 

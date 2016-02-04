@@ -1,8 +1,8 @@
 Forms
 =====
 
-* https://docs.djangoproject.com/en/dev/topics/forms/
-* https://docs.djangoproject.com/en/dev/ref/forms/api/
+* https://docs.djangoproject.com/en/stable/topics/forms/
+* https://docs.djangoproject.com/en/stable/ref/forms/api/
 
 A basic form::
 
@@ -28,7 +28,7 @@ Processing a form in a view function::
             'form': form,
         })
 
-https://docs.djangoproject.com/en/dev/topics/forms/modelforms/
+https://docs.djangoproject.com/en/stable/topics/forms/modelforms/
 
 A model form::
 

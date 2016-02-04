@@ -1,7 +1,7 @@
 Applications
 ============
 
-`https://docs.djangoproject.com/en/1.8/ref/applications/#django.apps.AppConfig <https://docs.djangoproject.com/en/1.8/ref/applications/#django.apps.AppConfig>`_
+`https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig <https://docs.djangoproject.com/en/1.8/ref/applications/#django.apps.AppConfig>`_
 
 In ``__init__.py``::
 

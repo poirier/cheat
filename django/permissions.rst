@@ -4,7 +4,7 @@ Permissions
 
 (Note: this page is about authorization, not authentication.)
 
-Link: https://docs.djangoproject.com/en/1.6/topics/auth/default/#topic-authorization
+Link: https://docs.djangoproject.com/en/stable/topics/auth/default/#topic-authorization
 
 User objects have two many-to-many fields: groups and user_permissions. User objects can access their related objects in the same way as any other Django model::
 
@@ -56,7 +56,7 @@ To create a new permission programmatically::
 Default permissions
 -------------------
 
-https://docs.djangoproject.com/en/dev/topics/auth/default/#default-permissions
+https://docs.djangoproject.com/en/stable/topics/auth/default/#default-permissions
 
 For every model in an installed app, Django automatically creates three
 permissions: `applabel.add_modelname`, `applabel.change_modelname`, and
@@ -65,7 +65,7 @@ permissions: `applabel.add_modelname`, `applabel.change_modelname`, and
 Adding model permissions
 ------------------------
 
-https://docs.djangoproject.com/en/dev/ref/models/options/#permissions
+https://docs.djangoproject.com/en/stable/ref/models/options/#permissions
 
 You can ask Django to create more permissions for a model:
 
@@ -159,7 +159,7 @@ Add utility methods like this, maybe in `accounts/utils.py` or equivalent::
 Checking permissions in templates
 ---------------------------------
 
-https://docs.djangoproject.com/en/dev/topics/auth/default/#authentication-data-in-templates
+https://docs.djangoproject.com/en/stable/topics/auth/default/#authentication-data-in-templates
 
     {% if user.is_authenticated %}
     {% if perms.applabel %} {# user has any permissions in app `applabel` #}

@@ -20,7 +20,7 @@ Testing
 
 
 # http://docs.python.org/library/unittest.html
-# https://docs.djangoproject.com/en/dev/topics/testing/
+# https://docs.djangoproject.com/en/stable/topics/testing/
 
 .. code-block:: python
 
@@ -46,7 +46,7 @@ class XxxTest(TestCase):
 
 
 # Test uploading a file
-https://docs.djangoproject.com/en/1.7/topics/testing/tools/#django.test.Client.post
+https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.Client.post
 
 Submitting files is a special case. To POST a file, you need only provide the file field name as a key, and a file handle to the file you wish to upload as a value. For example:
 

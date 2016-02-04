@@ -3,8 +3,8 @@ Logging
 
 Some best practices for Django logging.
 
-https://docs.djangoproject.com/en/dev/topics/logging/
-https://docs.djangoproject.com/en/dev/topics/logging/#configuring-logging
+https://docs.djangoproject.com/en/stable/topics/logging/
+https://docs.djangoproject.com/en/stable/topics/logging/#configuring-logging
 
 https://docs.python.org/2/howto/logging.html
 

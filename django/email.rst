@@ -1,7 +1,7 @@
 Email
 =====
 
-https://docs.djangoproject.com/en/dev/topics/email/
+https://docs.djangoproject.com/en/stable/topics/email/
 
 API
 ---
@@ -14,7 +14,7 @@ Send one email::
 Email backends/handlers
 -----------------------
 
-https://docs.djangoproject.com/en/dev/topics/email/#email-backends
+https://docs.djangoproject.com/en/stable/topics/email/#email-backends
 
 For development::
 
@@ -29,3 +29,20 @@ In-memory backend - The 'locmem' backend stores messages in a special attribute 
     EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
 This backend is not intended for use in production – it is provided as a convenience that can be used during development and testing.
+
+Settings for email addresses
+----------------------------
+
+`ADMINS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-ADMINS>`_
+A tuple that lists people who get code error notifications::
+
+    (('John', 'john@example.com'), ('Mary', 'mary@example.com'))
+
+`MANAGERS <https://docs.djangoproject.com/en/stable/ref/settings/#managers>`_ Not needed
+
+`DEFAULT_FROM_EMAIL <https://docs.djangoproject.com/en/stable/ref/settings/#default-from-email>`_
+Default email address to use for various automated correspondence from the site manager(s).
+This doesn’t include error messages sent to ADMINS and MANAGERS; for that, see SERVER_EMAIL.
+
+`SERVER_EMAIL <https://docs.djangoproject.com/en/stable/ref/settings/#server-email>`_
+The email address that error messages come from, such as those sent to ADMINS and MANAGERS.
