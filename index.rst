@@ -16,6 +16,7 @@ Contents:
    postfix
    postgres
    python/index
+   rst
    salt
    virtualbox
 
