@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Dan\'s Cheat Sheets'
-copyright = '2015, Dan Poirier'
+copyright = '2016, Dan Poirier'
 author = 'Dan Poirier'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -116,7 +116,9 @@ html_theme = 'alabaster'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'show_related': True,
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []

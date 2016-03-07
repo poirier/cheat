@@ -7,6 +7,7 @@ Contents:
    :maxdepth: 2
 
    packaging
+   pip
 
 Quick 'n' easy static web server
 --------------------------------
@@ -17,7 +18,7 @@ Quick 'n' easy static web server
 Python snippet copy logging to stdout
 -------------------------------------
 
-.. codeblock::
+add to top::
 
    import logging
 

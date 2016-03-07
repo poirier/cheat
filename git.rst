@@ -68,3 +68,18 @@ Handy aliases for config::
 
     # Undo any uncommited changes
     abort = checkout -- .
+
+Submodules
+----------
+
+This will typically fix things::
+
+    git submodule update --init --recursive
+
+
+(and yes, you need --init every time)
+
+Add a new submodule [http://git-scm.com/book/en/Git-Tools-Submodules]
+::
+
+    $ git submodule add git@github.com:mozilla/basket-client basket-client
