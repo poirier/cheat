@@ -83,3 +83,100 @@ Add a new submodule [http://git-scm.com/book/en/Git-Tools-Submodules]
 ::
 
     $ git submodule add git@github.com:mozilla/basket-client basket-client
+
+Combining feature branches
+--------------------------
+
+Suppose you have branch A and branch B, which branched off of master
+at various times, and you want to create a branch C that contains
+the changes from both A & B.
+
+According to Calvin: checkout the first branch, then git checkout -b BRANDNEWBRANCH. then rebase it on the second.
+
+
+(SEE DIAGRAMS BELOW)
+
+Example::
+
+    # Start from master
+    git checkout master
+    git pull [--rebase]
+
+    # Create the new branch from tip
+    git checkout -b C
+
+    # rebase A on master
+    git checkout A
+    git rebase -i master
+    # merge A into C
+    git checkout C
+    git merge A
+
+    # rebase B
+    git checkout B
+    git rebase -i master
+    # merge B into C
+    git checkout C
+    git merge B
+
+    # I think???
+    # Review before using, and verify the result
+
+Combining git branches diagrams
+
+Start::
+
+    o - o - o - o <--- master
+     \   \
+      \   o - o - o  <--- A
+       o - o - o <--- B
+
+Rebase A on master::
+
+                     master
+                     /
+    o - o - o - o - o - o - o <--- A
+     \
+      o - o - o <--- B
+
+Create new branch N from master::
+
+                    master
+                     /
+    o - o - o - o - o - o - o <--- A
+     \               \
+      \               N
+       \
+        o - o - o <--- B
+
+Switch to N and merge A::
+
+                    master
+                     /
+    o - o - o - o - o - o - o <--- A
+     \               \
+      \               o - o - o  <--- N  (includes A)
+       \
+        o - o - o <--- B
+
+Rebase B on master::
+
+                    master
+                     /
+    o - o - o - o - o - o - o - o <--- A
+                    |\
+                    |  o - o - o <--- N (includes A)
+                    \
+                      o - o - o  <--- B
+
+On N, merge B::
+
+                    master
+                    /
+    o - o - o - o - o - o - o - o <--- A
+                    |\
+                    | o - o - o -  o - o - o <--- N (includes A and B)
+                    \
+                     o - o - o  <--- B
+
+Delete A and B if desired.
