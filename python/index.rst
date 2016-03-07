@@ -8,6 +8,7 @@ Contents:
 
    packaging
    pip
+   virtualenv
 
 Quick 'n' easy static web server
 --------------------------------
@@ -26,3 +27,23 @@ add to top::
    root_logger = logging.getLogger('')
    root_logger.setLevel(logging.DEBUG)
    root_logger.addHandler(handler)
+
+Warnings
+--------
+
+Hiding python warnings. e.g. Deprecations::
+
+   python -Wignore::DeprecationWarning ...
+
+Pylint
+------
+
+Running it::
+
+   python /usr/bin/pylint --rcfile=.pylintrc -f colorized aremind.apps.patients | less -r
+
+Disabling a warning in code::
+
+   # pylint: disable-msg=E1101
+
+

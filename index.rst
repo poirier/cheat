@@ -11,6 +11,7 @@ Contents:
    django/index
    elasticsearch/index
    git
+   google
    i3
    mysql
    org-mode
@@ -20,6 +21,7 @@ Contents:
    salt
    tmux
    virtualbox
+   yaml
 
 Indices and tables
 ==================
