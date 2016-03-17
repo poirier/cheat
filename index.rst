@@ -10,6 +10,8 @@ Contents:
    debian
    django/index
    elasticsearch/index
+   git
+   google
    i3
    mysql
    org-mode
@@ -18,7 +20,9 @@ Contents:
    python/index
    rst
    salt
+   tmux
    virtualbox
+   yaml
 
 Indices and tables
 ==================

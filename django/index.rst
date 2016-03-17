@@ -20,6 +20,7 @@ Contents:
    forms
    home
    logging
+   login
    migrations
    nginx
    permissions

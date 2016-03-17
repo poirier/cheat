@@ -45,3 +45,38 @@ SEE ALSO :ref:`nginx` and
 Basically, make sure nginx is setting X-Forwarded-Proto, then add to settings::
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+Django security
+
+djangocon 2011 Paul McMillan
+
+http://subversivecode.com/talks/djangocon-us-2011
+
+HSTS
+
+django needs better password hash (SHA1 not broken but very fast)
+
+OpenID much more secure against password cracking (because cracker won't have passwords)
+
+password reset strings can be eventually worked out with a timing attack (if you have a long time and a fast connection)
+
+same for which userids exist on the site
+
+you should do rate limiting:
+
+  mod_evasive (apache)
+  HttpLimitReqModule (nginx)
+
+do NOT use random.Random() for security functions, not cryptographically secure;
+use random.SystemRandom() instead
+e.g.::
+
+    from random import SystemRandom as random
+    xxxx random.choice(yyyy)...
+
+Be very careful with pickle, it'll execute anything in the pickled data when you unpickle it
+
+BOOK: The web application hacker's handbook
+(new version coming out soon (as of 9/8/2011))
+
+SITE: lost.org?  (not sure I heard that right)(no I didn't)

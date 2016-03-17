@@ -2,6 +2,7 @@ Org mode (Emacs)
 ================
 
 http://orgmode.org/org.html
+See also http://orgmode.org/orgcard.pdf
 
 ================= ============
 Binding           Operation
@@ -18,3 +19,26 @@ f                 Move forward (next day)
 C-c C-s           Schedule a task (set a date and optional time to do it)
 C-u C-c C-s       Unschedule a task (remove schedule date/time)
 ================= ============
+
+
+Keys outside org-mode::
+
+    Key     What
+    C-c g   my gtd file
+    C-c c t   Create task
+    C-c a X     Agenda view X
+
+Keys in org-mode file::
+
+    C-c C-x p   org-set-property
+    M-Return    org-meta-return - start new line with new heading at same level
+    M-S-right arrow  move current heading one deeper
+
+    C-c C-s     schedule task
+    C-c C-d     set task deadline
+    C-c C-q     org-set-tags-command add task tag - USE FOR CONTEXT
+    C-c / d     org-check-deadlines - spared tree with deadlines that are past-due or soon to be
+
+Keys in agenda views::
+
+    TBD

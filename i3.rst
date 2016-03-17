@@ -5,18 +5,75 @@ My i3 bindings
 
 "Ŵ" is the "windows" key
 
-Ŵ-<NUMBER>: switch to workspace NUMBER on whatever monitor it's attached to.
+Change what we see::
 
-Ŵ-Control-<ARROW>: Move current workspace to another monitor.
+    Ŵ-<NUMBER>: switch to workspace NUMBER on whatever monitor it's
+                attached to.
+    Ŵ-Control-1: Only use built-in laptop display
+    Ŵ-Control-2: Use built-in laptop display, and external display
+                 positioned to its right
+    Ŵ-Control-3: Use built-in laptop display, and external display
+                 positioned above it
+    Ŵ-<n>:    Switch to workspace <n> (need not already exist)
+              (if workspace <n> is on another screen, it'll switch
+              that screen to workspace <n>, not your current screen)
+    Ŵ-<n> where <n> is the current workspace: Switch back to previous
+              workspace (So you can just do Ŵ-1 (look at screen) Ŵ-1
+              and be back where you started)
 
-Ŵ-Shift-Number: Move current window to another workspace.
+Focus::
 
-Ŵ-Control-1: Only use built-in laptop display
+    Ŵ-j, Ŵ-<left>   left
+    Ŵ-k, Ŵ-<down>   down
+    Ŵ-l, Ŵ-<up>     up
+    Ŵ-;, Ŵ-<right>  right
 
-Ŵ-Control-2: Use built-in laptop display, and external display positioned to its right
+Move things::
 
-Ŵ-Control-3: Use built-in laptop display, and external display positioned above it
+    Ŵ-Control-<ARROW>: Move current workspace to another monitor.
+    Ŵ-Shift-Number: Move current window to another workspace
+           (need not already exist)
+    Shift-<FOCUS COMMAND>: Move current window within workspace
 
-Ŵ-D: open command line at top to enter a command (output invisible, use to start new
-  graphical programs)
+Layouts::
 
+    Ŵ-e             default (splith/splitv), repeat to toggle
+                    splith/splitv
+    Ŵ-s             stacked
+    Ŵ-w             tabbed
+    Ŵ-f             fullscreen (toggle)
+    Ŵ-S-<spc>       float  (toggle)
+    Ŵ-mouse1-drag   move floating
+
+    Ŵ-h             Make the current window/container a horizontal
+                    split container. New windows opened when this
+                    container is focused will be created
+                    by splitting this container horizontally
+                    (side-by-side)
+    Ŵ-v             Like Ŵ-h, but vertical (one above another)
+
+    Ŵ-e             toggle between defaulting to horizontal and
+                    defaulting to vertical
+
+Start/end things::
+
+    Ŵ-return: open new terminal
+    Ŵ-D: open dmenu at top to enter a command (output invisible,
+         use to start new graphical programs)
+    Ŵ-S-q       kill window
+
+Control I3::
+
+    Ŵ-S-c       reload I3 config
+    Ŵ-S-r       restart I3
+    Ŵ-S-e       kill I3 (logout)
+
+Resizing::
+
+    Ŵ-mouse2-drag  stretch or shrink window
+
+Screen capture::
+
+    <Printscreen> - capture whole screen
+    Shift-<Printscreen> - select a rectangle or window (?)
+    Control-<Printscreen> - capture currently focused window
