@@ -51,6 +51,8 @@ Or use this more compact but apparently equivalent syntax::
 Task
 ------
 
+`some info <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_
+
 A dictionary::
 
    name: string      # optional but highly recommended

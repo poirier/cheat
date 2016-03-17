@@ -62,6 +62,9 @@ Or you can create a directory with the same name as a host or group
 and Ansible will use all the files in that directory as
 :ref:`variables-file` s.
 
+You can also include vars files from a :ref:`play`
+<http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>.
+
 .. _facts:
 
 Facts
@@ -83,4 +86,5 @@ you can run the “setup” module as an ad-hoc action::
     ansible -m setup hostname
 
 This will print out a dictionary of all of the facts that are
-available for that particular host.
+available for that particular host.  And here's
+`an example <http://docs.ansible.com/ansible/playbooks_variables.html#information-discovered-from-systems-facts>`_.
