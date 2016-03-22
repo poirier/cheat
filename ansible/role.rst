@@ -66,6 +66,14 @@ allow-duplicates
     as a dependency more than once. Set to yes if you want
     to list the same role with different variables.
 
+Example::
+
+    ---
+    dependencies:
+      - role: role1
+      - role: role2
+        varname: value
+
 .. _dependency-dictionary:
 
 Dependency dictionary
@@ -87,3 +95,9 @@ role
 
  Optional keys: any parameters for the role - these define
  :ref:`variables`
+
+.. _role-modules:
+
+Embedding modules in roles
+--------------------------
+

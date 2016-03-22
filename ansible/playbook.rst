@@ -23,8 +23,9 @@ Syntax
     - include: <path to playbook>
 
 Templating
-    A playbook is rendered as a Jinja2 template before processing it,
-    but playbooks should not use loops and conditionals.
+    A playbook is rendered as a Jinja2 template
+    (`doc <http://docs.ansible.com/ansible/playbooks_variables.html#using-variables-about-jinja2>`_)
+    before processing it, but playbooks should not use loops and conditionals.
 
 .. _playbook-include:
 

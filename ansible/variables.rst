@@ -7,7 +7,8 @@ Variables
 ---------
 
 Some variables alter the behavior of ansible (see http://docs.ansible.com/intro_inventory.html#list-of-behavioral-inventory-parameters for a list).
-You can set some of these using `environment variables <http://docs.ansible.com/ansible/intro_configuration.html#environmental-configuration>`_.
+You can set some of these using environment variables
+(`doc <http://docs.ansible.com/ansible/intro_configuration.html#environmental-configuration>`_).
 
 CORRECTION: Use ``ansible_ssh_user``, not ``ansible_user``.
 
@@ -32,17 +33,26 @@ And here's the precedence order:
 * then comes facts discovered about a system
 * then "role defaults", which are the most "defaulty" and lose in priority to everything.
 
+There are also three scopes
+(`doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-scopes>`_)
+but I don't know how these relate to precedence:
+
+* Global: this is set by config, environment variables and the command line
+* Play: each play and contained structures, vars entries, include_vars, role defaults and vars.
+* Host: variables directly associated to a host, like inventory, facts or registered task outputs
+
 .. _variables-file:
 
 Variables file
 --------------
 
-A file that defines values of :ref:`variables`.
+A variables file (`doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>`_)
+is a file that defines values of :ref:`variables`.
 
 Syntax
     YAML defining a single dictionary
 Templating
-    Jinja2  (?)
+    The file does not appear to undergo template expansion, but the values of variables do??
 
 .. _variables-files:
 
@@ -63,7 +73,7 @@ and Ansible will use all the files in that directory as
 :ref:`variables-file` s.
 
 You can also include vars files from a :ref:`play`
-<http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>.
+(`doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>`_).
 
 .. _facts:
 
@@ -75,8 +85,8 @@ information about the system that it's running on (the system
 the plays and tasks are running on, not the system you're
 controlling ansible from).
 
-You can add to the facts with config files called
-`local facts <http://docs.ansible.com/playbooks_variables.html#local-facts-facts-d>`_
+You can add to the facts with config files called local facts
+(`doc <http://docs.ansible.com/playbooks_variables.html#local-facts-facts-d>`_)
 though I don't know how that's any better than putting
 variables in all the other places you can set them...
 

@@ -1,5 +1,5 @@
-Ansible Cheatsheet
-==================
+Ansible
+=======
 
 Things I'm always wanting to look up about
 `Ansible <http://docs.ansible.com/>`_.
@@ -37,14 +37,14 @@ Shortcut to run a command:
 
 options:  see output of "ansible --help" for now
 
-See `ad-hoc commands <http://docs.ansible.com/intro_adhoc.html>`_.
+See `doc <http://docs.ansible.com/intro_adhoc.html>`_ for ad-hoc commands.
 
 .. _host-pattern:
 
 Host pattern
 ------------------
 
-See `patterns <http://docs.ansible.com/intro_patterns.html#patterns>`_ for now
+See `doc <http://docs.ansible.com/intro_patterns.html#patterns>`_ for host patterns.
 
 <hosts>:
 

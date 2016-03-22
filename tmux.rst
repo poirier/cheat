@@ -3,8 +3,7 @@ Tmux
 
 My tmux char: C-g (control-g)
 
-session: a whole set of processes.  Your tmux client is
-  attached to one session.
+session: a whole set of processes.  Your tmux client is attached to one session.
 window:
 
 Bindings::
