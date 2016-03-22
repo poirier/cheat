@@ -35,10 +35,25 @@ Packages
 * Reconfigure a package: ``dpkg-reconfigure packagename``
 * Change alternatives: ``update-alternatives ...``
 
+Alternatives
+------------
+
 Change 'alternatives' default browser or editor::
 
     sudo update-alternatives --set x-www-browser /usr/bin/chromium-browser
     sudo update-alternatives --set editor /usr/bin/emacs24
+
+Be prompted for which alternative you prefer for a link group::
+
+    sudo update-alternatives --config www-browser
+
+Find out what the top-level link groups are::
+
+    sudo update-alternatives --get-selections
+
+Set xdg program to open/browse a directory (DOES NOT WORK) (do NOT use sudo)::
+
+    xdg-mime default /usr/share/applications/Thunar.desktop x-directory/normal
 
 Change 'xdg' default browser (for user)::
 
