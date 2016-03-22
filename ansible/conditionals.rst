@@ -1,7 +1,7 @@
 Conditionals
 ============
 
-See http://docs.ansible.com/playbooks_conditionals.html
+`doc <http://docs.ansible.com/playbooks_conditionals.html>`_
 
 Conditional tasks
 -----------------

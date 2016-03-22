@@ -51,7 +51,7 @@ Or use this more compact but apparently equivalent syntax::
 Task
 ------
 
-`some info <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_
+`doc <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_
 
 A dictionary::
 
@@ -86,7 +86,7 @@ sudo
 sudo_user
     user to sudo to remotely
 when
-    expression `controlling whether task is executed <https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement>`_::
+    expression controls whether task is executed `doc <https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement>`_::
 
         when: <varname>
         when: not <varname>

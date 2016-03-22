@@ -9,7 +9,7 @@ Configuration file
 Syntax
     .ini file
 
-See `The Ansible Configuration File <http://docs.ansible.com/intro_configuration.html>`_.
+See The Ansible Configuration File `doc <http://docs.ansible.com/intro_configuration.html>`_.
 
 Ansible uses the first config file it finds on this list:
     * ANSIBLE_CONFIG (an environment variable)

@@ -56,9 +56,11 @@ Groups of groups: add ``[newgroupname:children]`` and put other group names in i
     [group3]
     host13
     host14
+
     [group3:children]
     group1
     group2
+
     [group3:vars]
     group3_var1=27
     group3_var2="Hello, World"
