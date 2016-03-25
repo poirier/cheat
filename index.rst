@@ -14,6 +14,7 @@ Contents:
    google
    i3
    mysql
+   openssl
    org-mode
    postfix
    postgres
