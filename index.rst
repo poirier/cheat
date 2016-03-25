@@ -13,6 +13,7 @@ Contents:
    git
    google
    i3
+   logitech_harmony
    mysql
    openssl
    org-mode
