@@ -17,6 +17,7 @@ Things I'm always wanting to look up about
   synchronize
   task
   variables
+  galaxy
 
 Misc. stuff I need to file somewhere:
 
