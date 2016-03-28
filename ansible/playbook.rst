@@ -52,13 +52,18 @@ A dictionary::
     var2: value2
   roles:
     - <rolename1>
-    - <rolename2>
+    - {role: <rolename2>, var1: value1, tags: ['tag1', 'tag2']}
+  tags:
+    - <tag1>
+    - <tag2>
   remote_user: username
   sudo: yes|no
   sudo_user: username
   tasks:
     - <task>
     - include: <taskfile>
+    - include: <taskfile2>
+      tags: [tag1, tag2]
     - <task>
   handlers:
     - <task>
@@ -94,6 +99,8 @@ roles
         - { role: foo_app_instance, dir: '/opt/a', tags: ["bar", "baz"] }
         - { role: foo_app_instance, dir: '/opt/b', when: "ansible_os_family == 'RedHat'" }
 
+tags:
+    see :ref:`tags`.
 tasks
     list of :ref:`task` s and :ref:`task-include` s.  These are
     executed after the `roles`.

@@ -15,6 +15,7 @@ Things I'm always wanting to look up about
   role
   secrets
   synchronize
+  tags
   task
   variables
   galaxy

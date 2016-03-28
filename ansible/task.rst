@@ -62,6 +62,9 @@ A dictionary::
    sudo: yes|no
    sudo_user: username
    otheroption: othervalue   # depending on module
+   tags:
+    - <tag1>
+    - <tag2>
 
 
 Required keys:
@@ -85,6 +88,8 @@ sudo
     yes|no
 sudo_user
     user to sudo to remotely
+tags
+    list of tags to associate with the task
 when
     expression controls whether task is executed `doc <https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement>`_::
 
