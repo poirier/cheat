@@ -3,7 +3,9 @@
 Blocks
 ======
 
-`Blocks doc <http://docs.ansible.com/ansible/playbooks_blocks.html>`_
+* `Blocks doc <http://docs.ansible.com/ansible/playbooks_blocks.html>`_
+* `A blog post about blocks <http://www.jeffgeerling.com/blog/new-features-ansible-20-blocks>`_
+* `Blog post with examples <https://www.pandastrike.com/posts/20160308-ansible-blocks-examples>`_
 
 Blocks can be used anywhere a task can (mostly?).
 They allow applying task keys to a group of tasks
