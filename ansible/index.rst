@@ -4,6 +4,9 @@ Ansible
 Things I'm always wanting to look up about
 `Ansible <http://docs.ansible.com/>`_.
 
+The Ansible docs have a
+`list of keys that common playbook objects can take <http://docs.ansible.com/ansible/playbooks_directives.html>`_.
+
 .. toctree::
 
   conditionals
