@@ -11,7 +11,8 @@ Syntax
 Templating
     Jinja2
 Content
-    A list of task definitions and task includes
+    A list of task definitions, task includes, and
+    :ref:`blocks`.
 
 .. _task-include:
 

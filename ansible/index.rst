@@ -9,6 +9,7 @@ The Ansible docs have a
 
 .. toctree::
 
+  block
   conditionals
   configuration
   inventory
