@@ -76,7 +76,8 @@ A dictionary::
     - <path to external variables file>
     - [<path1>, <path2>, ...]   (ansible loads the first one found)
     - <path to external variables file>
-
+  strategy: linear|free
+  serial: <number>|"<number>%"
 
 Required keys:
 
@@ -99,7 +100,20 @@ roles
         - { role: foo_app_instance, dir: '/opt/a', tags: ["bar", "baz"] }
         - { role: foo_app_instance, dir: '/opt/b', when: "ansible_os_family == 'RedHat'" }
 
-tags:
+serial
+    Set how many hosts at a time to run at a time. The
+    default is to run tasks on all of a play's machines
+    at once.  See also `strategy`.
+strategy
+    How plays are run on multiple hosts.  The default is
+    "linear", where each task is run on up to `serial`
+    hosts in parallel, and then Ansible waits for them all to
+    complete before starting the next task on all the hosts.
+
+    "free" lets each host run independently, starting its
+    next task as soon as it finishes the previous one, regardless
+    of how far other hosts have gotten.
+tags
     see :ref:`tags`.
 tasks
     list of :ref:`task` s and :ref:`task-include` s.  These are
