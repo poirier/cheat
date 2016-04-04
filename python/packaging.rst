@@ -44,3 +44,29 @@ under subdir/path.  Finally::
     prune examples/sample?/build
 
 should be obvious.
+
+Wheels
+------
+
+To build a Universal Wheel:
+
+::
+
+ python setup.py bdist_wheel --universal
+
+
+You can also permanently set the ``--universal`` flag in "setup.cfg" (e.g., see
+`sampleproject/setup.cfg
+<https://github.com/pypa/sampleproject/blob/master/setup.cfg>`_)
+
+::
+
+ [bdist_wheel]
+ universal=1
+
+
+Only use the ``--universal`` setting, if:
+
+1. Your project runs on Python 2 and 3 with no changes (i.e. it does not
+   require 2to3).
+2. Your project does not have any C extensions.
