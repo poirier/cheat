@@ -30,8 +30,8 @@ mv|move <from> <to>
 save <name>
     Save current playlist as database playlist with name <name>.
 load <name>
-    Replace contents of current playlist with contents of database
-    playlist named <name>.
+    *Add* contents of database playlist named <name> to the
+    current playlist.
 rm <name>
     Delete database playlist named <name> from database.
 
@@ -40,8 +40,8 @@ Playing things
 
 Status:
 
-playlist
-    List songs in current playlist
+playlist [-f <format>]
+    List songs in current playlist. See "man mpc" for format string syntax.
 current
     Show what's playing right now
 
