@@ -14,6 +14,7 @@ Contents:
    google
    i3
    logitech_harmony
+   mpd
    mysql
    openssl
    org-mode
