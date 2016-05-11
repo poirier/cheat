@@ -1,8 +1,39 @@
 Git
 ===
 
-Import one repository (with history) into another:
+Fetching
+--------
+
+Update all local remote tracking branches from all remotes::
+
+    git fetch --all
+
+Update all local remote tracking branches from origin::
+
+    git fetch origin
+
+Update/create local branch origin/master from remote origin's branch master with default configuration::
+
+    git fetch origin master
+
+Update/create local branch 'tmp' from remote origin's branch master (but only updates
+if fast-forward is possible)::
+
+    get fetch origin master:tmp
+
+Peek at an artitrary remote's branch by pulling it into a (temporary) local branch, then
+check its log. The temporary local branch will eventually be garbage collected::
+
+    git fetch git://git.kernel.org/pub/scm/git/git.git maint
+    git log FETCH_HEAD
+
+Import one repo into another with history
+-----------------------------------------
+
 http://stackoverflow.com/questions/1683531/how-to-import-existing-git-repository-into-another
+
+Cleaning
+--------
 
 Delete untracked files (be careful!)::
 
@@ -18,6 +49,9 @@ Prune branches that track remote branches that no longer exist
     $ git remote prune origin --dry-run
     $ git remote prune origin
 
+Pulls
+-----
+
 Easier access to pull requests on Github.  Add to config::
 
     # This will make pull requests visible in your local repo
@@ -27,6 +61,9 @@ Easier access to pull requests on Github.  Add to config::
     # in that case, unless you can think of a better solution.
     [remote "pulls"]
         fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+
+Aliases
+-------
 
 Handy aliases for config::
 
@@ -76,7 +113,6 @@ This will typically fix things::
 
     git submodule update --init --recursive
 
-
 (and yes, you need --init every time)
 
 Add a new submodule [http://git-scm.com/book/en/Git-Tools-Submodules]
@@ -92,7 +128,6 @@ at various times, and you want to create a branch C that contains
 the changes from both A & B.
 
 According to Calvin: checkout the first branch, then git checkout -b BRANDNEWBRANCH. then rebase it on the second.
-
 
 (SEE DIAGRAMS BELOW)
 

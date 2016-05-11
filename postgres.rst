@@ -109,8 +109,32 @@ password it otherwise has auth for.  E.g. to allow local connections via both un
 Create database
 ---------------
 
-If you need a database owned by ``$project_user``, you'll need
-to create it as ``master`` and then modify the ownership and permissions::
+If you need a database owned by ``$project_user``, you can:
+
+* Create it as ``$project_user`` if that user has CREATEDB::
+
+    export PGUSER=$project_user
+    createdb --template=template0 $dbname
+
+* Create it as a superuser and specify that the owner should be ``$project_user``
+
+    export PGUSER=postgres
+    createdb --template=template0 --owner=$project_user $dbname
+
+* Create it as any other user, so long as the other user is a member, direct
+  or indirect, of the ``$project_user`` role.  That suggests that we could
+  add ``master`` to that role... need to research that.  I think we could do::
+
+    export PGUSER=master
+    psql -c "grant $project_user to master;"
+    createdb --template=template0 --owner=$project_user $dbname
+
+  The question would be: Does master have enough privileges to grant itself
+  membership in another role?
+
+* Finally, you could create it as ``master`` when master is not a member
+  of the project_user role. To do that, you'll need
+  to create it as ``master`` and then modify the ownership and permissions::
 
     export PGUSER=master
     createdb --template=template0 $dbname
@@ -149,6 +173,8 @@ Hstore is simpler, but you still have to use the master user::
 
 Grant read-only access to a database
 ------------------------------------
+
+Only let `readonly_user` do reads::
 
     $ psql -c "GRANT CONNECT ON DATABASE $dbname TO $readonly_user;"
     $ psql -c "GRANT SELECT ON ALL TABLES IN SCHEMA PUBLIC TO $readonly_user;" $dbname
@@ -196,7 +222,7 @@ Drop user
 ---------
 
 This is standard too.  Just beware that you cannot drop a user if anything
-they own still exists, including things like permissions on databases.
+they own still exists, including things like permissions on databases.::
 
     $ export PGUSER=master
     $ dropuser $user

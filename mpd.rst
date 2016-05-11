@@ -71,6 +71,7 @@ Now you want to play that playlist.
 
 .. code-block:: bash
 
+    $ mpc clear
     $ mpc lsplaylists
     WUNC
     WCPE
