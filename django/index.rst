@@ -27,6 +27,7 @@ Contents:
    queries
    security
    settings
+   templates
    test
    translation
    urls
