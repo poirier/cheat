@@ -27,6 +27,23 @@ check its log. The temporary local branch will eventually be garbage collected::
     git fetch git://git.kernel.org/pub/scm/git/git.git maint
     git log FETCH_HEAD
 
+
+Branches and checkouts
+----------------------
+
+Check out an existing branch::
+
+    git checkout <branch>
+
+Create new branch::
+
+    git branch <branchname> [<start point>]
+
+Create new branch and check it out in one command::
+
+    git checkout -b <newbranch> [<start point>]
+
+
 Import one repo into another with history
 -----------------------------------------
 

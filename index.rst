@@ -13,6 +13,7 @@ Contents:
    git
    google
    i3
+   javascript
    logitech_harmony
    mpd
    mysql

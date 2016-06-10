@@ -11,6 +11,14 @@ Contents:
    pip
    virtualenv
 
+Declare file encoding
+---------------------
+
+Top of .py file::
+
+    # -*- coding: UTF-8 -*-
+    # vim:fileencoding=UTF-8
+
 Quick 'n' easy static web server
 --------------------------------
 
