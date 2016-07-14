@@ -15,3 +15,11 @@ String operations
 `MDN <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_
 
 Split: str.split(sep)
+
+Timer
+-----
+
+    window.setTimeout(func, [delay, param1, param2, ...]);
+
+`MDN <https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout>`_
+

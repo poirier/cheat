@@ -26,6 +26,7 @@ Starting the client::
 
 In the client::
 
+    mysql> SELECT user, host from mysql.user;                           # List existing users
     mysql> CREATE USER 'username' IDENTIFIED BY 'plaintextpassword';       # Create user with password
     mysql> CREATE USER 'username'@'localhost';   # no password, can only connect locally
     mysql> SHOW DATABASES;
