@@ -62,7 +62,7 @@ Create a new array only including elements that pass a test (ES5+
 Iterate over a "dictionary" (JS object)
 ---------------------------------------
 
-This will include properties of prototype classes (traditional)
+This will include enumerable properties of prototype classes (traditional)
 (`for...in <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in>`_)::
 
     for (var key in object) {
@@ -70,7 +70,24 @@ This will include properties of prototype classes (traditional)
        # ... do stuff ...
     }
 
-This is just properties directly on the object (ES2015+)
+.. note::
+
+    For objects that you're just using as dictionaries, `for...in` is perfectly
+    good. Just be careful not to use it on instances of anything more
+    complicated.
+
+For more complicated objects, here's how you get just properties
+that are directly on the object (not inherited from a prototype).
+Traditional::
+
+    for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+            value = object[key]
+            # ... do stuff ...
+        }
+    }
+
+Just properties directly on the object, with ES2015+
 (`keys <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys>`_)::
 
     var keys = object.keys();
@@ -82,10 +99,25 @@ This is just properties directly on the object (ES2015+)
 String operations
 -----------------
 
-`String <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_::
+`String <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_,
+`endsWith <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith>`_,
+`indexOf <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf>`_,
+`join <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join>`_,
+`replace <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace>`_,
+`split <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split>`_,
+`startsWith <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith>`_,
+`substr <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substr>`_,
+`substring <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring>`_
+::
 
     arr = str.split(sep=(str|regex)[, limit])
     str = arr.join(sep)
+    index = str.indexOf(substr[, startIndex])  # returns -1 if not found
+    sub = str.substr(firstIndex[, length])  # firstIndex can be negative to count back from end
+    sub = str.substring(firstIndex[, lastIndex+1])
+    str2 = str.replace(regexp|substr, newSubStr|function)
+    bool = str.endsWith(str2)
+    bool = str.startsWith(str2)
 
 Timer
 -----
