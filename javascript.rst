@@ -14,7 +14,9 @@ String operations
 
 `MDN <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_
 
-Split: str.split(sep)
+Split: ```str.split(sep=(str|regex)[, limit])```
+
+Join: ```str = arr.join(sep)```
 
 Timer
 -----
