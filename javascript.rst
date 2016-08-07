@@ -17,7 +17,8 @@ Traditional literals, append, extend::
     >> console.log(a)
     [1, 2, 3, 4, 5, 6]
 
- ES2015 literals, append, extend::
+ES2015 literals, append, extend (`Spread operator <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator>`_
+)::
 
     >> a = [1, 2, 3]
     >> b = [0, ...a]                        # literal incorporating another array
@@ -81,7 +82,7 @@ This is just properties directly on the object (ES2015+)
 String operations
 -----------------
 
-`MDN <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_::
+`String <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_::
 
     arr = str.split(sep=(str|regex)[, limit])
     str = arr.join(sep)
@@ -89,14 +90,15 @@ String operations
 Timer
 -----
 
-`MDN <https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout>`_::
+`setTimeout <https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout>`_::
 
-    window.setTimeout(func, [delay, param1, param2, ...]);
+    timerId = window.setTimeout(func, [delay, param1, param2, ...]);
+    window.clearTimeout(timerId);
 
 Meta
 ----
 
-`MDN <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator>`_
+`Spread operator <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator>`_
 
 Given function and args::
 
@@ -112,7 +114,7 @@ ES2015::
     myFunction(...args);
     myFunction(1, ...[2, 3]);
 
-..note::
+.. caution::
 
     The ES2016 `...` operator is NOT the same as `*` in a
     Python function call. `...` basically splices the array it's applied
