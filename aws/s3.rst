@@ -1,0 +1,57 @@
+S3
+===
+
+* `How S3 evaluates access control <https://docs.aws.amazon.com/AmazonS3/latest/dev/how-s3-evaluates-access-control.html>`_
+* `Guidelines for Using the Available Access Policy Options <https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-alternatives-guidelines.html>`_
+
+"The only recommended use case for the bucket ACL is to grant write permission to the Amazon S3 Log Delivery group"...
+
+"In general, you can use either a user policy or a bucket policy to manage permissions."
+
+Here's a bucket policy to grant some IAM
+user complete access to a bucket::
+
+    {
+        "Statement": [
+            {
+              "Sid":"PublicReadForGetBucketObjects",
+              "Effect":"Allow",
+              "Principal": {
+                    "AWS": "*"
+                 },
+              "Action":["s3:GetObject"],
+              "Resource":["arn:aws:s3:::BUCKET-NAME/*"
+              ]
+            },
+            {
+                "Action": "s3:*",
+                "Effect": "Allow",
+                "Resource": [
+                    "arn:aws:s3:::BUCKET-NAME",
+                    "arn:aws:s3:::BUCKET-NAME/*"
+                ],
+                "Principal": {
+                    "AWS": [
+                        "USER-ARN"
+                    ]
+                }
+            }
+        ]
+    }
+
+What about read-only access?  Let's see...
+
+seems like s3auth.com used this example:
+
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:GetBucketWebsite"],
+      "Resource": [
+        "arn:aws:s3:::bucket-1.example.com/*",
+        "arn:aws:s3:::bucket-2.example.com/*"
+      ]
+    }
+  ]
+}

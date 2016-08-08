@@ -7,6 +7,7 @@ Contents:
    :maxdepth: 1
 
    ansible/index
+   aws/index
    debian
    django/index
    elasticsearch/index
