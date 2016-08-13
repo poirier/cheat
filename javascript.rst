@@ -96,6 +96,17 @@ Just properties directly on the object, with ES2015+
         # ... do stuff ...
     }
 
+Is a key in a dictionary?
+-------------------------
+
+    dict.hasOwnProperty(key)
+
+Remove key from dictionary
+--------------------------
+
+    delete dict["key"]
+    delete dict.key
+
 String operations
 -----------------
 
@@ -125,10 +136,16 @@ String operations
     [matchstr, groups...] = str.match(regexp)  # returns null if doesn't match
     [matchstr, groups...] = str.search(regexp)  # returns null if doesn't match entire string
 
+Contains:  haystack.indexOf(needle) != -1
+
 Timer
 -----
 
 `setTimeout <https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout>`_::
+
+    window.setTimeout(func, delay, param1, param2, ...);
+
+All but func is optional. `delay` defaults to 0.
 
     timerId = window.setTimeout(func, [delay, param1, param2, ...]);
     window.clearTimeout(timerId);

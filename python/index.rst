@@ -11,6 +11,13 @@ Contents:
    pip
    virtualenv
 
+Join list items that are not None
+---------------------------------
+
+Special case use of `filter`::
+
+    join(', ', filter(None, the_list))
+
 Declare file encoding
 ---------------------
 
