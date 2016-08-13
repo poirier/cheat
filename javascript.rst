@@ -101,9 +101,12 @@ String operations
 
 `String <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String>`_,
 `endsWith <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith>`_,
+`includes <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes>`_,
 `indexOf <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf>`_,
 `join <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join>`_,
+`match <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match>`_,
 `replace <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace>`_,
+`search <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search>`_,
 `split <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split>`_,
 `startsWith <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith>`_,
 `substr <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substr>`_,
@@ -116,8 +119,11 @@ String operations
     sub = str.substr(firstIndex[, length])  # firstIndex can be negative to count back from end
     sub = str.substring(firstIndex[, lastIndex+1])
     str2 = str.replace(regexp|substr, newSubStr|function)
-    bool = str.endsWith(str2)
     bool = str.startsWith(str2)
+    bool = str.includes(str2)
+    bool = str.endsWith(str2)
+    [matchstr, groups...] = str.match(regexp)  # returns null if doesn't match
+    [matchstr, groups...] = str.search(regexp)  # returns null if doesn't match entire string
 
 Timer
 -----
