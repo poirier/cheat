@@ -9,6 +9,7 @@ Contents:
    ansible/index
    aws/index
    debian
+   diet
    django/index
    elasticsearch/index
    git
