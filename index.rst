@@ -14,7 +14,7 @@ Contents:
    git
    google
    i3
-   javascript
+   javascript/index
    logitech_harmony
    mpd
    mysql
