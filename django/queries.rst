@@ -1,6 +1,6 @@
-=======
-Queries
-=======
+=====================
+Queries and Querysets
+=====================
 
 Field lookups
 =============
@@ -29,3 +29,45 @@ Django query that will not pessimize performance (time and memory use)?
 * Do not order_by() unless you must - it forces the DB to collect the
   results of the whole query first so it can sort them, even if you then limit the results you retrieve
 * Same for .distinct().
+
+The model that a queryset is over
+=================================
+
+    queryset.model
+
+Combining querysets
+====================
+
+Given two querysets over the same model, you can do things like this::
+
+    queryset = queryset1 & queryset2
+    queryset = queryset1 | queryset2
+    queryset = queryset1 & ~queryset2
+
+(similar to ``Q`` objects)
+
+Custom QuerySets
+================
+
+`Calling custom QuerySet methods from the manager <https://docs.djangoproject.com/en/stable/topics/db/managers/#calling-custom-queryset-methods-from-the-manager>`_
+
+`Creating a manager with QuerySet methods¶ <https://docs.djangoproject.com/en/stable/topics/db/managers/#creating-a-manager-with-queryset-methods>`_::
+
+    class Person(models.Model):
+        ...
+        people = PersonQuerySet.as_manager()
+
+
+    class BaseManager(....):
+        ....
+
+    class MyModel(models.Model):
+        objects = BaseManager.from_queryset(CustomQuerySet)()
+
+
+Custom Lookups
+==============
+
+Adding to the kwargs you can pass to `filter` and `exclude` etc.
+
+`Custom Lookups <https://docs.djangoproject.com/en/1.10/howto/custom-lookups/>`_

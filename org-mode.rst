@@ -28,6 +28,10 @@ Keys outside org-mode::
     C-c c t   Create task
     C-c a X     Agenda view X
 
+    C-c l      org-store-link
+    C-c c      org-capture
+    C-c b      org-iswitchb (?)
+
 Keys in org-mode file::
 
     C-c C-x p   org-set-property
@@ -38,6 +42,9 @@ Keys in org-mode file::
     C-c C-d     set task deadline
     C-c C-q     org-set-tags-command add task tag - USE FOR CONTEXT
     C-c / d     org-check-deadlines - spared tree with deadlines that are past-due or soon to be
+
+    <TAB>       org-cycle
+    S-<TAB>     org-global-cycle
 
 Keys in agenda views::
 
