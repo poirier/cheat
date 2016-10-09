@@ -26,6 +26,7 @@ Contents:
    python/index
    rst
    salt
+   socat
    tmux
    virtualbox
    yaml
