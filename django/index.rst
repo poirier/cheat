@@ -1,4 +1,4 @@
-Django cheats
+Django
 =============
 
 These are just things I always find myself looking up, so I try to
