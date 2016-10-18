@@ -6,10 +6,12 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   asyncio
    mock
    packaging
    pip
    virtualenv
+   xml
 
 Join list items that are not None
 ---------------------------------

@@ -14,11 +14,13 @@ Contents:
    elasticsearch/index
    git
    google
+   haskell
    i3
    javascript/index
    logitech_harmony
    mpd
    mysql
+   npm
    openssl
    org-mode
    postfix
@@ -26,7 +28,6 @@ Contents:
    python/index
    rst
    salt
-   socat
    tmux
    virtualbox
    yaml
