@@ -31,7 +31,7 @@ In the client::
     mysql> CREATE USER 'username'@'localhost';   # no password, can only connect locally
     mysql> SHOW DATABASES;
     mysql> CREATE DATABASE databasename;
-    mysql> GRANT ALL PRIVILEGES ON databasename.* TO "username"@"hostname" IDENTIFIED BY "password";
+    mysql> GRANT ALL ON databasename.* TO "username"@"hostname" IDENTIFIED BY "password";
     mysql> FLUSH PRIVILEGES;
     mysql> DROP DATABASE databasename;
     mysql> DROP USER username;
@@ -83,7 +83,7 @@ Step by step::
     <ENTER MYSQL ROOT PASSWORD>
     mysql> create user 'ctsv2_TR'@'localhost';
     mysql> create database ctsv2_TR;
-    mysql> grant all privileges on ctsv2_TR.* to 'cstv2_TR'@'localhost';
+    mysql> grant all on ctsv2_TR.* to 'cstv2_TR'@'localhost';
     mysql> flush privileges;
     mysql> exit
     Bye

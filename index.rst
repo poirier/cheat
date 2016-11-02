@@ -8,6 +8,7 @@ Contents:
 
    ansible/index
    aws/index
+   bootstrap
    debian
    diet
    django/index
