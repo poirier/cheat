@@ -17,6 +17,7 @@ Contents:
    google
    haskell
    i3
+   ipv6
    javascript/index
    logitech_harmony
    mpd
