@@ -8,4 +8,5 @@ Contents:
 
    builtins
    events
+   promises
    syntax
