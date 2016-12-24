@@ -8,17 +8,21 @@ Contents:
 
    ansible/index
    aws/index
+   bootstrap
    debian
    diet
    django/index
    elasticsearch/index
    git
    google
+   haskell
    i3
+   ipv6
    javascript/index
    logitech_harmony
    mpd
    mysql
+   npm
    openssl
    org-mode
    postfix
@@ -26,7 +30,6 @@ Contents:
    python/index
    rst
    salt
-   socat
    tmux
    virtualbox
    yaml

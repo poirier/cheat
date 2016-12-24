@@ -21,7 +21,7 @@ Check replication::
 
 
 Environment Variables
-~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 The following environment variables can be used to select default connection parameter values, which will be used if no value is directly specified. These are useful to avoid hard-coding database connection information into simple client applications, for example.
 
@@ -64,7 +64,7 @@ Using caktus' django template, something like::
 
 
 Postgres with non-privileged users
-==================================
+-----------------------------------
 
 How do we do things on Postgres without giving superuser to the
 user that actually uses the database every day?  The following
@@ -228,7 +228,7 @@ they own still exists, including things like permissions on databases.::
     $ dropuser $user
 
 Postgres on RDS
-===============
+----------------
 
 * Add ``django-extensions`` to the requirements and `django_extensions` to the `INSTALLED_APPS` so we can use the [sqldsn](http://django-extensions.readthedocs.org/en/latest/sqldsn.html) management command to get the exact Postgres settings we need to access the database from outside of Django.  Here's how it works::
 

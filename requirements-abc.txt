@@ -1,0 +1,58 @@
+amqp==1.0.13
+anyjson==0.3.3
+BeautifulSoup==3.2.1
+beautifulsoup4==4.3.2
+billiard==2.7.3.34
+boto==2.35.1
+celery==3.0.24
+defusedxml==0.4.1
+Django==1.9.1
+django-admin-bootstrapped==2.0.3
+django-appconf==1.0.1
+-e git+ssh://git@github.com/ajmirsky/django-authorizenet.git@1bbc70b34b4c721e0938251a5855f386e23592e7#egg=django_authorizenet
+django-bitfield==1.6.4
+-e git+ssh://git@github.com/mirskytech/django-bootstrap-form.git@dac7646b39afff5c3729db9bbede346fb2aded90#egg=django_bootstrap_form
+django-bootstrap3==4.11.0
+django-celery==3.0.23
+django-classy-tags==0.7.0
+django-compressor==1.6
+django-fsm==1.5.0
+-e git+ssh://git@github.com/django-mptt/django-mptt.git@b41869a9c7bbbdddd9112d684c9430b118b81e31#egg=django_mptt
+django-mptt-admin==0.3.1
+django-relatives==0.3.1
+django-retracer==0.3
+django-sekizai==0.9.0
+-e git+ssh://git@github.com/django-tastypie/django-tastypie.git@da9df5abcfcec1c0a659b179edcdfc0d3465e41c#egg=django_tastypie
+django-tinymce==2.0.6
+django-treeadmin==0.4.1
+django-user-agents==0.3.0
+docutils==0.11
+dpath==1.4.0
+html5lib==0.999
+-e git+ssh://git@github.com/ajmirsky/Official-API-Python-Library.git@91b3d83fb99618586784620a1f34a37d01c5a28d#egg=InfusionSoft_API
+jdcal==1.2
+-e git+ssh://git@github.com/ajmirsky/django-jsonfield.git@e2a0342388e852c60d71eb9f2f258b3b237de381#egg=jsonfield
+kombu==2.5.16
+lxml==3.5.0
+mimeparse==0.1.3
+-e git+git@github.com:mirskytech/mirskutils.git@e8050f10ce77654ddfa39b784cd32ec89eaedef6#egg=mirskutils
+MySQL-python==1.2.5
+openpyxl==2.0.5
+pdfkit==0.5.0
+Pillow==2.5.1
+psycopg2==2.5.4
+pyasn1==0.1.7
+PyPDF2==1.23
+python-dateutil==2.4.2
+python-mimeparse==0.1.4
+pytz==2014.4
+PyYAML==3.11
+reportlab==2.7
+requests==2.5.1
+rsa==3.1.4
+six==1.10.0
+ua-parser==0.3.5
+user-agents==0.3.0
+wheel==0.24.0
+wkhtmltopdf==0.2
+xhtml2pdf==0.0.6

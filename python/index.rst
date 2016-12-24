@@ -6,10 +6,17 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   asyncio
    mock
    packaging
    pip
    virtualenv
+   xml
+
+Binary data to file-like object (readable)
+------------------------------------------
+
+    f = io.BytesIO(binary_data)   # Python 2.7 and 3
 
 Join list items that are not None
 ---------------------------------
