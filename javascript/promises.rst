@@ -60,3 +60,41 @@ Here's a way of doing something after a delay::
     }).then(()=>{
         do stuff
     })
+
+Some notes I made a while ago
+-----------------------------
+
+Here are some examples::
+
+    // Return a new promise.
+    return new Promise(function(resolve, reject) {
+       // do stuff.  if it works:
+       resolve(result);
+       // but if it fails:
+       reject(Error(error text));
+    });
+
+    // USE a promise
+    promise.then(function(result) {
+       // use result here
+    }, function(error) {
+       // do something with error here
+    });
+
+    // CHAINING
+    // Note that 'then' returns a new promise
+
+    promise.then(function(val1) {
+       return val1 + 2;
+    }).then(function(val2) {
+       val2 is here val1 + 2!!!
+    });
+
+    // MORE CHAINING
+    promise.then(function(result){
+      // do something, then return a new promise
+      return promise2;
+    }).then(function(result2) {
+      // this isn't invoked until promise2 resolves, and it gets promise2's result.
+      ...
+    }
