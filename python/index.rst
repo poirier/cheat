@@ -10,6 +10,7 @@ Contents:
    mock
    packaging
    pip
+   timezones
    virtualenv
    xml
 
