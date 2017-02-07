@@ -8,7 +8,21 @@ API
 
 Send one email::
 
-    send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None, connection=None)¶
+    send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None, connection=None)
+
+Attachments
+-----------
+
+    msg = EmailMessage(...)
+    msg.attach(
+        filename="any string",
+        content=b"the contents",
+        mimetype="application/sunshine"
+    )
+
+or
+
+    msg.attach(instance of MIMEBase)
 
 
 Email backends/handlers
