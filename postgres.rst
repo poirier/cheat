@@ -116,7 +116,7 @@ If you need a database owned by ``$project_user``, you can:
     export PGUSER=$project_user
     createdb --template=template0 $dbname
 
-* Create it as a superuser and specify that the owner should be ``$project_user``
+* Create it as a superuser and specify that the owner should be ``$project_user``::
 
     export PGUSER=postgres
     createdb --template=template0 --owner=$project_user $dbname
@@ -126,7 +126,7 @@ If you need a database owned by ``$project_user``, you can:
   add ``master`` to that role... need to research that.  I think we could do::
 
     export PGUSER=master
-    psql -c "grant $project_user to master;"
+    psql -c "grant $project_user to master;" postgres
     createdb --template=template0 --owner=$project_user $dbname
 
   The question would be: Does master have enough privileges to grant itself
