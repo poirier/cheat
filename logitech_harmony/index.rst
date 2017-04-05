@@ -9,6 +9,8 @@ Some of this information comes from
 `http://ubuntuforums.org/showthread.php?t=781059 <http://ubuntuforums.org/showthread.php?t=781059>`_,
 but I'm not using the GUI tool (congruity), just command line.
 
+Help :ref:`devices.rst`_ for finding devices.
+
 Install Concordance
 -------------------
 

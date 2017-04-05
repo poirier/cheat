@@ -15,6 +15,7 @@ Contents:
    data
    database
    ddt
+   dokku
    email
    fabric
    forms
