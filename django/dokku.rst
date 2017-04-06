@@ -3,9 +3,6 @@ Dokku
 
 Readying a Django project for deploying to `Dokku <http://dokku.viewdocs.io/dokku/>`_.
 
-Introduction
-............
-
 This lists the things to add or change to easily deploy a Django application
 to Dokku.  It doesn't try to cover all of setting up a site on Dokku, only
 the parts relevant to a Django project. You should read the Dokku getting
@@ -21,151 +18,91 @@ from Django, you can customize the nginx config through Dokku
 and probably manage to get nginx to do the static file serving,
 but I haven't bothered figuring it out myself.)
 
-Files
-.....
+.. toctree::
 
-requirements.txt
-----------------
+    dokku_files
+    dokku_postgres
+    dokku_ssl
 
-There needs to be a ``requirements.txt`` file at the top level. If
-you prefer to keep your requirements somewhere else, the top-level one
-can just look like::
+Additional info (move to their own files as they're ready)...
 
-    -r path/to/real/requirements.txt
+Logs
+----
 
-Wherever your requirements are, add the latest versions of::
+Dokku collects stdout from your processes and you can view it with
+the ``dokku logs`` command.
 
-    dj-database-url
-    gunicorn
-    whitenoise
+`nginx logs <http://dokku.viewdocs.io/dokku/configuration/nginx/#nginx-configuration>`_
+are similarly stored on the server and can be accessed using
+``dokku nginx:access-log <appname>`` or ``dokku nginx:error-log <appname>``.
 
-settings
---------
+Dokku event logging can be enabled with `dokku events:on <http://dokku.viewdocs.io/dokku/advanced-usage/event-logs/>`_
+and then viewed with ``dokku events``. This shows things like deploy steps.
 
-Edit or add to end::
+Deploying from private git repos
+--------------------------------
 
-    import dj_database_url
+`Docs <http://dokku.viewdocs.io/dokku/deployment/application-deployment/#deploying-with-private-git-submodules>`_,
+such as they are...
 
-    INSTALLED_APPS = [
-        ...
-        # Disable Django's own staticfiles handling in favour of WhiteNoise, for
-        # greater consistency between gunicorn and `./manage.py runserver`. See:
-        # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
-        'whitenoise.runserver_nostatic',
-        'django.contrib.staticfiles',
-    ]
+I think the upshot is:
 
-    MIDDLEWARE = [
-        # At beginning of middleware:
-        'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
-        # ... rest of middleware
-    ]
+* Create a new ssh key for deploying
+* Add it to the repo on Github (or whatever) as an authorized deploy key
+  (TODO: Link to github docs on that)
+* Drop a copy of the public key file into ``/home/dokku/.ssh/``
+  on the Dokku system (with appropriate permissions)
 
-    # Update database configuration with $DATABASE_URL.
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+Deploying non-master branch
+---------------------------
 
-    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+`The docs <http://dokku.viewdocs.io/dokku/deployment/application-deployment/#deploying-non-master-branch>`_
 
-    # Allow all host headers (feel free to make this more specific)
-    ALLOWED_HOSTS = ['*']
+By default, dokku deploys when the app's master branch on the dokku server is updated. There
+are (at least) two ways to deploy a branch other than master.
 
-    # Simplified static file serving.
-    # https://warehouse.python.org/project/whitenoise/
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-wsgi.py
--------
-
-Whereever your wsgi.py file is, add to the end:
-
-.. code-block:: python
-
-    from whitenoise.django import DjangoWhiteNoise
-    application = DjangoWhiteNoise(application)
-
-Procfile
---------
-
-Create `Procfile <https://devcenter.heroku.com/articles/procfile>`_
-in the top directory. For our simple case, it can just contain one
-line, starting with ``web: `` and containing the command to start
-gunicorn for our site::
-
-    web: gunicorn {{ project_name }}.wsgi
-
-runtime.txt
------------
-
-Create ``runtime.txt`` in the top directory. It only needs one line, e.g.::
-
-    python-3.6.1
-
-app.json
---------
-
-Create `app.json <http://dokku.viewdocs.io/dokku/advanced-usage/deployment-tasks/>`_
-in the top-level project directory. You might
-see examples with lots of things in app.json (because Heroku uses app.json
-for lots of things), but as of this writing,
-dokku ignores everything but ``scripts.dokku.predeploy`` and
-``scripts.dokku.postdeploy``.  Example:
-
-.. code-block:: json
-
-    {
-      "scripts": {
-        "dokku": {
-          "predeploy": "python manage.py migrate --noinput; python manage.py collectstatic --noinput"
-        }
-      }
-    }
-
-
-
-Postgresql
-..........
-
-There's nothing Django-specific about this, but I'm including it just
-because we probably want to do it on every single Django deploy.
-
-To use the `postgresql plugin <https://github.com/dokku/dokku-postgres>`_,
-inside your server run:
+1) Push your non-master local branch to the master branch on the server:
 
 .. code-block:: bash
 
-    $ sudo dokku plugin:install https://github.com/dokku/dokku-postgres.git
+    $ git push dokku <local branch>:master
 
-Now you need to create a database, and link the database to the app:
+but that requires you to always remember that if you have apps that are always supposed
+to use a different branch than master.
 
-.. code-block:: bash
-
-    $ ssh dokku postgres:create example-database
-    $ ssh dokku postgres:link example-database django-tutorial
-
-Letsencrypt
-...........
-
-There's nothing Django-specific about this, but I'm including it just
-because we probably want to do it on every single Django deploy.
-
-To add SSL with the `Let's Encrypt plugin <https://github.com/dokku/dokku-letsencrypt>`_
-(`more <https://blog.semicolonsoftware.de/securing-dokku-with-lets-encrypt-tls-certificates/>`_),
-first install the plugin by running on the dokku server:
+2) Configure your app so the default branch is different, by changing the config value ``DOKKU_DEPLOY_BRANCH``:
 
 .. code-block:: bash
 
-    $ sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
+    $ ssh dokku config:set --no-restart app-name DOKKU_DEPLOY_BRANCH=some-branch
 
-Then on your system, to configure your app and tell letsencrypt to manage
-its certs:
+This seems like a more useful approach.  Just "git push dokku some-branch" every time
+you want to deploy your app.
+
+Developing with multiple remote apps
+------------------------------------
+
+Suppose you have local development and sometimes you want to push to staging
+and sometimes to production.  Maybe you have other apps too.
+
+The key is to set up a different git remote for each remote app.  E.g.:
 
 .. code-block:: bash
 
-    $ ssh dokku config:set --no-restart myapp DOKKU_LETSENCRYPT_EMAIL=your@email.tld
-    $ ssh dokku letsencrypt myapp
+    $ ssh dokku app:create staging
+    $ ssh dokku config:set --no-restart staging DOKKU_DEPLOY_BRANCH=develop
 
-FIXME: I don't *think* this arranges to renew the certs periodically,
-so figure out a simple way to get that to happen too.
+    $ git remote add staging dokku@my-dokku-server.com:staging
+
+    $ ssh dokku app:create production
+    $ ssh dokku config:set --no-restart production DOKKU_DEPLOY_BRANCH=master
+
+    $ git remote add production dokku@my-dokku-server.com:production
+
+Then to deploy, push the approprate branch to the appropriate branch:
+
+.. code-block:: bash
+
+    $ git push staging develop
+    $ git push production master
+
