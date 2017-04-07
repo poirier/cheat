@@ -70,11 +70,14 @@ Procfile
 --------
 
 Create `Procfile <https://devcenter.heroku.com/articles/procfile>`_
+(`more <http://dokku.viewdocs.io/dokku~v0.9.2/deployment/methods/buildpacks/#specifying-commands-via-procfile>`_)
 in the top directory. For our simple case, it can just contain one
 line, starting with ``web: `` and containing the command to start
 gunicorn for our site::
 
     web: gunicorn {{ project_name }}.wsgi
+
+See also the section on running Celery and other processes.
 
 runtime.txt
 -----------
@@ -88,7 +91,7 @@ app.json
 
 Create `app.json <http://dokku.viewdocs.io/dokku/advanced-usage/deployment-tasks/>`_
 in the top-level project directory. You might
-see examples with lots of things in app.json (because Heroku uses app.json
+see examples on the Interwebs with lots of things in app.json (because Heroku uses app.json
 for lots of things), but as of this writing,
 dokku ignores everything but ``scripts.dokku.predeploy`` and
 ``scripts.dokku.postdeploy``.  Example:
