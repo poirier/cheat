@@ -68,17 +68,17 @@ The simple way to set up hostnames is:
 So, you could name your dokku server ``projectname.tld``, and then
 have ``staging.projectname.tld`` and ``www.projectname.tld``.
 
-If you want to get fancier, http://dokku.viewdocs.io/dokku~v0.9.2/configuration/domains/#customizing-hostnames.
+If you want to get fancier, http://dokku.viewdocs.io/dokku/configuration/domains/.
 
 Also, note that any requests simply addressed to ``dokku.me`` will
 get routed to the alphabetically first app on the server, but you
-can change that: http://dokku.viewdocs.io/dokku~v0.9.2/configuration/domains/#default-site
+can change that: http://dokku.viewdocs.io/dokku/configuration/domains/
 or just set up a "00default" app.
 
 Zero downtime deploys
 ---------------------
 
-WRITEME - see http://dokku.viewdocs.io/dokku~v0.9.2/deployment/zero-downtime-deploys/
+WRITEME - see http://dokku.viewdocs.io/dokku/deployment/zero-downtime-deploys/
 
 Behind a load balancer
 ----------------------
@@ -86,14 +86,15 @@ Behind a load balancer
 If requests are being terminated at a load balancer and then proxied
 to our dokku server, some nginx config customization will be needed
 so your app can see the actual origin of the requests:
-http://dokku.viewdocs.io/dokku~v0.9.2/configuration/ssl/#running-behind-a-load-balancer
+http://dokku.viewdocs.io/dokku/configuration/ssl/#running-behind-a-load-balancer
 
 Managing users
 --------------
 
 In other words, who can mess with the apps on a dokku server?
 
-The way this currently works is that everybody ends up sshing to the server
+`The way this currently works <http://dokku.viewdocs.io/dokku/deployment/user-management/>`_
+is that everybody ends up sshing to the server
 as the ``dokku`` user to do things. To let them do that, we want to add a
 public key for them to the dokku config, by doing this:
 
@@ -119,7 +120,8 @@ apps or commands.
 Run a command
 -------------
 
-Suppose you want to run something like ``python manage.py createsuperuser``
+Suppose you want to `run <http://dokku.viewdocs.io/dokku/deployment/one-off-processes/>`_
+something like ``python manage.py createsuperuser``
 in the app environment?
 
 .. code-block:: bash
@@ -146,7 +148,7 @@ try editing it to::
     worker: celery worker -A appname -linfo
 
 With just that, the extra processes won't run automatically. You can run
-them by telling Dokku to `scale them up <http://dokku.viewdocs.io/dokku~v0.9.2/deployment/process-management/>`_,
+them by telling Dokku to `scale them up <http://dokku.viewdocs.io/dokku/deployment/process-management/#psscale-command>`_,
 e.g.:
 
 .. code-block:: bash
