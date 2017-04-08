@@ -101,7 +101,12 @@ dokku ignores everything but ``scripts.dokku.predeploy`` and
     {
       "scripts": {
         "dokku": {
-          "predeploy": "python manage.py migrate --noinput; python manage.py collectstatic --noinput"
+          "predeploy": "python manage.py migrate --noinput"
         }
       }
     }
+
+.. note::
+
+    Dokku automatically runs ``collectstatic`` for you, so you don't need to
+    do that from ``app.json``. 
