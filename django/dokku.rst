@@ -12,6 +12,9 @@ you should read the Dokku getting
 started docs, then use this as a cheatsheet to quickly enable existing
 Django projects to deploy on Dokku.
 
+Start with the pages in this list, in order, then come back
+to this page and continue reading:
+
 .. toctree::
 
     dokku_files

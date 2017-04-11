@@ -7,6 +7,9 @@ Letsencrypt
 *Note:* Get the site up and running, and accessible from the Internet,
 first. Let's Encrypt will not be able to get you a certificate until then.
 
+There's nothing Django-specific about this part, but I'm including it just
+because we probably want to do it on every single Django deploy.
+
 To add SSL with the `Let's Encrypt plugin <https://github.com/dokku/dokku-letsencrypt>`_
 (`more <https://blog.semicolonsoftware.de/securing-dokku-with-lets-encrypt-tls-certificates/>`_),
 first install the plugin by running on the dokku server (plugins must
@@ -33,8 +36,8 @@ to redirect non-SSL requests to SSL, we can have Django do it with
 a few settings.
 
 First, set
-`SECURE_SSL_REDIRECT <https://docs.djangoproject.com/en/stable/ref/settings/#secure-ssl-redirect>`_ to True. This will tell Django
-to do the redirect.
+`SECURE_SSL_REDIRECT <https://docs.djangoproject.com/en/stable/ref/settings/#secure-ssl-redirect>`_
+to True. This will tell Django to do the redirect.
 
 .. code-block:: python
 
