@@ -274,6 +274,14 @@ and then viewed with ``dokku events``. This shows things like deploy steps.
 Deploying from private git repos
 --------------------------------
 
+Note: this doesn't apply to your main project repo. It can be private and Dokku
+doesn't care, because you're pushing it directly from your development system to
+the Dokku server.
+
+But if your requirements include references to private git repos, then
+you'll need to arrange for Dokku to get access to those repos when it's
+``pip installing`` your requirements.
+
 `Docs <http://dokku.viewdocs.io/dokku/deployment/application-deployment/#deploying-with-private-git-submodules>`_,
 such as they are...
 
@@ -306,7 +314,7 @@ to use a different branch than master.
 
 .. code-block:: bash
 
-    $ ssh dokku config:set --no-restart app-name DOKKU_DEPLOY_BRANCH=some-branch
+    $ ssh dokku config:set --no-restart <app-name> DOKKU_DEPLOY_BRANCH=<some-branch>
 
 This seems like a more useful approach.  Just "git push dokku some-branch" every time
 you want to deploy your app.

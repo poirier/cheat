@@ -22,25 +22,29 @@ Wherever your requirements are, add the latest versions of::
 settings
 --------
 
-Edit or add to end::
+Add a ``.../deploy.py`` settings file, e.g. ``<appname>/settings/deploy.py``.
 
+It can start out looking like this (edit the top line if your main settings
+file isn't base.py)::
+
+    # Settings when deployed to Dokku
+    from .base import *  # noqa
     import dj_database_url
 
-    INSTALLED_APPS = [
-        ...
-        # Disable Django's own staticfiles handling in favour of WhiteNoise, for
-        # greater consistency between gunicorn and `./manage.py runserver`. See:
-        # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+    # Disable Django's own staticfiles handling in favour of WhiteNoise, for
+    # greater consistency between gunicorn and `./manage.py runserver`. See:
+    # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+    INSTALLED_APPS.remove('django.contrib.staticfiles')
+    INSTALLED_APPS.extend([
         'whitenoise.runserver_nostatic',
         'django.contrib.staticfiles',
-    ]
+    ])
 
+    MIDDLEWARE.remove('django.middleware.security.SecurityMiddleware')
     MIDDLEWARE = [
-        # At beginning of middleware:
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
-        # ... rest of middleware
-    ]
+    ] + MIDDLEWARE
 
     # Update database configuration with $DATABASE_URL.
     db_from_env = dj_database_url.config(conn_max_age=500)
@@ -59,7 +63,12 @@ Edit or add to end::
 wsgi.py
 -------
 
-Whereever your wsgi.py file is, add to the end:
+Find your ``wsgi.py`` file.
+
+1. Edit to change the default settings module to ``<appname>.settings.deploy``
+   (the path to the new settings file you created above).
+
+2. Add to the end:
 
 .. code-block:: python
 
@@ -85,6 +94,10 @@ runtime.txt
 Create ``runtime.txt`` in the top directory. It only needs one line, e.g.::
 
     python-3.6.1
+
+This *has* to be specific. E.g. ``python-3.5.2`` or ``python-3.6.1`` might work
+if the dokku server supports it,
+but ``python-3.5`` or ``python-3.6`` probably won't.
 
 app.json
 --------

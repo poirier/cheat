@@ -11,8 +11,11 @@ Vse a VPN, or check out `oauth2_proxy <https://github.com/bitly/oauth2_proxy>`_ 
 Django
 ------
 
-Best practice: install ``django-secure`` and run ``manage.py checksecure``
-to make sure all the right settings are enabled.
+(django-secure appears to be abandoned. Last change was in 2014, and
+it doesn't load under Django 1.11/Python 3.6.)
+
+-Best practice: install ``django-secure`` and run ``manage.py checksecure``
+to make sure all the right settings are enabled.-
 
 See also `OWASP <https://www.owasp.org>`_.
 
