@@ -23,6 +23,20 @@ to this page and continue reading:
 
 Additional info (move to their own files as they're ready)...
 
+Environment variables
+---------------------
+
+I can't find docs on what environment variables Dokku sets globally
+when running apps. A little poking around in one of my deployed apps
+showed that there doesn't seem to be a whole lot beyond what the plugins
+are providing, but here are a few that look useful:
+
+DOKKU_DEPLOY_BRANCH
+
+    The name of the branch that is running, e.g. ``master`` or ``develop``.
+
+and... that's about it?
+
 Static files
 ------------
 
