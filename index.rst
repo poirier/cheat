@@ -31,6 +31,7 @@ Contents:
    rst
    salt
    tmux
+   video
    virtualbox
    yaml
 
