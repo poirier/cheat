@@ -37,6 +37,8 @@ DOKKU_DEPLOY_BRANCH
 
 and... that's about it?
 
+Actually, *not even that* seems to be reliably provided.
+
 Static files
 ------------
 
