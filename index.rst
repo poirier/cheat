@@ -19,7 +19,7 @@ Contents:
    i3
    ipv6
    javascript/index
-   logitech_harmony
+   logitech_harmony/index
    mpd
    mysql
    npm
@@ -31,6 +31,7 @@ Contents:
    rst
    salt
    tmux
+   video
    virtualbox
    yaml
 

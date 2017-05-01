@@ -1,6 +1,14 @@
 MPD
 ===
 
+Fixing on Ubuntu
+----------------
+
+On Ubuntu, mpd is installed broken. You'll have to go read
+`this page <https://help.ubuntu.com/community/MPD>`_ and do
+some work to fix things so mpd will actually work on Ubuntu.
+Sigh.
+
 .. IMPORTANT::
     To play *anything*, you must first get it into the current playlist.
     Even if you just want to play one thing.

@@ -87,11 +87,24 @@ Render form in template::
                     <td>{% if field.errors %}
                           {{ field.errors }}<br/>
                         {% endif %}
+
                         {{ field }}
-                        or even <input id="{{ field.id_for_label }}" name="{{ field.html_name }}" value="{{ field.value }}"
-                        {% if field.help_text %}
-                          <br/><span class="helptext">{{ field.help_text }}</span>
+
+                        or even
+
+                        <input id="{{ field.id_for_label }}"
+                         name="{{ field.html_name }}"
+                         value="{{ field.value }}"
+                        {% if field.field.max_length != None %}
+                            maxlength="{{ field.field.max_length }}"
                         {% endif %}
+                        {% if field.field.min_length != None %}
+                            minlength="{{ field.field.min_length }}"
+                        {% endif %}
+                         >
+                        {% if field.help_text %}
+                         <br/><span class="helptext">{{ field.help_text }}</span>
+                         {% endif %}
                     </td>
                   </tr>
                 {% endfor %}

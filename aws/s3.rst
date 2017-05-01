@@ -1,6 +1,9 @@
 S3
 ===
 
+Access control
+--------------
+
 * `How S3 evaluates access control <https://docs.aws.amazon.com/AmazonS3/latest/dev/how-s3-evaluates-access-control.html>`_
 * `Guidelines for Using the Available Access Policy Options <https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-alternatives-guidelines.html>`_
 
@@ -55,3 +58,16 @@ seems like s3auth.com used this example::
         }
       ]
     }
+
+Updating metadata to improve response headers for caching
+----------------------------------------------------------
+
+Install `s3cmd <https://github.com/s3tools/s3cmd>`_, then do it
+like this::
+
+    s3cmd --recursive modify \
+        --add-header="Expires: Thu, 31 Dec 2099 20:00:00 GMT" \
+        --add-header="Cache-Control: max-age=94608000" \
+        s3://caktus-website-production-2015/media/community_logos
+
+You can use ``s3cmd ls`` to get a list of the buckets you can access.

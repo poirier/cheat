@@ -45,7 +45,7 @@ Change 'alternatives' default browser or editor::
 
 Be prompted for which alternative you prefer for a link group::
 
-    sudo update-alternatives --config www-browser
+    sudo update-alternatives --config x-www-browser
 
 Find out what the top-level link groups are::
 

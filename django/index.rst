@@ -7,7 +7,7 @@ make some notes of the most important parts that I can refer back to.
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    admin
    apps
@@ -15,6 +15,7 @@ Contents:
    data
    database
    ddt
+   dokku
    email
    fabric
    forms
