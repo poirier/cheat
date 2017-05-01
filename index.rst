@@ -13,12 +13,14 @@ Contents:
    diet
    django/index
    elasticsearch/index
+   elixir
    git
    google
    haskell
    i3
    ipv6
    javascript/index
+   lxde
    logitech_harmony/index
    mpd
    mysql
