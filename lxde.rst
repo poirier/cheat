@@ -7,7 +7,7 @@ There's a brief note `here <https://wiki.lxde.org/en/LXDE:Questions#How_can_I_us
 
 * Install lxde::
 
-    sudo apt install lxde
+    sudo apt install lxde lxsession-logout
 
 * Logout of the desktop
 
@@ -17,6 +17,8 @@ There's a brief note `here <https://wiki.lxde.org/en/LXDE:Questions#How_can_I_us
   It should run "i3".  (I don't know why it doesn't work to just set the window manager to i3, but it doesn't. Maybe someday I'll take the time to debug that.)
 
 * Edit ~/.config/lxsession/LXDE/desktop.conf.  In the ``[Session]`` section, change windows_manager/command: ``windows_manager/command=i3wm``
+
+* In ~/.config/lxsession/LXDE/autostart, remove "@pcmanfm --desktop --profile LXDE", it interferers with i3.
 
 * Logout and login again.
 
