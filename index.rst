@@ -30,6 +30,7 @@ Contents:
    postfix
    postgres
    python/index
+   raspberrypi/index
    rst
    salt
    tmux
