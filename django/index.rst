@@ -12,6 +12,7 @@ Contents:
    admin
    apps
    celery
+   compressor
    data
    database
    ddt
