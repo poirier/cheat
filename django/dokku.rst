@@ -17,6 +17,7 @@ to this page and continue reading:
 
 .. toctree::
 
+    dokku_admin
     dokku_files
     dokku_postgres
     dokku_ssl
@@ -38,6 +39,10 @@ DOKKU_DEPLOY_BRANCH
 and... that's about it?
 
 Actually, *not even that* seems to be reliably provided.
+
+Still, just about any Django app is going to be linked to a database,
+so if you need to detect whether the app is running under Dokku
+or Heroku, looking for DATABASE_URL should be good enough.
 
 Static files
 ------------
@@ -65,27 +70,18 @@ First, you can
 
 Or you can
 `use persistent storage <http://dokku.viewdocs.io/dokku~v0.9.2/advanced-usage/persistent-storage/>`_
-on dokku, which is a way of mounting directories from the dokku server
+on Dokku, which is a way of mounting directories from the dokku server
 inside the running container where your site code can store and read files
 that will continue to exist past the lifetime of that particular container.
 
 Simple hostnames
 ----------------
 
-The simple way to set up hostnames is:
-
-* Pick a hostname you can control, e.g. ``dokku.me``.
-* During initial setup of dokku, configure that as the server's name.
-* Create a DNS A record pointing ``dokku.me`` at the server's IP
-  address.
-* Add a wildcard entry for ``*.dokku.me`` at the same address.
-* For each app you put on that server, give the app the same name
-  you want to use for its subdomain.  For example, an app named
-  ``foo`` would be accessible on the internet at ``foo.dokku.me``,
-  without having to make any more changes to your DNS settings.
-
-So, you could name your dokku server ``projectname.tld``, and then
-have ``staging.projectname.tld`` and ``www.projectname.tld``.
+If the server is set up properly, assuming the server's domain
+name is ``dokkuserver.domain``, creating an app named ``foo`` will
+automatically ``foo.dokkuserver.domain``
+resolve to the server's address, and requests with host ``foo.dokkuserver.domain``
+to be routed to that app.
 
 If you want to get fancier, http://dokku.viewdocs.io/dokku/configuration/domains/.
 
@@ -106,35 +102,6 @@ If requests are being terminated at a load balancer and then proxied
 to our dokku server, some nginx config customization will be needed
 so your app can see the actual origin of the requests:
 http://dokku.viewdocs.io/dokku/configuration/ssl/#running-behind-a-load-balancer
-
-Managing users
---------------
-
-In other words, who can mess with the apps on a dokku server?
-
-`The way this currently works <http://dokku.viewdocs.io/dokku/deployment/user-management/>`_
-is that everybody ends up sshing to the server
-as the ``dokku`` user to do things. To let them do that, we want to add a
-public key for them to the dokku config, by doing this:
-
-.. code-block:: bash
-
-    $ cat /path/to/ssh_keyfile.pub | ssh dokku ssh-keys:add <KEYNAME>
-
-The <KEYNAME> is just to identify the different keys. I suggest using the
-person's typical username. Just remember there will not be a user of that
-name on the dokku server.
-
-When it's time to revoke someone's access:
-
-.. code-block:: bash
-
-    $ ssh dokku ssh_keys:remove <KEYNAME>
-
-and now you see why the <KEYNAME> is useful.
-
-For now, there's not a simple way to limit particular users to particular
-apps or commands.
 
 Run a command
 -------------
@@ -264,7 +231,8 @@ or to set on another app:
     $ export $(ssh dokku config <appname> --shell)
     $ ssh dokku config:set <appname1> $(ssh dokku config <appname2> --shell)
 
-Get all the settings in a format handy to save in a file for later sourcing:
+Get all the settings in a format handy to save in a file for later sourcing
+in a local shell:
 
 .. code-block:: bash
 
@@ -293,7 +261,7 @@ and then viewed with ``dokku events``. This shows things like deploy steps.
 Deploying from private git repos
 --------------------------------
 
-Note: this doesn't apply to your main project repo. It can be private and Dokku
+Note: this doesn't apply to your main project repo. That can be private and Dokku
 doesn't care, because you're pushing it directly from your development system to
 the Dokku server.
 
@@ -364,4 +332,28 @@ Then to deploy, push the approprate branch to the appropriate branch:
 
     $ git push staging develop
     $ git push production master
+
+Customizing nginx config
+------------------------
+
+If you need to completely override the nginx config, you'll need
+to `provide an nginx config file template <http://dokku.viewdocs.io/dokku~v0.9.4/configuration/nginx/#customizing-the-nginx-configuration>`_.
+
+Luckily, much customization can be done just by
+`providing snippets <http://dokku.viewdocs.io/dokku~v0.9.4/configuration/nginx/#customizing-via-configuration-files-included-by-the-default-tem>`_
+of configuration for nginx to include after it's base config file.
+
+To do this, arrange for the snippets to get copied
+to ``/home/dokku/<appname>/nginx.conf.d/`` during deployment,
+probably in a pre- or post-deploy script.
+
+Logging to papertrail
+---------------------
+
+Use the `logspout <https://github.com/michaelshobbs/dokku-logspout>`_ plugin.
+
+Adding Sentry service
+---------------------
+
+https://github.com/darklow/dokku-sentry
 

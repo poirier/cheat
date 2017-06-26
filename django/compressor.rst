@@ -12,22 +12,6 @@ For now, don't read anything else; it can be confusing.
 Much of the following information is based on the code, not the current docs,
 and hopefully will be more accurate.
 
-Storage
--------
-
-Compressor uses a `Django storage class <https://docs.djangoproject.com/en/stable/howto/custom-file-storage/>`_
-for some of its operations, controlled by
-the setting ``COMPRESS_STORAGE``.
-
-The default storage is ``compressor.storage.CompressorFileStorage``, which is a subclass
-of the standard filesystem storage class, that uses ``COMPRESS_ROOT`` as the base directory
-in the local filesystem to store files in, and builds URLs by prefixing file paths within
-the storage with ``COMPRESS_URL``.
-
-If you change ``COMPRESS_STORAGE``, then ignore anything in the docs about
-``COMPRESS_ROOT`` and ``COMPRESS_URL`` as they won't apply anymore (except in
-a few cases... see exceptions noted as they come up, below).
-
 Cache
 -----
 
@@ -51,32 +35,6 @@ Otherwise, compressor will
 3. run those files through any configured preprocessors
 4. concatenate the result and save it using COMPRESS_STORAGE
 
-Accessing the files to be compressed
-------------------------------------
-
-For each file to be compressed, compressor starts with the URL from the rendered
-original content inside the compress tag.  For example, if part of the content
-is ``<script src="http://example.com/foo.js"></script>``, then it extracts
-``"http://example.com/foo.js"`` as the URL.
-
-It checks that the URL starts with
-COMPRESS_STORAGE's ``base_url``, or if accessing that fails (``base_url``
-is not a standard part of the file storage class API), uses ``COMPRESS_URL``.
-
-If the URL doesn't start with that string, compressor throws a possibly misleading
-error, "'%s' isn't accessible via COMPRESS_URL ('%s') and can't be compressed".
-
-Otherwise, compressor tries to come up with a local filepath to access the file, as
-follows:
-
-* Try to get a local filepath from COMPRESS_STORAGE using ``.path()``.
-* If that's not implemented (for example, for remote storages), it tries again
-  using a different code path, though that appears to end up again going to
-  COMPRESS_STORAGE.
-* If it still can't get a local filepath, throws an error:
-  "'%s' could not be found in the COMPRESS_ROOT '%s'%s"
-  which is very misleading if you're not using a storage class that looks at COMPRESS_ROOT.
-
 Offline
 -------
 
@@ -86,7 +44,7 @@ which puts the results in compressor's *offline* cache. If anything it needs at 
 found there, things break/throw errors/render wrong etc.
 
 The offline cache manifest is a json file, stored using COMPRESS_STORAGE,
-in the path ``COMPRESS_OUTPUT_DIR`` (default: ``CACHE``),
+in the subdirectory ``COMPRESS_OUTPUT_DIR`` (default: ``CACHE``),
 using the filename ``COMPRESS_OFFLINE_MANIFEST`` (default: ``manifest.json``).
 
 The keys in the offline cache manifest are generated from *the template content inside each compress tag*,
@@ -111,24 +69,97 @@ Not offline
 If ``COMPRESS_OFFLINE`` is False, compressor will look in COMPRESS_STORAGE for previously
 processed results, but if not found, will create them on the fly.
 
+Important Advice
+----------------
+
+When using django-compressor,
+
+1. Set COMPRESS_STORAGE=STATICFILES_STORAGE,
+COMPRESS_URL=STATIC_URL, and COMPRESS_ROOT=STATIC_ROOT.
+
+2. If STATICFILES_STORAGE is a remote storage class, use a subclass modeled on
+`this documentation <https://django-compressor.readthedocs.io/en/latest/remote-storages/#using-staticfiles>`_.
+
+Trying anything more complicated will just cause you headaches, as compressor
+doesn't really use these separate settings the way you would probably expect.
+
+.. note::
+
+   If you follow the above advice, you can probably skip reading the rest of this.
+
+Storage
+-------
+
+Compressor uses a `Django storage class <https://docs.djangoproject.com/en/stable/howto/custom-file-storage/>`_
+for some of its operations, controlled by
+the setting ``COMPRESS_STORAGE``.
+
+The default storage is ``compressor.storage.CompressorFileStorage``, which is a subclass
+of the standard filesystem storage class. It uses ``COMPRESS_ROOT`` as the base directory
+in the local filesystem to store files in, and builds URLs by prefixing file paths within
+the storage with ``COMPRESS_URL``.
+
+If you change ``COMPRESS_STORAGE``, then *ignore* anything in the docs about
+``COMPRESS_ROOT`` and ``COMPRESS_URL`` as they won't apply anymore (except in
+a few cases... see exceptions noted as they come up, below).
+
+Accessing the files to be compressed
+------------------------------------
+
+For each file to be compressed, compressor starts with the URL from the rendered
+original content inside the compress tag.  For example, if part of the content
+is ``<script src="http://example.com/foo.js"></script>``, then it extracts
+``"http://example.com/foo.js"`` as the URL.
+
+It checks that the URL starts with
+COMPRESS_STORAGE's ``base_url``, or if accessing that fails (quite possible since
+``base_url`` is not a standard part of the file storage class API), uses ``COMPRESS_URL``.
+
+.. note::
+
+    This is a place where compressor can use COMPRESS_URL even if it's not using
+    its default storage.
+
+If the URL doesn't start with that string, compressor throws a possibly misleading
+error, "'%s' isn't accessible via COMPRESS_URL ('%s') and can't be compressed".
+
+Otherwise, compressor tries to come up with a local filepath to access the file, as
+follows:
+
+* Try to get a local filepath from COMPRESS_STORAGE using ``.path()``.
+* If that's not implemented (for example, for remote storages), it tries again
+  using a different code path, though that appears to end up again going to
+  COMPRESS_STORAGE.
+* If it still can't get a local filepath, throws an error:
+  "'%s' could not be found in the COMPRESS_ROOT '%s'%s"
+  which is very misleading if you're not using a storage class that looks at COMPRESS_ROOT.
+
 
 collectstatic and compressor
 ----------------------------
 
-This is where things get really hinky, and the documentation especially misleading.
+When we start thinking about how collectstatic and compressor interact,
+things get really hinky, and the documentation especially misleading.
 
-The problem is that when compressing, compressor always works from local copies
-of the source files. If STATICFILES_STORAGE is a remote storage class, then
-running ``collectstatic`` will ordinarily just gather and copy all the static
-files to the remote file storage, where compressor won't find them.
+Two problems:
 
-To make this work if STATICFILES_STORAGE is such a remote storage class, you
-have to subclass the remote storage class, tweak it to save local copies of
-the files as they go by, and use the subclass for STATICFILE_STORAGE instead
-of the originl. `example in the docs <https://django-compressor.readthedocs.io/en/latest/remote-storages/#using-staticfiles>`_.
+1. Compressor looks at COMPRESS_STORAGE to find the source files to compress,
+   when logically you'd expect it to look at STATICFILES_STORAGE. But
+   ``collectstatic`` uses STATICFILES_STORAGE to gather and store the source
+   files.
 
-Now, if you want the compressed files to also be stored remotely (which you
-likely do), then COMPRESS_STORAGE should also be a remote storage class.
-But compressor uses COMPRESS_STORAGE to find the source files, not
-STATICFILES_STORAGE, so won't that result in not being able to find the source files?
-FIGURE THIS OUT.
+2. Compressor tries to hack access to the storage class to find the local path
+   to the files, rather than just asking the storage class to open the file
+   wherever it is.
+
+This means for all practical purposes, if you want this to work, you have
+to:
+
+1. Set COMPRESS_STORAGE the same as STATICFILES_STORAGE, COMPRESS_URL the same as STATIC_URL,
+   and COMPRESS_ROOT the same as STATIC_ROOT. (So why does django-compressor
+   even have these settings?)
+
+2. Hack whatever storage class STATICFILES_STORAGE is using, if it normally just
+   stores files remotely, to save a local copy and make it accessible via ``.path()``.
+   `There's an example in the docs
+   <https://django-compressor.readthedocs.io/en/latest/remote-storages/#using-staticfiles>`_.

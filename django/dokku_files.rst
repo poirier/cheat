@@ -3,7 +3,6 @@ Files
 
 Setting up files in a Django project for deploying it to Dokku
 
-
 requirements.txt
 ----------------
 
@@ -123,3 +122,19 @@ dokku ignores everything but ``scripts.dokku.predeploy`` and
 
     Dokku automatically runs ``collectstatic`` for you, so you don't need to
     do that from ``app.json``. 
+
+buildpacks
+----------
+
+If your app is not pure Python - e.g. if it uses node - you'll need to
+`override <http://dokku.viewdocs.io/dokku/deployment/methods/buildpacks/#using-multiple-buildpacks>`_
+the automatic buildpack detection, because it only works for a single application type.
+
+Do this by adding a top-level ``.buildpacks`` file, containing links to the
+buildpacks to use::
+
+    https://github.com/heroku/heroku-buildpack-nodejs.git
+    https://github.com/heroku/heroku-buildpack-python.git
+    https://github.com/heroku/heroku-buildpack-apt
+
+Heroku maintains a `list of buildpacks <https://devcenter.heroku.com/articles/buildpacks>`_.
