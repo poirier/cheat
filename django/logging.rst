@@ -391,3 +391,27 @@ Settings::
             if hasattr(record, 'request'):
                 del record.request
             return True
+
+
+Including info like the emailed errors do
+-----------------------------------------
+
+.. code-block:: python
+
+    from django.views.debug import TECHNICAL_500_TEXT_TEMPLATE, get_safe_settings, \
+        get_exception_reporter_filter
+    from django.views.decorators.debug import sensitive_post_parameters
+
+    t = Template(TECHNICAL_500_TEXT_TEMPLATE)
+    filter = get_exception_reporter_filter(request)
+    r = t.render(Context({
+        'request': request,
+        'is_email': True,
+        'filtered_POST': filter.get_post_parameters(request),
+        'settings': get_safe_settings(),
+        'server_time': timezone.now(),
+        'django_version_info': get_version(),
+    }, autoescape=False))
+    logger.error(
+        "Got CSRF failure, reason=%s. %s", reason, r,
+    )

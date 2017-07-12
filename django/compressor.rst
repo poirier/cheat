@@ -4,13 +4,11 @@ django-compressor
 `django-compressor docs <https://django-compressor.readthedocs.io/en/latest/>`_
 
 FIRST read the `usage <https://django-compressor.readthedocs.io/en/latest/usage/>`_
-page in the docs, down to the paragraph starting "Which would be rendered something like:",
+page in the docs, down to and including the paragraph starting "Which would be rendered something like:",
 to understand at a high-level what compressor does.
 
-For now, don't read anything else; it can be confusing.
-
-Much of the following information is based on the code, not the current docs,
-and hopefully will be more accurate.
+For now, don't read anything else; it can be confusing because much of what it says is only
+true in some scenarios and not others.
 
 Cache
 -----
@@ -34,6 +32,8 @@ Otherwise, compressor will
 2. fetch those files (See "accessing the files to be compressed")
 3. run those files through any configured preprocessors
 4. concatenate the result and save it using COMPRESS_STORAGE
+5. at rendering, the tag and contents will be replaced with one or two HTML elements
+   that will load the compressed file instead of the original ones.
 
 Offline
 -------
@@ -72,13 +72,17 @@ processed results, but if not found, will create them on the fly.
 Important Advice
 ----------------
 
-When using django-compressor,
+When using django-compressor, whether your static files are local or remote:
 
 1. Set COMPRESS_STORAGE=STATICFILES_STORAGE,
-COMPRESS_URL=STATIC_URL, and COMPRESS_ROOT=STATIC_ROOT.
+COMPRESS_URL=STATIC_URL, and
+COMPRESS_ROOT=STATIC_ROOT to a LOCAL path that is writable at runtime.
 
 2. If STATICFILES_STORAGE is a remote storage class, use a subclass modeled on
 `this documentation <https://django-compressor.readthedocs.io/en/latest/remote-storages/#using-staticfiles>`_.
+Note that if you're using S3Boto3Storage, it
+looks at ``settings.AWS_LOCATION``, not ``settings.STORAGE_ROOT``, as its ``.location``,
+so set AWS_LOCATION if you want your static files in a subdir of your bucket.
 
 Trying anything more complicated will just cause you headaches, as compressor
 doesn't really use these separate settings the way you would probably expect.
@@ -128,8 +132,8 @@ follows:
 
 * Try to get a local filepath from COMPRESS_STORAGE using ``.path()``.
 * If that's not implemented (for example, for remote storages), it tries again
-  using a different code path, though that appears to end up again going to
-  COMPRESS_STORAGE.
+  using ``compressor.storage.CompressorFileStorage`` (regardless of what COMPRESS_STORAGE
+  is set to), so basically it's going to look for it under COMPRESS_ROOT.
 * If it still can't get a local filepath, throws an error:
   "'%s' could not be found in the COMPRESS_ROOT '%s'%s"
   which is very misleading if you're not using a storage class that looks at COMPRESS_ROOT.
