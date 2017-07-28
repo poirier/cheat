@@ -3,12 +3,207 @@ django-compressor
 
 `django-compressor docs <https://django-compressor.readthedocs.io/en/latest/>`_
 
-FIRST read the `usage <https://django-compressor.readthedocs.io/en/latest/usage/>`_
-page in the docs, down to and including the paragraph starting "Which would be rendered something like:",
-to understand at a high-level what compressor does.
+Warning: much of the documentation is casual about saying things that are
+only true in some scenarios, without making clear that that's the case.
 
-For now, don't read anything else; it can be confusing because much of what it says is only
-true in some scenarios and not others.
+ACTUALLY USING
+~~~~~~~~~~~~~~
+
+Here are some practical scenarios for using django-compressor.
+
+For what to put in your templates, you can go by the django-compressor documentation,
+and be sure to use {% static %} and not STATIC_URL.
+
+For what to put in your settings... it's a lot more complicated.
+Set the compressor filters and precompilers however you want. For
+the rest, keep reading.
+
+
+Scenario: Development using runserver, DEBUG, not offline
+---------------------------------------------------------
+
+If DEBUG is True, then compressor won't even do anything and so everything
+should just work.
+
+Scenario: Running using local files, not offline
+------------------------------------------------
+
+This is the typical small server situation.  You unpack your project on
+the server, run collectstatic, point nginx or some other server at STATIC_ROOT
+and go.
+
+Example settings:
+
+.. code-block:: python
+
+    # Django settings
+    DEBUG = False
+    STATIC_ROOT = '/var/www/static/'
+    STATIC_URL = '/static/'
+    # set compressor filters and precompilers as desired.
+    # leave other compressor settings at defaults.
+
+.. code-block:: nginx
+
+    # nginx settings
+    location /static {
+       alias /var/www/static;
+    }
+
+Scenario: running using local files, with offline
+-------------------------------------------------
+
+Like the previous scenario, but you want compressor to do all its work at
+deploy time so the results are cached and ready to go immediately when you
+start your server.
+
+.. code-block:: python
+
+    # Django settings like before, plus:
+    COMPRESS_OFFLINE = True
+
+Now at deploy time you have more steps:
+
+.. code-block:: bash
+
+    $ python manage.py collectstatic
+    $ python manage.py compress
+
+Run ``compress`` *after* collectstatic so that compressor can find its
+input files. It'll write its output files under ``{STATIC_ROOT}/CACHE``,
+and get them from there at runtime.
+
+Scenario: running with storage on the network, with offline
+-----------------------------------------------------------
+
+In this scenario, you're putting your static files somewhere off of the
+server where you're running Django. For example, S3. Or just your own
+static file server somewhere. Whatever.
+
+Let's start with how this would be setup without django-compressor,
+then we can modify it to add django-compressor.
+
+.. code-block:: python
+
+    # settings/no_compressor.py
+    STATIC_ROOT = None  # Unused
+    STATIC_URL = None  # Unused
+    STATIC_FILE_STORAGE = 'package.of.FileStorageClass'
+
+At deploy time you can just run collectstatic, and all your static
+files will be pushed to the network:
+
+.. code-block:: bash
+
+    $ python manage.py collectstatic
+
+And at runtime, ``{% static %}`` will ask your file storage class to
+come up with a URL for each file, which will turn out to be on your
+other server, or S3, or whatever.
+
+Now, suppose we want to add compressor with offline processing
+(not using offline makes no sense with network storage). Here are
+the settings you can use at runtime for that, assuming things have
+been prepared correctly:
+
+.. code-block:: python
+
+    # settings/deployed.py
+    # Django settings we'll use in production
+    STATIC_ROOT = None  # Unused
+    STATIC_URL = None  # Unused
+    STATIC_FILE_STORAGE = 'path.to.network.filestorage'
+    COMPRESS_ENABLED = True
+    COMPRESS_OFFLINE = True
+
+The preparation is the tricky part. It turns out that for compress to work,
+a copy of the static files must be gathered in a local directory first.
+Most of the tools we might use to compile, compress, etc. are going to
+read local files and write local output.
+
+To gather the static files into a local directory,
+we might, for example, use a different settings file that uses the default file storage
+class, and run collectstatic. E.g.:
+
+.. code-block:: python
+
+    # settings/gather.py
+    # Django settings when first running collectstatic
+    from .deployed import *
+
+    # Override a few settings to make storage local
+    STATIC_ROOT = '/path/to/tmp/dir'
+    STATIC_URL = None  # Unused
+    STATIC_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+.. code-block:: bash
+
+    $ python manage.py collectstatic --settings=settings.gather
+
+After running ``collectstatic`` with these settings, all your source
+static files will be gathered under '/path/to/tmp/dir'.
+
+Now you could run ``compress``, and the resulting files would be added
+under `/path/to/tmp/dir`.  There's an important *gotcha* that will
+cause problems, though - for compressor to match up the output it
+makes now with what it'll be looking for later, the contents of each
+``{% compress %}`` tag must be identical now to what it'll be then,
+which means the URLs must point at the production file server.
+We can accomplish this by setting STATIC_URL before running the
+compress:
+
+.. code-block:: python
+
+    # settings/compress.py
+    # Django settings when running compress
+    from .deployed import *
+
+    # Override a few settings to make storage local, but URLs look remote
+    STATIC_ROOT = '/path/to/tmp/dir'
+    STATIC_URL = 'https://something.s3.somewhere/static/'  # URL prefix for runtime
+    STATIC_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+.. code-block:: bash
+
+    $ python manage.py compress --settings=settings.compress
+
+The problem now is to get all these files onto the remote server.
+You could just use ``rsync`` or ``s3cmd`` or something, which will
+work fine. But for maximum flexibility, let's figure out a way to do
+it using Django. Our approach will be to tell Django that our SOURCE
+static files are in '/path/to/tmp/dir', and we want them collected
+using our production file storage class, which will put them where we
+want them.
+
+.. code-block:: python
+
+    # Django settings when running collectstatic again after compress,
+    # to copy the resulting files to the network
+    # settings/copy_upstream.py
+    from .deployed import *  # Set up for network file storage
+    # Tell collectstatic to use the files we collected and compressed
+    STATICFILES_FINDERS = ['django.contrib.staticfiles.finders.FileSystemFinder']
+    STATICFILES_DIRS = ['/path/to/tmp/dir']
+
+.. code-block:: bash
+
+    $ python manage.py collectstatic --settings=settings.copy_upstream
+
+That should copy things to the network. Then if you run using the 'deployed'
+settings, things should work!
+
+TODO: TEST THAT!!!!!!!!!!!!!!!!!!!!
+
+Other approaches
+----------------
+
+The compressor docs suggest a different approach -- hack the storage class you're
+using so when you run collectstatic, it saves a copy of each file into a local
+directory in addition to pushing it upstream.  Then you can use the same storage
+class for collectstatic, compress, and runtime.
+
+More detailed notes
+~~~~~~~~~~~~~~~~~~~
 
 Cache
 -----
@@ -43,6 +238,11 @@ in templates to have been pre-processed by running ``manage.py compress`` ahead 
 which puts the results in compressor's *offline* cache. If anything it needs at run-time is not
 found there, things break/throw errors/render wrong etc.
 
+.. note::
+
+    If COMPRESS_OFFLINE is True and files have not been pre-compressed,
+    compressor will *not* compress them at runtime. Things will break.
+
 The offline cache manifest is a json file, stored using COMPRESS_STORAGE,
 in the subdirectory ``COMPRESS_OUTPUT_DIR`` (default: ``CACHE``),
 using the filename ``COMPRESS_OFFLINE_MANIFEST`` (default: ``manifest.json``).
@@ -51,6 +251,12 @@ The keys in the offline cache manifest are generated from *the template content 
 *not* the contents of the compressed files. So, you must arrange to re-run the offline
 compression anytime your content files might have changed, or it'll be serving up compressed
 files generated from the old file contents.
+
+.. note::
+
+    It sounds like you must *also* be *sure* the contents of the compress tags
+    don't change between precompressing and runtime, for example by changing the
+    URL prefix!
 
 The values in the offline cache manifest are paths of the compressed files
 in COMPRESS_STORAGE.
@@ -67,38 +273,17 @@ Not offline
 -----------
 
 If ``COMPRESS_OFFLINE`` is False, compressor will look in COMPRESS_STORAGE for previously
-processed results, but if not found, will create them on the fly.
-
-Important Advice
-----------------
-
-When using django-compressor, whether your static files are local or remote:
-
-1. Set COMPRESS_STORAGE=STATICFILES_STORAGE,
-COMPRESS_URL=STATIC_URL, and
-COMPRESS_ROOT=STATIC_ROOT to a LOCAL path that is writable at runtime.
-
-2. If STATICFILES_STORAGE is a remote storage class, use a subclass modeled on
-`this documentation <https://django-compressor.readthedocs.io/en/latest/remote-storages/#using-staticfiles>`_.
-Note that if you're using S3Boto3Storage, it
-looks at ``settings.AWS_LOCATION``, not ``settings.STORAGE_ROOT``, as its ``.location``,
-so set AWS_LOCATION if you want your static files in a subdir of your bucket.
-
-Trying anything more complicated will just cause you headaches, as compressor
-doesn't really use these separate settings the way you would probably expect.
-
-.. note::
-
-   If you follow the above advice, you can probably skip reading the rest of this.
+processed results, but if not found, will create them on the fly and save them to use again.
 
 Storage
 -------
 
-Compressor uses a `Django storage class <https://docs.djangoproject.com/en/stable/howto/custom-file-storage/>`_
+Compressor uses a
+`Django storage class <https://docs.djangoproject.com/en/stable/howto/custom-file-storage/>`_
 for some of its operations, controlled by
 the setting ``COMPRESS_STORAGE``.
 
-The default storage is ``compressor.storage.CompressorFileStorage``, which is a subclass
+The default storage class is ``compressor.storage.CompressorFileStorage``, which is a subclass
 of the standard filesystem storage class. It uses ``COMPRESS_ROOT`` as the base directory
 in the local filesystem to store files in, and builds URLs by prefixing file paths within
 the storage with ``COMPRESS_URL``.
@@ -137,33 +322,3 @@ follows:
 * If it still can't get a local filepath, throws an error:
   "'%s' could not be found in the COMPRESS_ROOT '%s'%s"
   which is very misleading if you're not using a storage class that looks at COMPRESS_ROOT.
-
-
-collectstatic and compressor
-----------------------------
-
-When we start thinking about how collectstatic and compressor interact,
-things get really hinky, and the documentation especially misleading.
-
-Two problems:
-
-1. Compressor looks at COMPRESS_STORAGE to find the source files to compress,
-   when logically you'd expect it to look at STATICFILES_STORAGE. But
-   ``collectstatic`` uses STATICFILES_STORAGE to gather and store the source
-   files.
-
-2. Compressor tries to hack access to the storage class to find the local path
-   to the files, rather than just asking the storage class to open the file
-   wherever it is.
-
-This means for all practical purposes, if you want this to work, you have
-to:
-
-1. Set COMPRESS_STORAGE the same as STATICFILES_STORAGE, COMPRESS_URL the same as STATIC_URL,
-   and COMPRESS_ROOT the same as STATIC_ROOT. (So why does django-compressor
-   even have these settings?)
-
-2. Hack whatever storage class STATICFILES_STORAGE is using, if it normally just
-   stores files remotely, to save a local copy and make it accessible via ``.path()``.
-   `There's an example in the docs
-   <https://django-compressor.readthedocs.io/en/latest/remote-storages/#using-staticfiles>`_.

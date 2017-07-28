@@ -16,13 +16,16 @@ Django::
    }
 
 
-General MySQL tips
-------------------
+Using the client
+~~~~~~~~~~~~~~~~
 
 Starting the client::
 
     $ mysql --user=username [database]      # if user has no password
     $ mysql --user=username --password [database]   # to be prompted for password
+
+Users and permissions
+~~~~~~~~~~~~~~~~~~~~~
 
 In the client::
 
@@ -65,10 +68,17 @@ On any platform, you can set the new password using the mysql client::
     Stop the server
     Restart it normally (without the --skip-grant-tables and --skip-networking options).
 
+Dumps
+~~~~~
+
 Make a dump::
 
-    mysqldump _dbname_ > dumpfile.sql
-    mysqldump --result-file=dumpfile.sql _dbname_
+    mysqldump --single-transaction _dbname_ > dumpfile.sql
+    mysqldump --result-file=dumpfile.sql --single-transaction _dbname_
+
+(Use ``--single-transaction`` to
+`avoid locking the DB <https://www.howtogeekpro.com/180/how-to-backup-a-live-mysql-db-without-locking-tables-using-mysqldump/>`_
+during the dump.)
 
 Restore a dump::
 
@@ -87,11 +97,3 @@ Step by step::
     mysql> flush privileges;
     mysql> exit
     Bye
-
-Restore data into database
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This is just a matter of piping the dump into the mysql client::
-
-    gunzip <ctsv2_TR_20140602.sql.gz | mysql -u ctsv2_TR ctsv2_TR
-
