@@ -20,7 +20,9 @@ If you have DEBUG on, Django logs all SQL queries
 Default
 -------
 
-Here's what Django uses (around 1.7, anyway) if you don't configure logging::
+Here's what Django uses (around 1.7, anyway) if you don't configure logging:
+
+.. code-block:: python
 
     # Default logging for Django. This sends an email to the site admins on every
     # HTTP 500 error. Depending on DEBUG, all other log records are either sent to
@@ -102,7 +104,10 @@ we need to look back at a problem, but no emailing of
 exceptions and such.
 
 
-In settings::
+In settings:
+
+.. code-block:: python
+
 
     LOG_DIR = os.path.join(PROJECT_ROOT, '..', 'log')
 
@@ -134,6 +139,8 @@ In settings::
     }
 
 Or how about:
+
+.. code-block:: python
 
     LOGGING = {
         'version': 1,
@@ -171,7 +178,10 @@ we find out about problems before we deploy them to production.
 
 Emails should go to the devs, not the client or production site admins.
 
-Like so::
+Like so:
+
+.. code-block:: python
+
 
     ADMINS = (
         ('XXX DevTeam', 'xxx-dev-team@example.com'),
@@ -245,7 +255,10 @@ Requirements::
 
     raven==3.6.1
 
-Settings::
+Settings:
+
+.. code-block:: python
+
 
     INSTALLED_APPS = (
         ...

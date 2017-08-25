@@ -30,7 +30,7 @@ Packages
 * List packages that match a pattern:  ``dpkg -l <pattern>``
 * List contents of a package: ``dpkg -L packagename``
 * Show packages that installed files matching pattern: ``dpkg -S pattern``
-* Show info about an installed package: ``dpkg -p packagename``
+* Show info about an installed package: ``dpkg-query -s packagename``
 * show info about a package that is known: ``apt-cache showpkg packagename``
 * Reconfigure a package: ``dpkg-reconfigure packagename``
 * Change alternatives: ``update-alternatives ...``
