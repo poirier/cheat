@@ -101,6 +101,11 @@ Is a key in a dictionary?
 
     dict.hasOwnProperty(key)
 
+Does an object have a key (possibly inherited)?
+-----------------------------------------------
+
+    key in object
+
 Remove key from dictionary
 --------------------------
 
