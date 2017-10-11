@@ -10,3 +10,4 @@ Contents:
    events
    promises
    syntax
+   dom
