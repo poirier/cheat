@@ -11,6 +11,7 @@ since Ansible's own docs have nothing like a reference.
 
 .. toctree::
 
+  background
   block
   conditionals
   configuration
