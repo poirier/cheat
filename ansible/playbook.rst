@@ -44,6 +44,8 @@ set variables.
 Play
 ------
 
+`Complete list of possible keys <http://docs.ansible.com/ansible/latest/playbooks_keywords.html#play>`_
+
 A dictionary::
 
   hosts:  hosta:pattern1:pattern2   # required

@@ -10,6 +10,8 @@ A role is a directory with specified contents. The role directory
 must be in one of the directories on the :ref:`roles-path` and its
 name is used to refer to the role elsewhere.
 
+`Complete list of possible keywords <http://docs.ansible.com/ansible/latest/playbooks_keywords.html#role>`_
+
 Inside the role's top-level directory, you might see a tree like
 this (most of this is optional).
 

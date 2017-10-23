@@ -52,7 +52,8 @@ Or use this more compact but apparently equivalent syntax::
 Task
 ------
 
-`doc <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_
+`doc <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_,
+`complete list of possible keywords <http://docs.ansible.com/ansible/latest/playbooks_keywords.html#task>`_
 
 A dictionary::
 
