@@ -70,12 +70,16 @@ Install without any prompts (http://askubuntu.com/questions/146921/how-do-i-apt-
 Desktop applications
 --------------------
 
-Launch the application from command line that has a <name>.desktop file somewhere::
-
-    gtk-launch <name>
-
 Put your own .desktop files in ~/.local/share/applications.
 
 `Archlinux on desktop entries <https://wiki.archlinux.org/index.php/desktop_entries>`_
 
 `Desktop file spec <https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html>`_
+
+To let the system know about new or changed desktop files::
+
+    update-desktop-database [directory]
+
+Launch the application from command line that has a <name>.desktop file somewhere::
+
+    gtk-launch <name>
