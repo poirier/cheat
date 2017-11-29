@@ -24,6 +24,7 @@ Contents:
    logitech_harmony/index
    mpd
    mysql
+   nginx
    npm
    openssl
    org-mode
