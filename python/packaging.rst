@@ -45,6 +45,13 @@ under subdir/path.  Finally::
 
 should be obvious.
 
+Source package
+--------------
+
+To build a source package::
+
+    python setup.py sdist
+
 Wheels
 ------
 
@@ -74,9 +81,8 @@ Only use the ``--universal`` setting, if:
 Upload
 ------
 
-The docs recommend ``twine`` but I haven't had much luck getting it working,
-so...
+The docs recommend ``twine``
 
 ::
 
-    python setup.py sdist bdist_wheel upload
+    twine upload dist/*
