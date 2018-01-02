@@ -12,10 +12,12 @@ Contents:
    admin
    apps
    celery
+   compressor
    data
    database
    ddt
    dokku
+   eb
    email
    fabric
    forms

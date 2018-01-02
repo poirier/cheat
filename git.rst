@@ -232,3 +232,23 @@ On N, merge B::
                      o - o - o  <--- B
 
 Delete A and B if desired.
+
+Undoing things
+--------------
+
+If you've committed some changes, then for some reason decide you didn't
+want to commit them yet - but still want the changes present in your local
+working directory - there are several options.
+
+To get rid of the actual ``commit`` but keep all those changes staged::
+
+    $ git reset --soft HEAD~
+
+To get rid of the actual commit and keep the changes, but not staged::
+
+    $ git reset HEAD~
+
+And if you didn't want those changes at all - *WARNING* this will lose
+changes - gone::
+
+    $ git reset --hard HEAD~

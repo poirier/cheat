@@ -25,6 +25,7 @@ Contents:
    logitech_harmony/index
    mpd
    mysql
+   nginx
    npm
    openssl
    org-mode
@@ -35,6 +36,7 @@ Contents:
    rst
    salt
    tmux
+   travisci
    video
    virtualbox
    yaml

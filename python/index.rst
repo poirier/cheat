@@ -14,6 +14,17 @@ Contents:
    virtualenv
    xml
 
+Most minimal logging
+--------------------
+
+Python doesn't provide any logging handlers by default, resulting
+in not seeing anything but an error from the logging package itself...
+Add a handler to the root logger so we can see the actual errors.::
+
+   import logging
+   logging.getLogger('').addHandler(logging.StreamHandler())
+
+
 Binary data to file-like object (readable)
 ------------------------------------------
 

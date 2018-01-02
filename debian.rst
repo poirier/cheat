@@ -30,7 +30,7 @@ Packages
 * List packages that match a pattern:  ``dpkg -l <pattern>``
 * List contents of a package: ``dpkg -L packagename``
 * Show packages that installed files matching pattern: ``dpkg -S pattern``
-* Show info about an installed package: ``dpkg -p packagename``
+* Show info about an installed package: ``dpkg-query -s packagename``
 * show info about a package that is known: ``apt-cache showpkg packagename``
 * Reconfigure a package: ``dpkg-reconfigure packagename``
 * Change alternatives: ``update-alternatives ...``
@@ -66,3 +66,20 @@ Install without any prompts (http://askubuntu.com/questions/146921/how-do-i-apt-
     sudo DEBIAN_FRONTEND=noninteractive apt-get -y \
     -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
     <COMMAND>
+
+Desktop applications
+--------------------
+
+Put your own .desktop files in ~/.local/share/applications.
+
+`Archlinux on desktop entries <https://wiki.archlinux.org/index.php/desktop_entries>`_
+
+`Desktop file spec <https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html>`_
+
+To let the system know about new or changed desktop files::
+
+    update-desktop-database [directory]
+
+Launch the application from command line that has a <name>.desktop file somewhere::
+
+    gtk-launch <name>

@@ -19,6 +19,16 @@ You can do this from your own system:
     $ ssh dokku postgres:create example-database
     $ ssh dokku postgres:link example-database django-tutorial
 
+Now when dokku runs your app, it’ll set an env var to tell it where its DB is, e.g.::
+
+    DATABASE_URL=postgres://user:pass@host:port/db
+
+For Django, install the tiny ``dj_database_url`` package, then in settings.py::
+
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
+
 There are built-in commands making it easy to backup and restore databases:
 
 .. code-block:: bash
