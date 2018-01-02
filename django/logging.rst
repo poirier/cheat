@@ -133,7 +133,7 @@ In settings::
         },
     }
 
-Or how about:
+Or how about::
 
     LOGGING = {
         'version': 1,

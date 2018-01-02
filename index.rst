@@ -16,6 +16,7 @@ Contents:
    elixir
    git
    google
+   haproxy
    haskell
    i3
    ipv6
