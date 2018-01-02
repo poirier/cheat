@@ -14,9 +14,15 @@ Use proxy "mode tcp".  E.g::
         bind :443
         mode tcp
         server server1 10.0.0.1:443
+        default_backend sslserver
+    backend sslserver
+        mode tcp
+        server servername 1.2.3.4:443
 
 Route based on SNI
 ------------------
+
+This works even if haproxy is not terminating the SSL connection::
 
     acl site_b req_ssl_sni -i site_b.com
     use_backend site_b_backend if site_b
@@ -31,9 +37,7 @@ Route based on Host request header
 Use an ACL to check the header and then pick a backend::
 
     acl site_a hdr(host) -i site_a.com
-
     use_backend site_a_backend if site_a
-
     backend site_a_backend
       mode http
       server a1 10.0.0.1:80
