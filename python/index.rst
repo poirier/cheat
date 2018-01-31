@@ -11,6 +11,7 @@ Contents:
    packaging
    pip
    timezones
+   tox
    virtualenv
    xml
 

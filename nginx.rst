@@ -4,6 +4,26 @@ Nginx
 `Docs are here <http://nginx.org/en/docs/>`_ but good luck finding anything there
 if you don't already where it is.
 
+Redirect non-SSL to SSL
+-----------------------
+
+From https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx::
+
+    server {
+        listen   80;
+        listen   [::]:80;
+        listen   443 default_server ssl;
+
+        server_name www.example.com;
+
+        ssl_certificate        /path/to/my/cert;
+        ssl_certificate_key  /path/to/my/key;
+
+        if ($scheme = http) {
+            return 301 https://$server_name$request_uri;
+        }
+    }
+
 Most useful variables
 ---------------------
 
