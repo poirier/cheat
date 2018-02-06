@@ -98,3 +98,17 @@ you can run the “setup” module as an ad-hoc action::
 This will print out a dictionary of all of the facts that are
 available for that particular host.  And here's
 `an example <http://docs.ansible.com/ansible/playbooks_variables.html#information-discovered-from-systems-facts>`_.
+
+The top of the output will look like::
+
+    staging-web2 | SUCCESS => {
+        "ansible_facts": {
+            "ansible_all_ipv4_addresses": [
+                "10.132.77.14",
+                "138.197.111.207",
+                "10.17.0.12"
+            ],
+            "ansible_all_ipv6_addresses": [
+
+Ignore the ``"ansible_facts"`` part of that. To reference any of these variable, start with
+the next level.  E.g. ``{{ ansible_all_ipv4_addresses[1] }}``.
