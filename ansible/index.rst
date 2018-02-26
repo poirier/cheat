@@ -15,6 +15,7 @@ since Ansible's own docs have nothing like a reference.
   block
   conditionals
   configuration
+  hostpatterns
   inventory
   invoking
   loops
@@ -48,14 +49,3 @@ Shortcut to run a command:
 options:  see output of "ansible --help" for now
 
 See `doc <http://docs.ansible.com/intro_adhoc.html>`_ for ad-hoc commands.
-
-.. _host-pattern:
-
-Host pattern
-------------------
-
-See `doc <http://docs.ansible.com/intro_patterns.html#patterns>`_ for host patterns.
-
-<hosts>:
-
-    "all" = all hosts in inventory file

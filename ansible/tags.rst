@@ -58,7 +58,7 @@ Specifying ``--tags=all`` is equivalent to the default behavior,
 where all playbooks and tasks are run regardless of their tags.
 
 Specifying ``--tags=tagged`` runs only things that have *some*
-tag, while ``-tags=untagged`` runs only things that have *no*
+tag, while ``--tags=untagged`` runs only things that have *no*
 tag.
 
 You could alternatively invoke ansible with ``--skip-tags=a,b,c``

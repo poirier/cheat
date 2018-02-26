@@ -29,3 +29,11 @@ The variable is actually an object with lots of useful items in it.  Some of the
 * ``.results`` - If this key exists, it indicates that a loop was present for the task and that it contains a list of the normal module ‘result’ per item.
 
 `more on common return values <https://docs.ansible.com/ansible/latest/common_return_values.html>`_.
+
+There are also useful filters:
+
+* ``|succeeded`` - boolean, true if task succeeded
+* ``|failed`` - boolean, true if task failed
+* ``|skipped`` = boolean, true if the task was skipped
+
+``succeeded`` is probably the most useful here - the others just duplicate attributes.
