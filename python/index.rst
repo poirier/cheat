@@ -11,6 +11,7 @@ Contents:
    packaging
    pip
    pipenv
+   six
    timezones
    tox
    virtualenv
