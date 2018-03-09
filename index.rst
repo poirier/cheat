@@ -33,6 +33,7 @@ Contents:
    postgres
    python/index
    raspberrypi/index
+   release
    rst
    salt
    tmux

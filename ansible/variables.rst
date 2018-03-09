@@ -96,7 +96,11 @@ you can run the “setup” module as an ad-hoc action::
     ansible -m setup hostname
 
 This will print out a dictionary of all of the facts that are
-available for that particular host.  And here's
+available for that particular host.
+
+The Ansible docs used to show an example of this output, but
+apparently they've removed or moved that.
+And here's
 `an example <http://docs.ansible.com/ansible/playbooks_variables.html#information-discovered-from-systems-facts>`_.
 
 The top of the output will look like::
