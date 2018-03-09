@@ -21,6 +21,7 @@ Contents:
    i3
    ipv6
    javascript/index
+   linux
    lxde
    logitech_harmony/index
    mpd
