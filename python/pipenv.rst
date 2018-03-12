@@ -1,7 +1,7 @@
 Pipenv
 ======
 
-`docs <https://docs.pipenv.org/>`_
+`Pipenv docs <https://docs.pipenv.org/>`_
 
 Converting from a requirements file
 -----------------------------------
@@ -24,5 +24,3 @@ Keeping dev-only packages out of production
 1) Add dev-only packages using ``pipenv install --dev <packages>``
 2) For development, install using ``pipenv install --dev``
 3) In production, leave off the ``--dev``
-
-`docs <https://docs.pipenv.org/#cmdoption-pipenv-install-d>`_

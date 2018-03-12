@@ -48,4 +48,4 @@ Shortcut to run a command:
 
 options:  see output of "ansible --help" for now
 
-See `doc <http://docs.ansible.com/intro_adhoc.html>`_ for ad-hoc commands.
+See `ansible ad-hoc commands doc <http://docs.ansible.com/intro_adhoc.html>`_ for ad-hoc commands.

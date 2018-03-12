@@ -1,7 +1,7 @@
 Conditionals, return values, and registered variables
-============
+=====================================================
 
-`doc <http://docs.ansible.com/playbooks_conditionals.html>`_
+`Ansible conditionals doc <http://docs.ansible.com/playbooks_conditionals.html>`_
 
 Conditional tasks
 -----------------

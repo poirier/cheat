@@ -1,7 +1,7 @@
 Nginx
 =====
 
-`Docs are here <http://nginx.org/en/docs/>`_ but good luck finding anything there
+`Nginx docs are here <http://nginx.org/en/docs/>`_ but good luck finding anything there
 if you don't already where it is.
 
 Redirect non-SSL to SSL

@@ -24,7 +24,7 @@ Syntax
 
 Templating
     A playbook is rendered as a Jinja2 template
-    (`doc <http://docs.ansible.com/ansible/playbooks_variables.html#using-variables-about-jinja2>`_)
+    (`using variables in playbooks doc <http://docs.ansible.com/ansible/playbooks_variables.html#using-variables-about-jinja2>`_)
     before processing it, but playbooks should not use loops and conditionals.
 
 .. _playbook-include:

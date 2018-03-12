@@ -35,22 +35,18 @@ A: You need to set the GDK_USE_XFT environment variable, if you are using bash t
 
 *  __How do you make the entire session use anti-aliased fonts?__
 
-    Create a file, '.gnomerc', in your home directory and put in it ::
-
+Create a file, '.gnomerc', in your home directory and put in it ::
 
     #!/bin/sh
     export GDK_USE_XFT=1
     exec gnome-session
-
 
 Note
 
 If you use a display manager such as gdm, you don't need the "exec gnome-session" line and it may in fact be counterproductive.
 
 
-You may also have to edit the file /etc/X11/!XftConfig. Look for lines with
-
-::
+You may also have to edit the file /etc/X11/!XftConfig. Look for lines with::
 
 
     #

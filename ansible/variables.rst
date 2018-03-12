@@ -8,7 +8,7 @@ Variables
 
 Some variables alter the behavior of ansible (see http://docs.ansible.com/intro_inventory.html#list-of-behavioral-inventory-parameters for a list).
 You can set some of these using environment variables
-(`doc <http://docs.ansible.com/ansible/intro_configuration.html#environmental-configuration>`_).
+(`ansible variables doc <http://docs.ansible.com/ansible/intro_configuration.html#environmental-configuration>`_).
 
 CORRECTION: Use ``ansible_ssh_user``, not ``ansible_user``.
 
@@ -34,7 +34,7 @@ And here's the precedence order:
 * then "role defaults", which are the most "defaulty" and lose in priority to everything.
 
 There are also three scopes
-(`doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-scopes>`_)
+(`ansible variable scopes doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-scopes>`_)
 but I don't know how these relate to precedence:
 
 * Global: this is set by config, environment variables and the command line
@@ -73,7 +73,7 @@ and Ansible will use all the files in that directory as
 :ref:`variables-file` s.
 
 You can also include vars files from a :ref:`play`
-(`doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>`_).
+(`ansible variable files doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>`_).
 
 .. _facts:
 
@@ -86,7 +86,7 @@ the plays and tasks are running on, not the system you're
 controlling ansible from).
 
 You can add to the facts with config files called local facts
-(`doc <http://docs.ansible.com/playbooks_variables.html#local-facts-facts-d>`_)
+(`ansible local facts doc <http://docs.ansible.com/playbooks_variables.html#local-facts-facts-d>`_)
 though I don't know how that's any better than putting
 variables in all the other places you can set them...
 

@@ -138,7 +138,7 @@ In settings:
         },
     }
 
-Or how about::
+Or how about:
 
 .. code-block:: python
 

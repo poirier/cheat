@@ -13,6 +13,8 @@ Send one email::
 Attachments
 -----------
 
+.. code-block:: python
+
     msg = EmailMessage(...)
     msg.attach(
         filename="any string",

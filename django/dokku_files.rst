@@ -78,7 +78,7 @@ Procfile
 --------
 
 Create `Procfile <https://devcenter.heroku.com/articles/procfile>`_
-(`more <http://dokku.viewdocs.io/dokku~v0.9.2/deployment/methods/buildpacks/#specifying-commands-via-procfile>`_)
+(`more on dokku Procfile <http://dokku.viewdocs.io/dokku~v0.9.2/deployment/methods/buildpacks/#specifying-commands-via-procfile>`_)
 in the top directory. For our simple case, it can just contain one
 line, starting with ``web: `` and containing the command to start
 gunicorn for our site::

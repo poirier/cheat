@@ -4,6 +4,8 @@ reStructuredText
 REST reStructuredText notes
 (see also Sphinx notes)
 
+SEE CHEATSHEET AT END
+
 * `rst tutorial <http://sphinx-doc.org/tutorial.html>`_
 * `rst primer <http://sphinx-doc.org/rest.html#rst-primer>`_
 * `rst markup <http://sphinx-doc.org/markup/index.html#sphinxmarkup>`_
@@ -133,3 +135,13 @@ Now from somewhere else, you can write ``:ref:`my-label```
 and it'll be rendered as "My Section" and will link to the
 section.  If you want some other text in the link, you
 can write ``:ref:`any text <my-label>``` instead.
+
+Cheatsheets
+-----------
+
+Copied from http://docs.sphinxdocs.com/en/latest/cheatsheet.html - thanks
+to Read The Docs:
+
+.. image:: sphinx-cheatsheet-front-full.png
+
+.. image:: sphinx-cheatsheet-back-full.png

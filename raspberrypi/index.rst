@@ -5,5 +5,3 @@ Raspberry Pi
    :maxdepth: 1
 
    usbdrive
-   crashplan
-   readynas

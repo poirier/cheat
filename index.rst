@@ -16,12 +16,15 @@ Contents:
    elixir
    git
    google
+   gulp
    haproxy
    haskell
    i3
    ipv6
    javascript/index
+   kobo
    linux
+   lirc
    lxde
    logitech_harmony/index
    mpd
@@ -37,9 +40,11 @@ Contents:
    release
    rst
    salt
+   socat
    tmux
    travisci
    video
+   x11
    virtualbox
    yaml
 

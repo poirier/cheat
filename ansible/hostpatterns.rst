@@ -4,7 +4,7 @@ Host Patterns
 =============
 
 
-See `doc <http://docs.ansible.com/intro_patterns.html#patterns>`_ for host patterns.
+See `ansible host patterns doc <http://docs.ansible.com/intro_patterns.html#patterns>`_ for host patterns.
 
 <hosts>:
 

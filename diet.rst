@@ -5,18 +5,23 @@ Foods with low glycemic index
 -----------------------------
 
 * Breads
+
  * Dense wholegrain breads
  * White corn tortillas
  * Grain and seed breads
  * Fruit Loaf such as Raisin
  * Multigrain breads (look for breads where you can see lots of grains)
  * Authentic Sourdough bread
+
 * Breakfast Cereals
+
  * Traditional porridge oats
  * Muesli*
  * Bircher Muesli
  * Wholegrain high fibre cereals
+
 * Vegetables
+
  * Sweetcorn
  * Silverbeet
  * Carrots
@@ -37,27 +42,37 @@ Foods with low glycemic index
  * Mushrooms – very low carb or no GI rating
  * Butternut Pumpkin (lower GI)
  * Avocadoes
+
 * Drinks
+
  * Milo®
  * Skim Latte
  * Sustagen®
  * Soy Drinks
  * Fruit Smoothies
  * Fruit Juice
+
 * Snacks
+
  * Grain & Fruit bars
  * Wholegrain crackers
  * Nut & Seed bars
  * Dried fruit and nuts
+
 * Legumes
+
  * Split Peas; Green or red Lentils
  * Baked Beans
  * Canned & Dried beans – kidney, cannellini, butter, borlotti, chickpeas
+
 * Spreads
+
  * Fruit Spreads
  * Hummus
  * Nut butters
+
 * Main Meal Carbs
+
  * Doongara Low GI White rice
  * Fresh Noodles – Hokkein, Udon, Rice
  * Low GI Brown rice*
@@ -72,7 +87,9 @@ Foods with low glycemic index
  * Semolina
  * Pearl Barley
  * Cracked Wheat
+
 * Fruit
+
  * Apples*
  * Pears*
  * Bananas
@@ -88,7 +105,9 @@ Foods with low glycemic index
  * Plums
  * Dried fruits such as   prunes, raisins, sultanas, apricots
  * Canned Fruit in natural juice
+
 * Dairy Foods
+
  * Reduced fat milk
  * Reduced fat custard
  * Reduced fat yoghurt, plain or fruit flavoured

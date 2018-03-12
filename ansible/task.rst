@@ -52,7 +52,7 @@ Or use this more compact but apparently equivalent syntax::
 Task
 ------
 
-`doc <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_,
+`ansible tasks doc <http://docs.ansible.com/ansible/playbooks_intro.html#tasks-list>`_,
 `complete list of possible keywords <http://docs.ansible.com/ansible/latest/playbooks_keywords.html#task>`_
 
 A dictionary::
@@ -93,7 +93,8 @@ sudo_user
 tags
     list of tags to associate with the task
 when
-    expression controls whether task is executed `doc <https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement>`_::
+    expression controls whether task is executed
+    `ansible when doc <https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement>`_::
 
         when: <varname>
         when: not <varname>

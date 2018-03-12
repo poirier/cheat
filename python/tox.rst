@@ -17,8 +17,6 @@ Links:
 
 * `Configuration <http://tox.readthedocs.io/en/latest/config.html>`_
 
-Example config file::
-
 
 Substitutions
 -------------

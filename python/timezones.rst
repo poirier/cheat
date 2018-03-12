@@ -7,8 +7,9 @@ Key points
 * Install the pytz package to provide actual time zones. Python doesn't come with them.
 
 * There are two kinds of datetime objects in Python, and you need to always know which you're working with:
- * naive - has no timezone info.  (datetime.tzinfo is None)
- * aware - has timezone info (datetime.tzinfo is not None)
+
+  * naive - has no timezone info.  (datetime.tzinfo is None)
+  * aware - has timezone info (datetime.tzinfo is not None)
 
 * There will always be some things you want to do with datetimes that are just inherently ambiguous. Get used to it.
 

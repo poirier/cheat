@@ -4,9 +4,9 @@ Ansible Galaxy
 Links
 -----
 
-* `doc <https://galaxy.ansible.com/intro>`_
-* `popular roles and recent activity <https://galaxy.ansible.com/explore#/>`_
-* `search <https://galaxy.ansible.com/list#/roles>`_
+* `Galaxy doc <https://galaxy.ansible.com/intro>`_
+* `popular galaxy roles and recent activity <https://galaxy.ansible.com/explore#/>`_
+* `search galaxy <https://galaxy.ansible.com/list#/roles>`_
 
 Role specification
 ------------------

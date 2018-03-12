@@ -269,7 +269,7 @@ But if your requirements include references to private git repos, then
 you'll need to arrange for Dokku to get access to those repos when it's
 ``pip installing`` your requirements.
 
-`Docs <http://dokku.viewdocs.io/dokku/deployment/application-deployment/#deploying-with-private-git-submodules>`_,
+`Dokku docs <http://dokku.viewdocs.io/dokku/deployment/application-deployment/#deploying-with-private-git-submodules>`_,
 such as they are...
 
 I think the upshot is:

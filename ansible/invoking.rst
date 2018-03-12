@@ -172,7 +172,7 @@ Hosts pulling config
 --------------------
 
 Ansible-pull
-(`doc <http://docs.ansible.com/ansible/playbooks_intro.html#ansible-pull>`_)
+(`ansible-pull doc <http://docs.ansible.com/ansible/playbooks_intro.html#ansible-pull>`_)
 is a small script that will checkout a repo of configuration instructions from
 git, and then run ansible-playbook against that content.
 

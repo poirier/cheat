@@ -17,7 +17,7 @@ Customize top-right corner of admin pages
 Create your own `templates/admin/base_site.html` that comes ahead of the
 admin's default one in the templates path.
 
-At least in Django 1.8+, this gives you a "View site" link for free:
+At least in Django 1.8+, this gives you a "View site" link for free::
 
     % extends "admin/base.html" %}
 
@@ -32,7 +32,7 @@ At least in Django 1.8+, this gives you a "View site" link for free:
         {{ block.super }}
     {% endblock userlinks %}
 
-Prior to Django 1.8:
+Prior to Django 1.8::
 
     {% extends "admin/base.html" %}
 
