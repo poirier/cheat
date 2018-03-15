@@ -29,6 +29,7 @@ Contents:
    permissions
    queries
    security
+   sentry
    settings
    templates
    test

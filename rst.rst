@@ -140,7 +140,11 @@ Cheatsheets
 -----------
 
 Copied from http://docs.sphinxdocs.com/en/latest/cheatsheet.html - thanks
-to Read The Docs:
+to Read The Docs.
+
+BUGS:
+
+* ``codeblock`` should be ``code-block``
 
 .. image:: sphinx-cheatsheet-front-full.png
 
