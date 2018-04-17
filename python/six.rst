@@ -46,3 +46,27 @@ Writing Python code that works the same in Python 2 & 3, using six as necessary.
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | zip(a, b)                     | list(zip(a, b))                   | list(zip(a, b))                             |
 +-------------------------------+-----------------------------------+---------------------------------------------+
+
+six.BytesIO
+This is a fake file object for binary data. In Python 2, it’s an alias for StringIO.StringIO, but in Python 3, it’s an alias for io.BytesIO.
+
+six.StringIO
+This is an fake file object for textual data. It’s an alias for StringIO.StringIO in Python 2 and io.StringIO in Python 3.
+
+six.moves.reduce
+reduce	reduce()	functools.reduce()
+
+
+six.moves.range
+
+range	xrange()	range
+
+
+six.reraise(exc_type, exc_value, exc_traceback=None)
+Reraise an exception, possibly with a different traceback. In the simple case, reraise(*sys.exc_info())
+with an active exception (in an except block) reraises the current exception with the last traceback.
+A different traceback can be specified with the exc_traceback parameter. Note that since the exception
+reraising is done within the reraise() function, Python will attach the call frame of reraise() to whatever
+traceback is raised.
+
+2to3 does raise E, V, T to raise E(V).with_traceback(T)

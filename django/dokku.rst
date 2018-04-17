@@ -28,19 +28,7 @@ Environment variables
 ---------------------
 
 I can't find docs on what environment variables Dokku sets globally
-when running apps. A little poking around in one of my deployed apps
-showed that there doesn't seem to be a whole lot beyond what the plugins
-are providing, but here are a few that look useful:
-
-DOKKU_DEPLOY_BRANCH
-
-    The name of the branch that is running, e.g. ``master`` or ``develop``.
-
-and... that's about it?
-
-Actually, *not even that* seems to be reliably provided.
-
-Still, just about any Django app is going to be linked to a database,
+when running apps. But just about any Django app is going to be linked to a database,
 so if you need to detect whether the app is running under Dokku
 or Heroku, looking for DATABASE_URL should be good enough.
 
@@ -297,11 +285,11 @@ are (at least) two ways to deploy a branch other than master.
 but that requires you to always remember that if you have apps that are always supposed
 to use a different branch than master.
 
-2) Configure your app so the default branch is different, by changing the config value ``DOKKU_DEPLOY_BRANCH``:
+2) Configure your app so the default branch is different, by using the git:set command:
 
 .. code-block:: bash
 
-    $ ssh dokku config:set --no-restart <app-name> DOKKU_DEPLOY_BRANCH=<some-branch>
+    $ ssh dokku git:set appname deploy-branch SOME_BRANCH_NAME
 
 This seems like a more useful approach.  Just "git push dokku some-branch" every time
 you want to deploy your app.
@@ -317,12 +305,12 @@ The key is to set up a different git remote for each remote app.  E.g.:
 .. code-block:: bash
 
     $ ssh dokku app:create staging
-    $ ssh dokku config:set --no-restart staging DOKKU_DEPLOY_BRANCH=develop
+    $ ssh dokku git:set staging deploy-branch develop
 
     $ git remote add staging dokku@my-dokku-server.com:staging
 
     $ ssh dokku app:create production
-    $ ssh dokku config:set --no-restart production DOKKU_DEPLOY_BRANCH=master
+    $ ssh dokku git:set production deploy-branch master
 
     $ git remote add production dokku@my-dokku-server.com:production
 
