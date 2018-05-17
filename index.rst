@@ -6,6 +6,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   android/index
    ansible/index
    aws/index
    bootstrap
