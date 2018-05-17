@@ -79,13 +79,10 @@ You can ask Django to create more permissions for a model:
 When the table is created during ``syncdb``, Django will create the additional
 Permission objects too.
 
-.. WARNING::
-
-    Prior to Django 1.7,
-    such permissions were *only* created when Django creates the model's
-    table during ``syncdb``. Adding permissions to the model definition
-    later does nothing (unless you drop the table and force Django to
-    create it again).
+In Django 1.11 (and probably earlier, but definitely not before 1.7),
+if you edit these permissions and ``makemigrations``, Django will create
+a migration for you that when run, will add any missing migrations. (I
+don't know whether it'll update verbose names of existing permissions.)
 
 You can programmatically force Django to create additional Permissions
 with code like:
