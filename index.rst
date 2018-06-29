@@ -13,6 +13,7 @@ Contents:
    debian
    diet
    django/index
+   docker
    elasticsearch/index
    elixir
    git

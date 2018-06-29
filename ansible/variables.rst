@@ -29,24 +29,19 @@ Places to define variables:
 * local facts
 * ansible command line (``--extra-vars "foo=1 bar=2"`` or ``--extra-vars @filepath.json`` or ``--extra-vars @filepath.yml``)
 
-And here's the precedence order:
+See also "Variable Precedence", a little farther down...
 
-* extra vars (-e in the command line) always win
-* then comes connection variables defined in inventory (ansible_ssh_user, etc)
-   * Do NOT put things like ansible_sudo=[yes|no] here because it'll override the values
-     set in plays, tasks, etc. which need to be able to control it themselves
-* then comes "most everything else" (command line switches, vars in play, included vars, role vars, etc)
-* then comes the rest of the variables defined in inventory
-* then comes facts discovered about a system
-* then "role defaults", which are the most "defaulty" and lose in priority to everything.
+Variables that Ansible sets for you
+-----------------------------------
 
-There are also three scopes
-(`ansible variable scopes doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-scopes>`_)
-but I don't know how these relate to precedence:
+There are some variables that Ansible sets for you that are not shown
+when you list Facts (see below) - go figure.
 
-* Global: this is set by config, environment variables and the command line
-* Play: each play and contained structures, vars entries, include_vars, role defaults and vars.
-* Host: variables directly associated to a host, like inventory, facts or registered task outputs
+``inventory_hostname`` is the name of the hostname as configured in Ansible’s inventory host file.
+This can be useful for when you don’t want to rely on the discovered hostname ansible_hostname or
+for other mysterious reasons.
+
+If you have a long FQDN, ``inventory_hostname_short`` also contains the part up to the first period, without the rest of the domain.
 
 .. _variables-file:
 
@@ -81,6 +76,46 @@ and Ansible will use all the files in that directory as
 
 You can also include vars files from a :ref:`play`
 (`ansible variable files doc <http://docs.ansible.com/ansible/playbooks_variables.html#variable-file-separation>`_).
+
+.. _precedence:
+
+Variable precedence
+-------------------
+
+`docs <http://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable>`_
+
+From 2.0 on, from lowest priority to highest - in other words, if a variable is defined in two places, the place that's farther down in this list takes precedence.
+
+* role defaults [1]
+* inventory file or script group vars [2]
+* inventory group_vars/all [3]
+* playbook group_vars/all [3]
+* inventory group_vars/* [3]
+* playbook group_vars/* [3]
+* inventory file or script host vars [2]
+* inventory host_vars/*
+* playbook host_vars/*
+* host facts / cached set_facts [4]
+* inventory host_vars/* [3]
+* playbook host_vars/* [3]
+* host facts
+* play vars
+* play vars_prompt
+* play vars_files
+* role vars (defined in role/vars/main.yml)
+* block vars (only for tasks in block)
+* task vars (only for the task)
+* include_vars
+* set_facts / registered vars
+* role (and include_role) params
+* include params
+* extra vars (defined on command line with ``-e``, always win precedence)
+
+[1]	Tasks in each role will see their own role’s defaults. Tasks defined outside of a role will see the last role’s defaults.
+[2]	(1, 2) Variables defined in inventory file or provided by dynamic inventory.
+[3]	(1, 2, 3, 4, 5, 6) Includes vars added by ‘vars plugins’ as well as host_vars and group_vars which are added by the default vars plugin shipped with Ansible.
+[4]	When created with set_facts’s cacheable option, variables will have the high precedence in the play, but will be the same as a host facts precedence when they come from the cache.
+
 
 .. _facts:
 
