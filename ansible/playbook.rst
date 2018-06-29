@@ -55,6 +55,12 @@ A dictionary::
   roles:
     - <rolename1>
     - {role: <rolename2>, var1: value1, tags: ['tag1', 'tag2']}
+    - role: <rolename3>
+      var1: value1
+      var2: value2
+      tags:
+      - tag1
+      - tag2
   tags:
     - <tag1>
     - <tag2>

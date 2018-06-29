@@ -8,7 +8,11 @@ Pre-defined variables
 
 `Ansible defines some variables for you <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts>`_
 
+These are not mentioned when you list Facts (see below) - go figure.
+
 ``inventory_hostname`` is the name of the current host as you've configured it in your Ansible inventory file, regardless of the system's actual hostname.
+
+If you have a long FQDN, ``inventory_hostname_short`` also contains the part up to the first period, without the rest of the domain.
 
 Variables
 ---------
@@ -31,17 +35,6 @@ Places to define variables:
 
 See also "Variable Precedence", a little farther down...
 
-Variables that Ansible sets for you
------------------------------------
-
-There are some variables that Ansible sets for you that are not shown
-when you list Facts (see below) - go figure.
-
-``inventory_hostname`` is the name of the hostname as configured in Ansible’s inventory host file.
-This can be useful for when you don’t want to rely on the discovered hostname ansible_hostname or
-for other mysterious reasons.
-
-If you have a long FQDN, ``inventory_hostname_short`` also contains the part up to the first period, without the rest of the domain.
 
 .. _variables-file:
 
