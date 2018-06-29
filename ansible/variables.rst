@@ -3,6 +3,13 @@ Variables
 
 .. _variables:
 
+Pre-defined variables
+---------------------
+
+`Ansible defines some variables for you <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts>`_
+
+``inventory_hostname`` is the name of the current host as you've configured it in your Ansible inventory file, regardless of the system's actual hostname.
+
 Variables
 ---------
 
