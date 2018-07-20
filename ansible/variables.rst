@@ -151,3 +151,8 @@ The top of the output will look like::
 
 Ignore the ``"ansible_facts"`` part of that. To reference any of these variable, start with
 the next level.  E.g. ``{{ ansible_all_ipv4_addresses[1] }}``.
+
+*ALTERNATIVELY*, you can access the same variables as items in the ``ansible_facts``
+dictionary, only without the individual keys prefixed by ``ansible_`` (or so
+the docs say https://docs.ansible.com/ansible/latest/reference_appendices/config.html#inject-facts-as-vars)
+and this should work even if INJECT_FACTS_AS_VARS has been set False).
