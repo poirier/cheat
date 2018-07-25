@@ -24,6 +24,12 @@ Starting the client::
     $ mysql --user=username [database]      # if user has no password
     $ mysql --user=username --password [database]   # to be prompted for password
 
+To do things that require mysql root::
+
+    $ mysql -u root   # If root has no password and older Debian
+    $ mysql -u root -p  # if root has password and older Debian
+    $ sudo mysql -u root   # On more recent Debian, no need for root password but must be root user
+
 Users and permissions
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -46,7 +52,8 @@ Change user password
 
 Note: default host is '%' which will not let you connect via unix socket, must set password for host 'localhost' to allow that::
 
-    mysql> update mysql.user set password=password('foo'),host='localhost' where user='poirier_wordpres';
+    mysql> update mysql.user set password=password('foo'),host='localhost' where user='poirier_wordpres';   # On older MySQL
+    mysql> set password for 'dpoirier'@'localhost' = 'plainpass';  # More recent MySQL
     mysql> flush privileges;
 
 Recover lost password
