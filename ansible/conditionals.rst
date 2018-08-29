@@ -32,8 +32,8 @@ The variable is actually an object with lots of useful items in it.  Some of the
 
 There are also useful filters:
 
-* ``|succeeded`` - boolean, true if task succeeded
-* ``|failed`` - boolean, true if task failed
-* ``|skipped`` = boolean, true if the task was skipped
+* ``is succeeded`` - boolean, true if task succeeded
+* ``is failed`` - boolean, true if task failed
+* ``is skipped`` = boolean, true if the task was skipped
 
 ``succeeded`` is probably the most useful here - the others just duplicate attributes.
