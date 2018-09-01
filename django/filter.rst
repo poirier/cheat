@@ -67,6 +67,25 @@ we just render that however we want and add a way to submit it.
 
 That's all you need to make a simple filtered view.
 
+Default values for filters
+--------------------------
+
+Putting this here because it took me a while to figure out a good solution.
+I wanted some of my filters to have default values, so when a user loaded
+a page initially, for example, the items would be sorted most recent first.
+
+To do this, I override ``__init__`` on my filter set and add default values
+to the data being passed:
+
+.. code-block:: python
+
+    class BookFilterSet(django_filters.FilterSet):
+        def __init__(self, data, *args, **kwargs):
+            data = data.copy()
+            data.setdefault('format', 'paperback')
+            data.setdefault('order', '-added')
+            super().__init__(data, *args, **kwargs)
+
 Pagination
 ----------
 
