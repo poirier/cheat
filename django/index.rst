@@ -20,6 +20,7 @@ Contents:
    eb
    email
    fabric
+   filter
    forms
    home
    logging
