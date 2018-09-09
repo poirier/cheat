@@ -27,6 +27,7 @@ Contents:
    kobo
    linux
    lirc
+   lvm
    lxde
    logitech_harmony/index
    mpd
