@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Dan\'s Cheat Sheets'
-copyright = '2017, Dan Poirier'
+copyright = '2018, Dan Poirier'
 author = 'Dan Poirier'
 
 # The version info for the project you're documenting, acts as replacement for
