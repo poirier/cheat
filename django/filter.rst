@@ -173,7 +173,7 @@ with that:
 
 
     @register.simple_tag(takes_context=True)
-    def url_replace(context, **kwargs):
+    def param_replace(context, **kwargs):
         """
         Return encoded URL parameters that are the same as the current
         request's parameters, only with the specified GET parameters added or changed.
@@ -184,7 +184,7 @@ with that:
         For example, if you're on the page ``/things/?with_frosting=true&page=5``,
         then
 
-        <a href="/things/?{% url_replace page=3 %}">Page 3</a>
+        <a href="/things/?{% param_replace page=3 %}">Page 3</a>
 
         would expand to
 
@@ -209,9 +209,9 @@ that preserve other query parameters used for things like filtering:
 
     {% if is_paginated %}
       {% if page_obj.has_previous %}
-        <a href="?{% url_replace page=1 %}">First</a>
+        <a href="?{% param_replace page=1 %}">First</a>
         {% if page_obj.previous_page_number != 1 %}
-          <a href="?{% url_replace page=page_obj.previous_page_number %}">Previous</a>
+          <a href="?{% param_replace page=page_obj.previous_page_number %}">Previous</a>
         {% endif %}
       {% endif %}
 
@@ -219,9 +219,9 @@ that preserve other query parameters used for things like filtering:
 
       {% if page_obj.has_next %}
         {% if page_obj.next_page_number != paginator.num_pages %}
-          <a href="?{% url_replace page=page_obj.next_page_number %}">Next</a>
+          <a href="?{% param_replace page=page_obj.next_page_number %}">Next</a>
         {% endif %}
-        <a href="?{% url_replace page=paginator.num_pages %}">Last</a>
+        <a href="?{% param_replace page=paginator.num_pages %}">Last</a>
       {% endif %}
 
       <p>Objects {{ page_obj.start_index }}&mdash;{{ page_obj.end_index }}</p>
@@ -235,7 +235,7 @@ Useful links
 
 * `django_filter <https://django-filter.readthedocs.io>`_
 * `Django pagination <https://docs.djangoproject.com/en/stable/topics/pagination/>`_
-* `url_replace template tag <https://stackoverflow.com/questions/22734695/next-and-before-links-for-a-django-paginated-query/22735278#22735278>`_
+* `param_replace template tag <https://stackoverflow.com/questions/22734695/next-and-before-links-for-a-django-paginated-query/22735278#22735278>`_
 
 I haven't tried it, but if you need something more sophisticated for building
 these kinds of links,
