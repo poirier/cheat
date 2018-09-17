@@ -9,6 +9,10 @@ since Ansible's own docs have nothing like a reference.
 * `Release tarballs <http://releases.ansible.com/ansible/>`_
 * `Ansible documentation for older releases <http://jeremie.huchet.nom.fr/ansible-documentation/>`_
 
+Quickies:
+
+To check the ubuntu version, ``ansible_distribution_version|float < 18``  (ansible_distribution_version is e.g. "16.04")
+
 .. toctree::
 
   background
