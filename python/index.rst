@@ -7,6 +7,7 @@ Contents:
    :maxdepth: 2
 
    asyncio
+   fixing_style
    mock
    packaging
    pip
