@@ -25,6 +25,7 @@ Contents:
    home
    logging
    login
+   middleware
    migrations
    nginx
    permissions
