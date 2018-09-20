@@ -1,6 +1,8 @@
 Gradually fixing your Python code's style
 =========================================
 
+(A formatted version of this draft is at https://cheat.readthedocs.io/en/latest/python/fixing_style.html.)
+
 Sometimes we inherit some code that doesn't follow the style guidelines
 we prefer when we're writing new code. We could just run
 `flake8 <http://flake8.pycqa.org/en/latest/>`_ on
@@ -35,6 +37,9 @@ simplest if we first make sure we're in the root directory of the repository.
 .. code-block:: python
 
     #!/usr/bin/env python3
+    import os
+    import os.path
+    import subprocess
 
     if not os.path.isdir('.git'):
         print("Working dir: %s" % os.getcwd())
@@ -55,6 +60,8 @@ files that have changed compared to that branch.
 
 .. code-block:: python
 
+    import sys
+    ...
     if len(sys.argv) > 1:
         # Run against files that are different from *branch_name*
         branch_name = sys.argv[1]
@@ -73,15 +80,15 @@ check - and migrations, which never seem to quite be PEP-8 compliant and which
 I've decided aren't worth trying to fix.  (You may decide differently, of
 course.)
 
-Find files with uncommited changes
-----------------------------------
+Find files with uncommitted changes
+-----------------------------------
 
 Alternatively, we just look at the files that have uncommitted changes.
 
 .. code-block:: python
 
     else:
-        # See what files have uncommited changes
+        # See what files have uncommitted changes
         cmd = ["git", "status", "--porcelain", "--untracked=no"]
         out = subprocess.check_output(cmd).decode('utf-8')
         changed = []
@@ -129,5 +136,6 @@ Python turns out to work quite well once you get a handle on the
 
 The resulting script is useful for me.  I hope you'll find parts of it
 useful too, or at least see something you can steal for your own scripts.
+
 
 
