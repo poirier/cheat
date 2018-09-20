@@ -115,9 +115,9 @@ Once ``paginate_by`` is set to the number of items you want per page,
 and there will be some additional items in the context:
 
 paginator
-    A Paginator object
+    A `Paginator <https://docs.djangoproject.com/en/stable/topics/pagination/#django.core.paginator.Paginator>`_ object
 page_obj
-    A Page object
+    A `Page <https://docs.djangoproject.com/en/stable/topics/pagination/#page-objects>`_ object
 is_paginated
     True if there are pages
 
