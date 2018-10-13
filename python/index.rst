@@ -12,6 +12,7 @@ Contents:
    packaging
    pip
    pipenv
+   piptools
    six
    timezones
    tox

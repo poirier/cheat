@@ -8,6 +8,7 @@ Contents:
 
    builtins
    events
+   nvm_and_npm
    promises
    syntax
    dom

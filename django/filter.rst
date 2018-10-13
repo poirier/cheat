@@ -1,13 +1,13 @@
 Filtering and Pagination with Django
 ====================================
 
-If you want to build a page that lists some things, and allows
+If you want to build a list page that allows
 filtering and pagination, you have to get a few separate things
-to work together.  Django provides some tools for doing pagination,
+to work together.  Django provides some tools for pagination,
 but the documentation doesn't tell us how to make that work with anything else.
 Similarly, django_filter makes it relatively easy to add filters to
 a view, but doesn't tell you how to add pagination (or other things)
-without breaking filtering.
+without breaking the filtering.
 
 The heart of the problem is that both features use query parameters,
 and we need to find a way to let each feature control its own query
@@ -20,7 +20,7 @@ Let's start with a review of filtering, with an example of how you might
 subclass ``ListView`` to add filtering. To make it filter the way you want,
 you need to create a subclass of
 `FilterSet <https://django-filter.readthedocs.io/en/master/ref/filterset.html>`_
-and set ``filterset_class`` to that class.  (See the docs for how to
+and set ``filterset_class`` to that class.  (See that link for how to
 write a filterset.)
 
 .. code-block:: python
@@ -77,8 +77,8 @@ Default values for filters
 --------------------------
 
 I'm going to digress slightly here, and show a way to give filters default
-values, so when a user loaded a page initially, for example, the items would
-be sorted most recent first. I couldn't find anything about this in the
+values, so when a user loads a page initially, for example, the items will
+be sorted with the most recent first. I couldn't find anything about this in the
 django_filter documentation, and it took me a while to figure out a good
 solution.
 
@@ -115,9 +115,9 @@ Once ``paginate_by`` is set to the number of items you want per page,
 and there will be some additional items in the context:
 
 paginator
-    A Paginator object
+    A `Paginator <https://docs.djangoproject.com/en/stable/topics/pagination/#django.core.paginator.Paginator>`_ object
 page_obj
-    A Page object
+    A `Page <https://docs.djangoproject.com/en/stable/topics/pagination/#page-objects>`_ object
 is_paginated
     True if there are pages
 
@@ -145,7 +145,7 @@ of pagination links, but there's a problem we should solve first.
 Combining filtering and pagination
 ----------------------------------
 
-Unfortunately, linking to pages like that breaks filtering. More specifically,
+Unfortunately, linking to pages as described above breaks filtering. More specifically,
 whenever you follow one of those links, the view will forget whatever filtering
 the user has applied, because that filtering is also controlled by query
 parameters, and these links don't include the filter's parameters.
@@ -241,4 +241,3 @@ I haven't tried it, but if you need something more sophisticated for building
 these kinds of links,
 `django-qurl-templatetag <https://github.com/sophilabs/django-qurl-templatetag>`_
 might be worth looking at.
-
