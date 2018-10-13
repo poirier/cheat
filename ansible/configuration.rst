@@ -25,33 +25,33 @@ Some useful vars in the ``[defaults]`` section:
 any_errors_fatal
 ................
 
-    If true, stop immediately if any task fails.  Default value of False only stops for the host that failed.
-    The playbook invocation will eventually report failure, but the error itself might be thousands of lines
-    back in the output. Recommend changing this to True.
+If true, stop immediately if any task fails.  Default value of False only stops for the host that failed.
+The playbook invocation will eventually report failure, but the error itself might be thousands of lines
+back in the output. Recommend changing this to True.
 
 .. _display_args_to_stdout:
 
 display_args_to_stdout
 ......................
 
-    If true, more information displayed as tasks execute.  Default: False.
+If true, more information displayed as tasks execute.  Default: False.
 
 .. _error_on_undefined_vars:
 
 error_on_undefined_vars
 .......................
 
-    If true, task fails if any undefined vars are encountered, which seems like it ought to be the
-    default behavior, but it's not.
+If true, task fails if any undefined vars are encountered, which seems like it ought to be the
+default behavior, but it's not.
 
 .. _hostfile:
 
 hostfile
 ........
 
-    This is the default location of the inventory file, script, or directory that Ansible will use to determine what hosts it has available to talk to:
+This is the default location of the inventory file, script, or directory that Ansible will use to determine what hosts it has available to talk to:
 
-    hostfile = /etc/ansible/hosts
+hostfile = /etc/ansible/hosts
 
 .. _use_persistent_connections:
 
@@ -80,15 +80,16 @@ to not clutter up my file system with them.
 
 roles_path
 ..........
-    The roles path indicate additional directories beyond the ‘roles/’ subdirectory of a playbook project to search to find Ansible roles. For instance, if there was a source control repository of common roles and a different repository of playbooks, you might choose to establish a convention to checkout roles in /opt/mysite/roles like so:
 
-        roles_path = /opt/mysite/roles
+The roles path indicate additional directories beyond the ‘roles/’ subdirectory of a playbook project to search to find Ansible roles. For instance, if there was a source control repository of common roles and a different repository of playbooks, you might choose to establish a convention to checkout roles in /opt/mysite/roles like so:
 
-    Additional paths can be provided separated by colon characters, in the same way as other pathstrings:
+    roles_path = /opt/mysite/roles
 
-        roles_path = /opt/mysite/roles:/opt/othersite/roles
+Additional paths can be provided separated by colon characters, in the same way as other pathstrings:
 
-    Roles will be first searched for in the playbook directory. Should a role not be found, it will indicate all the possible paths that were searched.
+    roles_path = /opt/mysite/roles:/opt/othersite/roles
+
+Roles will be first searched for in the playbook directory. Should a role not be found, it will indicate all the possible paths that were searched.
 
 
 Some useful vars in the ``[inventory]`` section:
