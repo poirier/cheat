@@ -108,7 +108,7 @@ Some useful vars in the ``[ssh_connection]`` section:
 .. _pipelining:
 
 pipelining
-----------
+..........
 
 Pipelining, if supported by the connection plugin, reduces the number of network operations required to execute a module on the remote server, by executing many Ansible modules without actual file transfer. This can result in a very significant performance improvement when enabled. However this conflicts with privilege escalation (become). For example, when using ‘sudo:’ operations you must first disable ‘requiretty’ in /etc/sudoers on all managed hosts, which is why it is disabled by default.
 
