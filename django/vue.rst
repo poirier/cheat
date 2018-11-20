@@ -8,6 +8,8 @@ and the files constituting your vue app, all from your Django process,
 using `whitenoise <http://whitenoise.evans.io/en/stable/django.html>`_,
 this seems to work.
 
+Note: this doesn't work as well locally; see end.
+
 
 Set up Django to gather static files from dist
 ----------------------------------------------
@@ -57,3 +59,9 @@ with other static files::
     python manage.py collectstatic --noinput
 
 Now 'runserver' or whatever.
+
+Running locally
+---------------
+
+This prebuilds the Vue stuff, so if you're doing development and
+would like things to rebuild when you edit files, this won't do that.
