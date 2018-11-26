@@ -49,6 +49,7 @@ Contents:
    video
    x11
    virtualbox
+   vue
    yaml
 
 Indices and tables
