@@ -1,6 +1,30 @@
 Vue
 ===
 
+Reactivity
+----------
+
+The following applies to the store's state, anything in a component's
+*data*, and other things that get pulled into the reactivity system.
+
+When an object is added to Vue's reactivity system, Vue replaces all
+its properties with getters and setters under the covers, so that if
+you fetch the value of a property, or assign a new value to it, Vue
+is aware and can react. (`<https://vuejs.org/v2/guide/reactivity.html>`_)
+
+However, for technical reasons, Vue cannot detect when a property is
+added to or removed from an object.
+(`<https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats>`_)
+
+**The implications are:**
+
+* When updating the store, it's fine to assign a new value to a property
+  of the *state*.
+* When updating component data, it's fine to assign a new value to a
+  property of the component.
+* Don't try to use Object.assign or equivalent to update properties of
+  objects in-place in the store????  It doesn't seem to work.
+
 Vuex (the store)
 ----------------
 
@@ -64,9 +88,10 @@ that has methods like ``commit`` and properties like
 Actions cannot be called. They must be invoked using ``dispatch``.
 
 Any value returned by an action is passed back to the
-caller of ``dispatch``.
+caller of ``dispatch``, by way of resolving the promise
+that dispatch returns to that value.
 
-Actions can return Promises (via dispatch).
+Actions always return Promises (via dispatch).
 
 Example::
 
