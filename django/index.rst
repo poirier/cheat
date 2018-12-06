@@ -37,6 +37,7 @@ Contents:
    test
    translation
    urls
+   vue
 
 
 Misc to file:

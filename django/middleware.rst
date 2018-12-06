@@ -54,8 +54,8 @@ Here are some hints about the ordering of various Django middleware classes:
    ``Content-Length`` header). A middleware that appears before
    ``CommonMiddleware`` and changes the response must reset ``Content-Length``.
 
-   Close to the top: it redirects when :setting:`APPEND_SLASH` or
-   :setting:`PREPEND_WWW` are set to ``True``.
+   Close to the top: it redirects when `APPEND_SLASH` or
+   `PREPEND_WWW` are set to ``True``.
 
 #. :class:`~django.middleware.csrf.CsrfViewMiddleware`
 
@@ -63,7 +63,7 @@ Here are some hints about the ordering of various Django middleware classes:
    with.
 
    It must come after ``SessionMiddleware`` if you're using
-   :setting:`CSRF_USE_SESSIONS`.
+   `CSRF_USE_SESSIONS`.
 
 #. :class:`~django.contrib.auth.middleware.AuthenticationMiddleware`
 

@@ -80,7 +80,7 @@ Procfile
 Create `Procfile <https://devcenter.heroku.com/articles/procfile>`_
 (`more on dokku Procfile <http://dokku.viewdocs.io/dokku~v0.9.2/deployment/methods/buildpacks/#specifying-commands-via-procfile>`_)
 in the top directory. For our simple case, it can just contain one
-line, starting with ``web: `` and containing the command to start
+line, starting with ``web:`` and containing the command to start
 gunicorn for our site::
 
     web: gunicorn {{ project_name }}.wsgi
@@ -121,7 +121,7 @@ dokku ignores everything but ``scripts.dokku.predeploy`` and
 .. note::
 
     Dokku automatically runs ``collectstatic`` for you, so you don't need to
-    do that from ``app.json``. 
+    do that from ``app.json``.
 
 buildpacks
 ----------

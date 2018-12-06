@@ -62,11 +62,12 @@ six.moves.range
 range	xrange()	range
 
 
-six.reraise(exc_type, exc_value, exc_traceback=None)
-Reraise an exception, possibly with a different traceback. In the simple case, reraise(*sys.exc_info())
+``six.reraise(exc_type, exc_value, exc_traceback=None)``
+Reraise an exception, possibly with a different traceback. In the simple case,
+``reraise(*sys.exc_info())``
 with an active exception (in an except block) reraises the current exception with the last traceback.
 A different traceback can be specified with the exc_traceback parameter. Note that since the exception
-reraising is done within the reraise() function, Python will attach the call frame of reraise() to whatever
+reraising is done within the ``reraise()`` function, Python will attach the call frame of reraise() to whatever
 traceback is raised.
 
 2to3 does raise E, V, T to raise E(V).with_traceback(T)
