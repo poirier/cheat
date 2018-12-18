@@ -108,7 +108,7 @@ meant UTC-5. From March 11, 2018 to November 3, 2018, it meant UTC-4.
 And from November 4, 2018 to December 31, 2018 it's UTC-5 again.
 
 But it gets worse. From
-`Wikipedia <https://en.wikipedia.org/wiki/Eastern_Time_Zone>`_::
+`Wikipedia <https://en.wikipedia.org/wiki/Eastern_Time_Zone>`_:
 
     The Uniform Time Act of 1966 ruled that daylight saving time
     would run from the last Sunday of April until the last Sunday
