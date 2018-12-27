@@ -19,7 +19,7 @@ LV
 Physical volumes
 ----------------
 
-* List physical volumes : ``pvdisplay``
+* List physical volumes : ``pvdisplay`` , or ``pvs`` for briefer output
 * Info about one PV : ``pvdisplay <PV name>``
 * Partition type for LVM: ``8e``
 * Make a PV from a partition : ``pvcreate <partition>``
@@ -30,18 +30,22 @@ Volume groups
 * Create a volume group : ``vgcreate <NewVGName> <PVname> [<PVname>...]``
 * Add PV to VG : ``vgextend <VGname> <PVname>``
 * Remove PV from VG : ``vgreduce <VG name> <PV name>``
-* List volume groups : ``vgdisplay``
+* List volume groups : ``vgdisplay``, or ``vgs`` for briefer output
 
 Logical volumes
 ---------------
 
-* List logical volumes : ``lvdisplay``
+* List logical volumes : ``lvdisplay``, or ``lvs`` for briefer output
 * Create LV : ``lvcreate -L<SIZE> -n<NewLVName> <VGname>``   (SIZE=<num><units>, e.g. 1.47TiB)  or -l<EXTENTS>
 * Device name of the logical volume = ``/dev/<VGname>/<LVname>``
 * Enlarge LV : ``lvextend -l+<extents> /dev/<VGname>/<LVname>``
+* Reduce LV: ``lvreduce -L<newSIZE> /dev/<VGNAME>/<LVname>``
+    Add ``-r`` to resize the filesystem at the same time. Otherwise, be *sure* to shrink the filesystem first.
 
 Resize file system after enlarging LV
 -------------------------------------
+
+Either of these will use all the available space.
 
 ``sudo ext2fs -f /dev/<VGname>/<LVname>``
 ``sudo resize2fs /dev/<VGname>/<LVname>``

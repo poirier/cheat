@@ -165,10 +165,10 @@ html_static_path = ['_static']
 #html_additional_pages = {}
 
 # If false, no module index is generated.
-#html_domain_indices = True
+html_domain_indices = True
 
 # If false, no index is generated.
-#html_use_index = True
+html_use_index = True
 
 # If true, the index is split into individual pages for each letter.
 #html_split_index = False
@@ -177,7 +177,7 @@ html_static_path = ['_static']
 #html_show_sourcelink = True
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
+html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 #html_show_copyright = True
@@ -356,7 +356,7 @@ epub_exclude_files = ['search.html']
 #epub_show_urls = 'inline'
 
 # If false, no index is generated.
-#epub_use_index = True
+epub_use_index = True
 
 
 # Example configuration for intersphinx: refer to the Python standard library.

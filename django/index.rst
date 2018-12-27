@@ -1,3 +1,5 @@
+.. index:: ! Django
+
 Django
 =============
 
@@ -41,6 +43,9 @@ Contents:
 
 
 Misc to file:
+
+.. index::
+    single: django; circular imports
 
 Avoid circular imports::
 

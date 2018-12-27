@@ -1,6 +1,7 @@
+.. index:: ! Kobo
+
 Kobo ereader
 ============
-
 
 Activating without connecting to kobo on the internet
 -----------------------------------------------------
@@ -20,7 +21,7 @@ Manually updating firmware
 --------------------------
 
 * Download a zipfile with the latest firmware for your Kobo device from
-  `this thread <https://www.mobileread.com/forums/showthread.php?t=185660>`_
+  `this wiki page <https://wiki.mobileread.com/wiki/Kobo_Firmware_Releases>`_
 * The Kobo should be mounted over USB as above.
 * Change to the kobo's ``.kobo`` directory
 * Unpack the zipfile containing the firmware update
@@ -30,13 +31,36 @@ Manually updating firmware
 Within a minute or so, the Kobo should notice the update, install it,
 and reboot.
 
-Installing KSM (Kobo Start Menu)
+KFMon Files monitor
+-------------------
+
+-- probably better to use KSM for me
+
+* `github project <https://github.com/NiLuJe/kfmon>`_
+* `more recent install instructions
+  <https://github.com/koreader/koreader/wiki/Installation-on-Kobo-devices#alternate-installation-method-based-on-kfmon>`_
+  are here (combined with install KOReader instructions)
+* For historical interest only:
+  `original discussion <https://www.mobileread.com/forums/showthread.php?t=218283>`_
+  but the download link there no longer works, and you shouldn't use that old
+  version anyway.
+
+Installing KSM 09
+-------------------
+
+* do NOT use the regular KSM 09 download, see the warning in the first post
+* https://www.mobileread.com/forums/showthread.php?t=293804
+
+Installing KSM (Kobo Start Menu) 08
 --------------------------------
 
 * `instructions <https://www.mobileread.com/forums/showthread.php?t=240302>`_
 * `download v8 zipfile <https://www.mobileread.com/forums/showthread.php?t=266821>`_
 * follow the instructions, they're not bad
-* One thing easy to miss: once it's starting okay, "From the home menu select "tools" > "activate" > "set runmenu settings.msh." There you will find the options "always," "once," etc. Choose "always" to make the Kobo Start Menu appear after each time you power the device on.)"
+* One thing easy to miss: once it's starting okay,
+  "From the home menu select "tools" > "activate" > "set runmenu settings.msh."
+  There you will find the options "always," "once," etc. Choose "always" to make
+  the Kobo Start Menu appear after each time you power the device on.)"
 
 Installing Koreader
 -------------------
