@@ -8,3 +8,4 @@ Retry sending all queued mail::
 Delete all queued mail::
 
     postsuper -d ALL deferred
+

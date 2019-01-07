@@ -1,6 +1,9 @@
 Time zones and Daylight Saving Time - Oh, the Horror
 ====================================================
 
+(formatted draft online at
+https://cheat.readthedocs.io/en/latest/python/timezones_blogpost.html)
+
 Or, why I hate Daylight Saving Time (DST).
 
 Time zones
@@ -134,7 +137,7 @@ Even if you have complete and accurate information about the rules,
 daylight saving time complicates things in surprising ways. For
 example, you can't convert 2:30 am March 11, 2018 in US/Eastern
 time zone to UTC, because that time never happened — our clocks had to
-jump directly from 1:59:00 am to 3:00:00 am:
+jump directly from 1:59:59 am to 3:00:00 am:
 
 ========== ======= ==== ==========  ======= ====
 Date       Time    Zone Date        Time    Zone

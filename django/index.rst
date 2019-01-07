@@ -19,6 +19,7 @@ Contents:
    database
    ddt
    dokku
+   drf_serializers
    eb
    email
    fabric

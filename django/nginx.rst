@@ -9,7 +9,7 @@ Some tips on Nginx for use with Django
 Files
 -----
 
-Just add a new file to ``/etc/nginx/sites-eanbled`` for each site,
+Just add a new file to ``/etc/nginx/sites-enabled`` for each site,
 making sure ``server_name`` is set correctly in each.
 
 Redirecting to SSL
@@ -21,7 +21,7 @@ We usually want to force SSL::
       listen *:80;
       listen [::]:80;
       server_name DOMAIN;
-      access_log PATHo_access.log;
+      access_log PATH_access.log;
       error_log PATH_error.log;
       return 301 https://DOMAIN$request_uri;
     }

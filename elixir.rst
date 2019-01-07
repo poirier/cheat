@@ -106,7 +106,11 @@ Note that the return value of ``IO.puts`` is ``:ok``.
 Functions
 ---------
 
-Note: Functions in Elixir are identified by name and by number of arguments (i.e. arity). Therefore, is_boolean/1 identifies a function named is_boolean that takes 1 argument. is_boolean/2 identifies a different (nonexistent) function with the same name but different arity.::
+Note: Functions in Elixir are identified by name and by number
+of arguments (i.e. arity). Therefore, is_boolean/1 identifies
+a function named is_boolean that takes 1 argument.
+is_boolean/2 identifies a different (nonexistent) function
+with the same name but different arity.::
 
     iex> is_boolean(true)
     true

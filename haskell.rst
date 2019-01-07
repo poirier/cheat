@@ -21,12 +21,12 @@ Imports
 |                         |                         |available in the name    |
 |                         |                         |space                    |
 +-------------------------+-------------------------+-------------------------+
-|import module            |import qualified module  |Give module a shorter    |
-|M = module               |as M                     |alias                    |
+|import module;           |import qualified module  |Give module a shorter    |
+|M = module;              |as M                     |alias                    |
 |del module               |                         |                         |
 |                         |                         |                         |
 +-------------------------+-------------------------+-------------------------+
-|-                        |import module hiding (c) |Import everything from   |
+|n/a                      |import module hiding (c) |Import everything from   |
 |                         |                         |the module directly into |
 |                         |                         |the namespec, except     |
 |                         |                         |selected items           |
@@ -82,7 +82,7 @@ Lists
 +-------------------------+-------------------------+-------------------------+
 |[1,2,3,4]                |[1,2,3,4]                |                         |
 +-------------------------+-------------------------+-------------------------+
-|[1, 'a', "foo"]          |-                        |Haskell lists must be    |
+|[1, 'a', "foo"]          |n/a                      |Haskell lists must be    |
 |                         |                         |homogeneous              |
 +-------------------------+-------------------------+-------------------------+
 |[1,2] + [3,4]            |[1,2] ++ [3,4]           |                         |
