@@ -133,10 +133,12 @@ you can run the “setup” module as an ad-hoc action::
 This will print out a dictionary of all of the facts that are
 available for that particular host.
 
+:ref:`facts_example`  is an example from one of my machines.
+
 The Ansible docs used to show an example of this output, but
 apparently they've removed or moved that.
 And here's
-`an example <http://docs.ansible.com/ansible/playbooks_variables.html#information-discovered-from-systems-facts>`_.
+`an example <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts>`_.
 
 The top of the output will look like::
 

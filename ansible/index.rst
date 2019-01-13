@@ -11,7 +11,10 @@ since Ansible's own docs have nothing like a reference.
 
 Quickies:
 
-To check the ubuntu version, ``ansible_distribution_version|float < 18``  (ansible_distribution_version is e.g. "16.04")
+To check the ubuntu version, ``ansible_distribution_version|float < 18``  (ansible_distribution_version is e.g. "16.04")::
+
+    "ansible_distribution_release": "bionic"
+    "ansible_distribution_version": "18.04"
 
 .. toctree::
 
@@ -31,6 +34,7 @@ To check the ubuntu version, ``ansible_distribution_version|float < 18``  (ansib
   task
   variables
   galaxy
+  facts
 
 Misc. stuff I need to file somewhere:
 
