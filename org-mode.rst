@@ -8,7 +8,7 @@ See also http://orgmode.org/orgcard.pdf
 Binding           Operation
 ================= ============
 *Tasks*
-M-S-Ret           Add another item at same level
+M-S-Ret           Add a TODO item at same level
 C-c C-t           Change TODO state
 C-c / t           Show only uncompleted todos
 *Agenda*

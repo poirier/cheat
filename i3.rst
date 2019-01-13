@@ -11,9 +11,7 @@ Change what we see::
                 attached to.
     Ŵ-Control-1: Only use built-in laptop display
     Ŵ-Control-2: Use built-in laptop display, and external display
-                 positioned to its right
-    Ŵ-Control-3: Use built-in laptop display, and external display
-                 positioned above it
+                 positioned to its left
     Ŵ-<n>:    Switch to workspace <n> (need not already exist)
               (if workspace <n> is on another screen, it'll switch
               that screen to workspace <n>, not your current screen)
