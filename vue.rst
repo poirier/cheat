@@ -221,43 +221,88 @@ Component code
   browser console more useful, and is required when nesting
   components recursively.
 
-* Properties
+* The vue docs make a point of saying that properties
   are a `one-way flow <https://vuejs.org/v2/guide/components-props.html#One-Way-Data-Flow>`_
-  of information into components. Never change the value of a prop
-  from inside the component it was passed to, because it's too easy
-  to forget that the value does *not* get passed back. If you find yourself
-  wanting to do that, find a way to tell the parent so they can
-  change the value being passed in as the prop.
+  of information into components. But that's not strictly true.
+  If you pass an object as the prop value, the component can
+  modify the content of the object just fine. True, this might
+  bypass reactivity etc (I haven't tested that), but it's not
+  like this is impossible.
 
-  To get information back out of a component, you can use:
+  Actually, the docs *warn* that you can do this. But I don't think
+  they really explain why you shouldn't take advantage of it. At
+  least in simple cases, it seems easier than setting up ``v-model``,
+  and you can do it for more than one property.
+
+* If you don't want to (or can't) do that, then
+  for other ways to get information back out of a component, you can use:
 
   * events
   * the store
   * ``v-model``
 
-* Not everything is reactive. Here are some things that are "reactive"
-  (one way or another):
+Reactivity
+----------
 
-  * .computed
-  * .data
-  * .props
-  * .watch
+I think I'm getting myself confused with two different things that I'm
+lumping together as "reactivity":
 
-  In particular, just because you access some data from the store,
-  doesn't mean changes to that data in the store will necessarily
-  result in Vue doing anything.
+1) Vue "knowing" when a piece of data changes so it can take action.
 
-  If you need something to be reactive, access it in a computed
-  method, or put it in .data, or pass it as props, or watch it.
+2) The actions Vue takes when it detects such changes.
 
-.. attention::
-  Does accessing anything from inside a computed property
-  result in Vue watching that thing for changes? Or does that only
-  happen if the thing was already reactive?
+It helps me to have a mental model of how Vue is implementing something
+like this. Here's my mental model for reactivity:
 
-* Computed properties are cached as long as the data they accessed
-  while generating their value has not changed, so feel free to
-  refer to them a lot.
+* Vue arranges to "watch" certain specific pieces of data.
+
+* When Vue wants to "watch" something, it sets up a proxy getter and
+  a proxy setter for it, and starts an "on change" list of things it needs to do
+  if the data changes.
+
+* Each time a watched data's `setter` is invoked, Vue goes down its "on change" list
+  and executes each item.
+
+* Vue also arranges to know when watched data is accessed, but it doesn't
+  pay attention to that all the time, only during certain activities:
+
+  * while computing a computed property
+  * while rendering a component (?)
+
+  During those times, for each piece of watched data that is accessed, Vue
+  adds an action to that watched data's "on change" list to re-compute the thing
+  it was computing when it accessed it previously.
+
+* Any `watch property handlers <https://vuejs.org/v2/guide/computed.html#Watchers>`_
+  are added to the corresponding "on change"
+  list for the watched data. (But these only work for things that Vue is
+  monitoring already.)
+
+Which data does Vue "watch"?
+
+1) The
+   `data <https://vuejs.org/v2/guide/instance.html#Data-and-Methods>`_
+   on a component. When a component is created, Vue sets
+   up proxy getters and setters for each property of its `data`, so
+   that if anything is assigned, Vue gets invoked and knows things
+   have changed. It also knows when things are accessed.
+
+   Per the page linked just above, Vue will re-render the view when
+   *any* property in the components `data` is changed.
+
+2) Computed properties - at least, computed properties are included
+   when Vue is paying attention to which watched data is being
+   accessed. (If a computed property has a `set`, it doesn't actually
+   do anything special, though of course it might make changes to
+   other things that Vue is watching.)
+
+3) The state in the store. This is only updated through the Vuex
+   `commit` API, so Vue knows explicitly when you change the state.
+   I assume Vue also arranges proxy getters for the state, so it
+   knows who accesses it.
+
+Computed properties
+-------------------
 
 * Computed properties can have
   `getters and setters <https://vuejs.org/v2/guide/computed.html#Computed-Setter>`_
@@ -266,9 +311,6 @@ Component code
   the store.
 
 * ``v-model`` and a computed property work very well together.
-
-* The arguments to a watch method are ``(newvalue, oldvalue)`` and
-  not the other way around.
 
 The store
 ---------
@@ -280,8 +322,8 @@ The store
   going to run asynchronously and code appropriately.
 
 * It's often a good idea to resist putting things into the store
-  unless you have to. It is, essentially, a big set of global
-  variables.  Some reasons I think you might reasonably put things
+  unless you have to. It is, essentially, a big global
+  variable.  Some reasons I think you might reasonably put things
   into the store:
 
   * you'd otherwise need to pass data as properties down into
@@ -292,3 +334,28 @@ The store
   Note that you can still model access to data in your backend by
   using store actions, but even then, you don't necessarily have to save a
   copy of the data in the store.
+
+What's the advantage of using the store?
+
+* When you `commit` a change, Vue knows that part of the state has
+  changed and can propagate that change to all the parts of the app
+  that are depending on it. (more "reactivity")
+
+* Because the `dispatch` interface to actions is asynchronous, if the
+  rest of the app accesses the store via actions, then you can change
+  to having the data in a backend and using an API to access it without
+  having to change the rest of the app. Just update the actions to use
+  the API instead of looking in the store. The rest of the app is already
+  written to access things asynchronously.
+
+More on reactivity
+------------------
+
+"watching" things
+.................
+
+I didn't notice right away that the "watch" feature of Vue components
+is cleverly defined so that you can only watch properties of your
+component -- it is *not* a general-purpose "watch anything for changes"
+function.  So you can watch `data`, or `computed` properties. And
+that's about it, right? ANSWER THIS QUESTION.
