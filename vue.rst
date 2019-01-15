@@ -25,6 +25,17 @@ added to or removed from an object.
 * Don't try to use Object.assign or equivalent to update properties of
   objects in-place in the store????  It doesn't seem to work.
 
+Component properties
+--------------------
+
+Vue doesn't necessarily rebuild a component from scratch when one of
+its properties changes. If you're using a property to initialize something,
+for example, you will need to `watch` that property and re-initialize when
+it changes that way.
+
+*However,* I'm not sure even watching a property works. I've seen components
+updated when a watch on a property never triggered.
+
 Vuex (the store)
 ----------------
 
@@ -252,7 +263,9 @@ lumping together as "reactivity":
 2) The actions Vue takes when it detects such changes.
 
 It helps me to have a mental model of how Vue is implementing something
-like this. Here's my mental model for reactivity:
+like this. Here's my mental model for reactivity.  (I do *not* know for
+sure that this is accurate - I might need to set up some tests to validate
+these points.)
 
 * Vue arranges to "watch" certain specific pieces of data.
 
@@ -260,7 +273,7 @@ like this. Here's my mental model for reactivity:
   a proxy setter for it, and starts an "on change" list of things it needs to do
   if the data changes.
 
-* Each time a watched data's `setter` is invoked, Vue goes down its "on change" list
+* Each time a watched data's `setter` is invoked, Vue looks over its "on change" list
   and executes each item.
 
 * Vue also arranges to know when watched data is accessed, but it doesn't
@@ -274,9 +287,11 @@ like this. Here's my mental model for reactivity:
   it was computing when it accessed it previously.
 
 * Any `watch property handlers <https://vuejs.org/v2/guide/computed.html#Watchers>`_
-  are added to the corresponding "on change"
-  list for the watched data. (But these only work for things that Vue is
-  monitoring already.)
+  are added to the corresponding "on change" list for the watched data.
+
+  You *can* add properties here. E.g.
+  if ``patient`` is part of the data, adding a watcher on ``patient.email`` will
+  trigger when ``patient.email`` changes.
 
 Which data does Vue "watch"?
 
@@ -292,14 +307,19 @@ Which data does Vue "watch"?
 
 2) Computed properties - at least, computed properties are included
    when Vue is paying attention to which watched data is being
-   accessed. (If a computed property has a `set`, it doesn't actually
+   accessed. (If a computed property has a `set()`, that doesn't actually
    do anything special, though of course it might make changes to
    other things that Vue is watching.)
 
-3) The state in the store. This is only updated through the Vuex
-   `commit` API, so Vue knows explicitly when you change the state.
-   I assume Vue also arranges proxy getters for the state, so it
-   knows who accesses it.
+3) The state in the store.
+   `"Since a Vuex store's state is made reactive by Vue, when we mutate the
+   state, Vue components observing the state will update
+   automatically." <https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules>`_
+
+
+*watching props* - this does not seem to work? I put a 'watch' on
+a prop that was being changed, and could see the component was updating,
+but the watch did not trigger.
 
 Computed properties
 -------------------
