@@ -1,6 +1,65 @@
 Vue
 ===
 
+WORK IN PROGRESS: a Vue pattern for a component to edit the properties of some object
+-------------------------------------------------------------------------------------
+
+Usage::
+
+      <my-component v-model="instance">
+
+Minimal implementation::
+
+    <template>
+       <input v-model="simpleProp">
+       <input v-model="complexProp">
+    </template>
+    <script>
+    import _ from 'lodash'
+
+    export default {
+      name: 'MyComponent',
+      props: {
+        value: {
+          type: Object,
+          required: true
+        }
+      },
+      computed: {
+        simpleProp: {
+          /* a prop that's just a string, number, etc. */
+          get () { return this.value.prop1 },
+          set (val) {
+            // Here's the long-form of this code.
+            // We could probably write a util to save writing these 3 lines over and over
+            let newvalue = _.cloneDeep(this.value)
+            newvalue.prop1 = val
+            this.$emit('input', newvalue)
+            // or maybe condense to an obfuscated one-liner:
+            this.$emit('input', Object.assign(_.cloneDeep(this.value), { prop1: val }))
+          }
+        },
+        complexProp: {
+          /* a prop that's not directly on our value */
+          get () { return this.value.name1.name2 },
+          set (val) {
+            let newvalue = _.cloneDeep(this.value)
+            newvalue.name1.name2 = val
+            this.$emit('input', newvalue)
+            // the oneliner won't work here
+          }
+        }
+      }
+    }
+    </script>
+
+This leaves it to the parent to decide when and how to save, etc., but that's
+true when using built-in "components" like <input> too., so hopefully this
+will be easy to use in-place of those or to mix in among those.
+
+It is careful not to ever modify the value passed to it. The parent expects
+that it can manage changes itself by using a computed property if it wants.
+
 Reactivity
 ----------
 
@@ -21,7 +80,7 @@ added to or removed from an object.
 * When updating the store, it's fine to assign a new value to a property
   of the *state*.
 * When updating component data, it's fine to assign a new value to a
-  property of the component.
+  property of the component *data*.
 * Don't try to use Object.assign or equivalent to update properties of
   objects in-place in the store????  It doesn't seem to work.
 
@@ -166,6 +225,9 @@ Here are some things I've discovered through experience, or
 that were mentioned in the documentation but I've found to be
 more important than I would have guessed.
 
+.vue files
+----------
+
 * You can start your ``.vue`` file with a big multiline ``<!-- ...  -->``
   comment to document it.
 
@@ -194,6 +256,8 @@ Templates
   Using a computed property with a setter handles this nicely.
 
 .. note:: Wouldn't it be nice if Vue did "the right thing" in this case?
+    But I guess it can't know that, say, a Javscript object string is
+    a property of something else that is reactive.
 
 * ``v-model`` can refer to properties inside a computed property
   (e.g. ``v-model="prop1.subprop"``) where ``prop`` is a computed
@@ -221,12 +285,13 @@ Templates
   to iterate over that you don't want to include, then use a computed
   property, or a method, to filter the list down to just the items you do
   want to include, then iterate over that using ``v-for``.
+  (Do not try to use ``v-for`` and ``v-if`` on the same element.)
 
 Component code
 --------------
 
 * You can use `ref <https://vuejs.org/v2/api/#ref>`_ to get access
-  in component code to the DOM.
+  in component code to the DOM.  Or ``this.$el``.
 
 * Give every component a ``name``. It'll make output in the
   browser console more useful, and is required when nesting
@@ -234,19 +299,9 @@ Component code
 
 * The vue docs make a point of saying that properties
   are a `one-way flow <https://vuejs.org/v2/guide/components-props.html#One-Way-Data-Flow>`_
-  of information into components. But that's not strictly true.
-  If you pass an object as the prop value, the component can
-  modify the content of the object just fine. True, this might
-  bypass reactivity etc (I haven't tested that), but it's not
-  like this is impossible.
+  of information into components.
 
-  Actually, the docs *warn* that you can do this. But I don't think
-  they really explain why you shouldn't take advantage of it. At
-  least in simple cases, it seems easier than setting up ``v-model``,
-  and you can do it for more than one property.
-
-* If you don't want to (or can't) do that, then
-  for other ways to get information back out of a component, you can use:
+* To get information back out of a component, you can use:
 
   * events
   * the store
@@ -255,7 +310,7 @@ Component code
 Reactivity
 ----------
 
-I think I'm getting myself confused with two different things that I'm
+I get myself confused with two different things that I'm
 lumping together as "reactivity":
 
 1) Vue "knowing" when a piece of data changes so it can take action.
@@ -267,23 +322,24 @@ like this. Here's my mental model for reactivity.  (I do *not* know for
 sure that this is accurate - I might need to set up some tests to validate
 these points.)
 
-* Vue arranges to "watch" certain specific pieces of data.
+* The way Vue can "watch" something is to set up its *properties* with
+  proxy getters and setters.  This is how it watches ``vm.data`` and the
+  store's ``state``, for example.
 
-* When Vue wants to "watch" something, it sets up a proxy getter and
-  a proxy setter for it, and starts an "on change" list of things it needs to do
-  if the data changes.
+* For each property, it starts an "on change" list of things it needs to do
+  if the property's value changes.
 
-* Each time a watched data's `setter` is invoked, Vue looks over its "on change" list
+* Each time a watched property's `setter` is invoked, Vue looks over its "on change" list
   and executes each item.
 
-* Vue also arranges to know when watched data is accessed, but it doesn't
+* Vue also arranges to know when watched properties are accessed, but it doesn't
   pay attention to that all the time, only during certain activities:
 
   * while computing a computed property
   * while rendering a component (?)
 
-  During those times, for each piece of watched data that is accessed, Vue
-  adds an action to that watched data's "on change" list to re-compute the thing
+  During those times, for each watched property that is accessed, Vue
+  adds an action to that watched property's "on change" list to re-compute the thing
   it was computing when it accessed it previously.
 
 * Any `watch property handlers <https://vuejs.org/v2/guide/computed.html#Watchers>`_
