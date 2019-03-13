@@ -6,59 +6,78 @@ WORK IN PROGRESS: a Vue pattern for a component to edit the properties of some o
 
 Usage::
 
-      <my-component v-model="instance">
+    <my-component value="instance" @save="onSave" @cancel="onCancel">
 
 Minimal implementation::
 
     <template>
-       <input v-model="simpleProp">
-       <input v-model="complexProp">
+       <input v-model="workingValue.prop1">
+       <input v-model="workingValue.prop2">
+
+       <button type="button" @click="cancelClicked">Cancel</button>
+       <button type="button" @click="saveClicked">Save</button>
     </template>
+
     <script>
     import _ from 'lodash'
 
     export default {
       name: 'MyComponent',
+      data () {
+        return {
+          workingValue: _.cloneDeep(this.value)
+        }
+      },
       props: {
         value: {
           type: Object,
           required: true
         }
       },
-      computed: {
-        simpleProp: {
-          /* a prop that's just a string, number, etc. */
-          get () { return this.value.prop1 },
-          set (val) {
-            // Here's the long-form of this code.
-            // We could probably write a util to save writing these 3 lines over and over
-            let newvalue = _.cloneDeep(this.value)
-            newvalue.prop1 = val
-            this.$emit('input', newvalue)
-            // or maybe condense to an obfuscated one-liner:
-            this.$emit('input', Object.assign(_.cloneDeep(this.value), { prop1: val }))
-          }
+      methods: {
+        cancelClicked () {
+          this.$emit('cancel')
         },
-        complexProp: {
-          /* a prop that's not directly on our value */
-          get () { return this.value.name1.name2 },
-          set (val) {
-            let newvalue = _.cloneDeep(this.value)
-            newvalue.name1.name2 = val
-            this.$emit('input', newvalue)
-            // the oneliner won't work here
+        saveClicked () {
+          if (isValid(this.workingValue)) {
+            this.$emit('save', this.workingValue)
           }
         }
       }
     }
     </script>
 
-This leaves it to the parent to decide when and how to save, etc., but that's
-true when using built-in "components" like <input> too., so hopefully this
-will be easy to use in-place of those or to mix in among those.
-
 It is careful not to ever modify the value passed to it. The parent expects
-that it can manage changes itself by using a computed property if it wants.
+that it can manage changes itself by using a computed property or watcher
+if it wants.
+
+The component emits events to tell the parent when the user has chosen to save their
+changes, or cancel, but leaves it to the parent to do what it wants at that
+point.
+
+Example using the component::
+
+    <template>
+       <my-component
+         v-if="userIsEditingObject"
+         @save="onSave"
+         @cancel="onCancel"
+       />
+     </template>
+
+     <script>
+     export default {
+       methods: {
+         onCancel () {
+           this.userIsEditingObject = false
+         },
+         onSave (value) {
+           this.$store.dispatch('save', value).then( () => {
+               this.userIsEditingObject = false
+           })
+         }
+     }
+     </script>
 
 Reactivity
 ----------
