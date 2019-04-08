@@ -24,6 +24,7 @@ Contents:
    i3
    ipv6
    javascript/index
+   jira
    kobo
    linux
    lirc
