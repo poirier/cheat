@@ -6,6 +6,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   DRF
    android/index
    ansible/index
    aws/index

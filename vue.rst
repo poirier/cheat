@@ -254,7 +254,7 @@ Templates
 ---------
 
 * A component must end up rendering either zero or one HTML
-  element. It may, of course, have lots of stuff nested inside.
+  element. The one element may, of course, have lots of stuff nested inside.
   The real surprise to me was that it can render to no
   element at all.
 
@@ -275,7 +275,7 @@ Templates
   Using a computed property with a setter handles this nicely.
 
 .. note:: Wouldn't it be nice if Vue did "the right thing" in this case?
-    But I guess it can't know that, say, a Javscript object string is
+    But I guess it can't know that, say, a Javascript object string is
     a property of something else that is reactive.
 
 * ``v-model`` can refer to properties inside a computed property
@@ -284,7 +284,7 @@ Templates
 
 .. warning:: But I haven't tested that the setter gets invoked when prop.subprop is changed, or does v-model just update the object in place. I'd guess the latter.
 
-* If you need to access something from a template that isn't already
+* If you need to access something from a template, and it isn't already
   part of the component's data or methods, just import it and stick
   it into ``.data``.  E.g.::
 
@@ -341,17 +341,22 @@ like this. Here's my mental model for reactivity.  (I do *not* know for
 sure that this is accurate - I might need to set up some tests to validate
 these points.)
 
-* The way Vue can "watch" something is to set up its *properties* with
-  proxy getters and setters.  This is how it watches ``vm.data`` and the
-  store's ``state``, for example.
+* The way Vue can "watch" a JavaScript object is to set up its *properties* with
+  proxy getters and setters.  It does this for ``vm.data`` and the
+  store's ``state``.  That means if a property of vm.data, or a property
+  of the state, changes, then Vue knows that it has happened.
 
-* For each property, it starts an "on change" list of things it needs to do
+  If you add a new property to vm.data or state yourself at runtime, you
+  bypass this and Vue will not know about it.
+
+* For each property it is watching, Vue starts an "on change" list of things it needs to do
   if the property's value changes.
 
 * Each time a watched property's `setter` is invoked, Vue looks over its "on change" list
-  and executes each item.
+  and executes each item. (Question - is this only if the value actually changes, or
+  anytime it is assigned to, even if it's the same value?)
 
-* Vue also arranges to know when watched properties are accessed, but it doesn't
+* Vue also arranges to know when watched properties are *accessed*, but it doesn't
   pay attention to that all the time, only during certain activities:
 
   * while computing a computed property
@@ -361,10 +366,10 @@ these points.)
   adds an action to that watched property's "on change" list to re-compute the thing
   it was computing when it accessed it previously.
 
-* Any `watch property handlers <https://vuejs.org/v2/guide/computed.html#Watchers>`_
+* Any explicit `watch property handlers <https://vuejs.org/v2/guide/computed.html#Watchers>`_
   are added to the corresponding "on change" list for the watched data.
 
-  You *can* add properties here. E.g.
+  You *can* watch object properties here that were not previously being "watched". E.g.
   if ``patient`` is part of the data, adding a watcher on ``patient.email`` will
   trigger when ``patient.email`` changes.
 
@@ -390,10 +395,12 @@ Which data does Vue "watch"?
    `"Since a Vuex store's state is made reactive by Vue, when we mutate the
    state, Vue components observing the state will update
    automatically." <https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules>`_
+   (Question: apart from strict mode, does the store actually put watchers
+   on the state, or does it rely on all changes going through mutations to
+   know when things might have changed? I suspect the latter.)
 
-
-*watching props* - this does not seem to work? I put a 'watch' on
-a prop that was being changed, and could see the component was updating,
+*watching component props* - this does not seem to work? I put a 'watch' on
+a component prop that was being changed, and could see the component was updating,
 but the watch did not trigger.
 
 Computed properties
@@ -416,7 +423,7 @@ The store
   that every time you dispatch an action, you can (and must) assume it's
   going to run asynchronously and code appropriately.
 
-* It's often a good idea to resist putting things into the store
+* Resist putting things into the store
   unless you have to. It is, essentially, a big global
   variable.  Some reasons I think you might reasonably put things
   into the store:
@@ -434,14 +441,8 @@ What's the advantage of using the store?
 
 * When you `commit` a change, Vue knows that part of the state has
   changed and can propagate that change to all the parts of the app
-  that are depending on it. (more "reactivity")
-
-* Because the `dispatch` interface to actions is asynchronous, if the
-  rest of the app accesses the store via actions, then you can change
-  to having the data in a backend and using an API to access it without
-  having to change the rest of the app. Just update the actions to use
-  the API instead of looking in the store. The rest of the app is already
-  written to access things asynchronously.
+  that are depending on it. (more "reactivity")  That's similar to
+  a component's data, but extends beyond a single component.
 
 More on reactivity
 ------------------

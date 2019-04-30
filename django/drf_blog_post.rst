@@ -28,7 +28,7 @@ network. Serializing is the process of converting Python objects
 to JSON, and deserializing is the process of converting JSON to Python objects
 again.
 
-(It might help to think of "serializing" as creating a "serial" stream of bytes
+(It helps me to think of "serializing" as creating a "serial" stream of bytes
 that can flow over a network connection, and "deserializing" as consuming a
 serial stream of bytes and turning it into something more useful again.)
 
@@ -59,11 +59,11 @@ How to serialize
 
 The serializer class for Thing is pretty simple::
 
-    from rest_framework import serializers
+from rest_framework import serializers
 
-    class ThingSerializer(serializers.Serializer):
-        id = serializers.IntegerField()
-        b = serializers.CharField()
+class ThingSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    b = serializers.CharField()
 
 Now suppose we want to use it to serialize something. In this case, we want to start with a Thing
 object, and end up with JSON.
@@ -116,7 +116,7 @@ won't let us do much until after we've called `.is_valid()`.
 
 But wait a minute. We ended up here with a dictionary exactly the same as we
 started with - weren't we expecting a Thing object? We were expecting that, but
-it'll take a little more work on our part to get there. We'll get there.
+it'll take a little more work on our part to get there.
 
 For now, notice that what we got corresponds to how we defined the fields in
 our serializer. `id` was an IntegerSerializer field and we got an integer, while
@@ -138,12 +138,21 @@ How this is used in an API
 At a very high level, if an API client submits a GET request to our application,
 we'll end up finding the object they want, serializing it, and sending a response
 with the serialized data as its body.
+The URI path of the GET request tells us what kind of thing we want,
+and where to find it.
 
 Similarly, if an API client wants to create an object, it'll submit a POST request
 whose body contains the JSON data representing the object it wants to create.
-Our app will validate the data, deserialize it, and add the object to the database.
-The URI path of the POST request tells us what kind of thing it is,
-and where to store it.
+Our app will validate the data, deserialize it, and store the object.
+The URI path of the POST request tells us what kind of thing it is.
+
+And if an API client wants to change an existing object, it'll submit a PUT request,
+using the same URL it would use to GET the existing object, but the PUT will
+contain in its request body the serialized data for the updated object.
+
+An API client can even submit a PATCH request the same way, and only provide
+in the request body the data for the fields it wants to change. Other fields will
+be left unchanged.
 
 Let's go into a little more detail about how serializers are used when creating
 an object. DRF will handle a lot of this for us if we use its ModelSerializer and
@@ -153,29 +162,29 @@ to better understand what's happening when you start customizing serializers mor
 We'll need to expand our serializer class a bit, and when we're done, we will be
 able to get a Thing object from our serialized data. The updated class::
 
-    from rest_framework import serializers
+from rest_framework import serializers
 
-    class ThingSerializer(serializers.Serializer):
-        id = serializers.IntegerField()
-        b = serializers.CharField()
+class ThingSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    b = serializers.CharField()
 
-        def create(self, validated_data):
-            return Thing(**validated_data)
+    def create(self, validated_data):
+        return Thing(**validated_data)
 
 We added a `create` method, which is given the validated data,
 and must return the final Python object that corresponds to
 that data.
 
-If this was a Django application and Thing was a model, then create
+If this was a Django application and Thing was a model, then `create`
 would also be expected to save the new Thing before returning.
 
 And here's how we use it to create a Thing::
 
-    data = {'id': 1, 'b': 'foo'}
-    serializer = ThingSerializer(data=data)
-    serializer.is_valid(raise_exception=True)
-    a_thing = serializer.save()
-    print(str(a_thing))
+data = {'id': 1, 'b': 'foo'}
+serializer = ThingSerializer(data=data)
+serializer.is_valid(raise_exception=True)
+a_thing = serializer.save()
+print(str(a_thing))
 
     <Thing(1, "foo")>
 
@@ -193,7 +202,7 @@ to an existing Thing, change a value on its copy of the Thing, then
 make a PUT request, using the same URI path, and putting the serialized
 form of its edited Thing as the request body.
 
-I'm going to ignore the code we need that finds the existing Thing that the
+I'm going to ignore the code that finds the existing Thing that the
 client is interested in. So here's how we might handle the
 PUT::
 
@@ -228,12 +237,12 @@ Like `create`, we have to write our own `update` method.::
             thing.b = validated_data['b']
             return thing
 
-DRF passes the validated data to our `update` object, the same as it
+DRF passes the validated data to our `update` method, the same as it
 does for our `create` method, along with the original object.
 Our `update` method must make changes to the original
 object, then return it.
 
-If this was a Django application and Thing was a model, then update
+If this was a Django application and Thing was a model, then `update`
 would also be expected to save the updated Thing before returning.
 
 Trying again::
@@ -252,8 +261,7 @@ We've changed the value of Thing's `id` field from 27 to 13.
 Validation
 ----------
 
-This is an area of DRF where I felt I had to figure a lot out by trial and
-error.
+This is an area of DRF where I had to figure a lot out by trial and error.
 
 Keep in mind that validation only applies to deserializing.
 
@@ -263,10 +271,18 @@ DRF's field validation
 ......................
 
 The first thing that DRF does is validate the input data for each field defined
-on the serializer.  Any additional input data is simply ignored.
+on the serializer. Any additional input data is simply ignored.
 
 Some of this is really obvious, such as providing a string as
 the value for an IntegerField is not valid.
+
+If the data passes validation, then `validated_data`, and the data passed
+to `create` and `update`, will be a dictionary with a key for each field
+defined on the serializer, whose value is the serialized data for that field.
+
+*Note* this is a difference from Django forms. Part of Django form validation
+is to convert the input data from the form into corresponding Python data
+types, but DRF does not do this during validation.
 
 Starting to nest
 ----------------
@@ -285,7 +301,6 @@ Let's add another class to our example application::
 The Box class has an identifier and a reference to a Thing.
 
 A basic serializer for a Box might look like this::
-
 
     from rest_framework import serializers
 
@@ -312,7 +327,6 @@ Thing for some reason, but otherwise, this looks about as we'd expect.
 As I hinted earlier, serializing is pretty straightforward. What
 about deserializing? Let's add a `create` method::
 
-
     from rest_framework import serializers
 
     class BoxSerializer(serializers.Serializer):
@@ -322,11 +336,12 @@ about deserializing? Let's add a `create` method::
         def create(self, validated_data):
            return Box(**validated_data)
 
+######## IS THAT RIGHT? OR DO WE NEED TO DEAL WITH A SEMI-DESERIALIZED THING? #########
+
 That looks pretty simple, actually.
 
 The thing is, fetching and creating objects will only take us so far.
 Pretty soon, we'll want to make changes to existing objects.
-
 
 Representing nested objects
 ---------------------------
@@ -336,7 +351,7 @@ That is, there are multiple ways we could serialize nested objects.
 The way we wrote our serializer, we represent the `thing` field's
 value by a fully serialized Thing. But we could just as well have
 used anything that would identify for us which Thing our Box is
-pointing at. In a Django app, we might well use a record's `id`
+pointing at. In a Django app, we might choose to use a record's `id`
 rather than serializing the entire record.
 
 Let's write an alternative serializer for our Box class that takes
@@ -350,7 +365,6 @@ We're just going to "serialize" the Thing using the value of its
 `id` field. DRF has built-in support for this sort of thing, so we
 can just add the `source` parameter to our serializer arguments.
 Let's see what we get::
-
 
     box = Box(2, Thing(5, 'drf'))
     serializer = BoxSerializer2(instance=box)
@@ -388,11 +402,11 @@ lifting in finding an existing Thing for us.
 
 Trying it out in a simpler way::
 
-    data = {'id': 2, 'thing': 5}
-    serializer = BoxSerializer2(data=data)
-    serializer.is_valid(raise_exception=True)
-    box = serializer.save()
-    print(str(box))
+data = {'id': 2, 'thing': 5}
+serializer = BoxSerializer2(data=data)
+serializer.is_valid(raise_exception=True)
+box = serializer.save()
+print(str(box))
 
     <Box(2, <Thing(5, "existing")>)>
 
@@ -401,9 +415,9 @@ up with the Thing object with `id = 5`, as we wanted.
 
 Continuing with serializing the `thing` field of our Box as just
 the `id` value of our `Thing`, what if we want to update our Box?
-Keeping in mind that the only thing we can really update this way
-is which Thing our box is pointing at, here's the updated BoxSerializer2::
-
+Keeping in mind that all we can really update this way
+is which Thing our box is pointing at, we need to add
+an ``update`` method to our serializer again::
 
     class BoxSerializer2(serializers.Serializer):
         id = serializers.IntegerField()
