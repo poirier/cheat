@@ -1,6 +1,34 @@
 Django REST Framework - Serializers
 ===================================
 
+In general, I feel like the DRF documentation is not explicit enough about
+what I see as the two sides of its interfaces: the Python side and the
+serialized side.
+
+For example, the documentation for field-level validators on serializers
+says "These methods take a single argument, which is the field value that requires validation."
+but don't say whether the "field value" is the Python value or the "serialized" value.
+
+I would expect that serializers are validating serialized values that need to
+be deserialized, since
+
+* we can probably assume the Python side values we're sending in are valid
+* we should not have to validate outputs
+* so that leaves the serialized data on input, which is quite likely to be
+  invalid at times, as the only thing we could be validating.
+
+But what do I get when I look at value? Sometimes, something like this::
+
+   {
+     'fieldA': 12,
+     'fieldB': 'string',
+     'fieldC': <A Python object>
+   }
+
+I cannot fathom why this would ever be passed to a method that is supposed to
+be validating serialized data, since it contains a mix of serialized data and
+Python objects.
+
 URLs from viewsets
 ------------------
 

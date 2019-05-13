@@ -32,6 +32,7 @@ Contents:
    migrations
    nginx
    permissions
+   pycharm
    queries
    security
    sentry

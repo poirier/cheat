@@ -24,6 +24,7 @@ Contents:
    i3
    ipv6
    javascript/index
+   jira
    kobo
    linux
    lirc
@@ -33,7 +34,6 @@ Contents:
    mpd
    mysql
    nginx
-   npm
    openssl
    org-mode
    postfix
