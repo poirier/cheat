@@ -1,6 +1,13 @@
 Debian
 ======
 
+Timezone
+--------
+
+Set system timezone::
+
+    sudo dpkg-reconfigure tzdata
+
 Services
 --------
 
