@@ -46,6 +46,10 @@ Writing Python code that works the same in Python 2 & 3, using six as necessary.
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | zip(a, b)                     | list(zip(a, b))                   | list(zip(a, b))                             |
 +-------------------------------+-----------------------------------+---------------------------------------------+
+| from urllib import quote      | from urllib.parse import quote    | from six.moves.urllib.parse import quote
++-------------------------------+-----------------------------------+---------------------------------------------+
+| xmlrpclib                     | xmlrpc.client                     | six.moves.xmlrpc_client
++-------------------------------+-----------------------------------+---------------------------------------------+
 
 six.BytesIO
 This is a fake file object for binary data. In Python 2, it’s an alias for StringIO.StringIO, but in Python 3, it’s an alias for io.BytesIO.
