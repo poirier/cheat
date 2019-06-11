@@ -31,6 +31,18 @@ Volume groups
 * Add PV to VG : ``vgextend <VGname> <PVname>``
 * Remove PV from VG : ``vgreduce <VG name> <PV name>``
 * List volume groups : ``vgdisplay``, or ``vgs`` for briefer output
+* Removing a VG::
+
+    Make sure that no logical volumes are present in the volume group,
+    see later section for how to do this.
+
+    Deactivate the volume group:
+
+    # vgchange -a n my_volume_group
+
+    Now you actually remove the volume group:
+
+    # vgremove my_volume_group
 
 Logical volumes
 ---------------
@@ -41,6 +53,16 @@ Logical volumes
 * Enlarge LV : ``lvextend -l+<extents> /dev/<VGname>/<LVname>``
 * Reduce LV: ``lvreduce -L<newSIZE> /dev/<VGNAME>/<LVname>``
     Add ``-r`` to resize the filesystem at the same time. Otherwise, be *sure* to shrink the filesystem first.
+
+* Remove LV:
+
+A logical volume must be closed before it can be removed::
+
+    # umount /dev/myvg/homevol
+    # lvremove /dev/myvg/homevol
+    lvremove -- do you really want to remove "/dev/myvg/homevol"? [y/n]: y
+    lvremove -- doing automatic backup of volume group "myvg"
+    lvremove -- logical volume "/dev/myvg/homevol" successfully removed
 
 Resize file system after enlarging LV
 -------------------------------------
