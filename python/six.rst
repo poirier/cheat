@@ -24,6 +24,8 @@ Writing Python code that works the same in Python 2 & 3, using six as necessary.
 | map(function, iterable)       | [function(x)                      | [function(x)                                |
 |                               |  for x in iterable]               |  for x in iterable]                         |
 +-------------------------------+-----------------------------------+---------------------------------------------+
+| reduce()                      | from functools import reduce      | from functools import reduce                |
++-------------------------------+-----------------------------------+---------------------------------------------+
 | self.assertItemsEqual(        | self.assertCountEqual(            | six.assertCountEqual(                       |
 |    random_order(items),       |   random_order(items),            |    self,                                    |
 |    random_order(more_items))  |   random_order(more_items))       |    random_order(items),                     |
@@ -46,20 +48,14 @@ Writing Python code that works the same in Python 2 & 3, using six as necessary.
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | zip(a, b)                     | list(zip(a, b))                   | list(zip(a, b))                             |
 +-------------------------------+-----------------------------------+---------------------------------------------+
-| from urllib import quote      | from urllib.parse import quote    | from six.moves.urllib.parse import quote
+| from urllib import quote      | from urllib.parse import quote    | from six.moves.urllib.parse import quote    |
 +-------------------------------+-----------------------------------+---------------------------------------------+
-| xmlrpclib                     | xmlrpc.client                     | six.moves.xmlrpc_client
+| xmlrpclib                     | xmlrpc.client                     | six.moves.xmlrpc_client                     |
 +-------------------------------+-----------------------------------+---------------------------------------------+
-
-six.BytesIO
-This is a fake file object for binary data. In Python 2, it’s an alias for StringIO.StringIO, but in Python 3, it’s an alias for io.BytesIO.
-
-six.StringIO
-This is an fake file object for textual data. It’s an alias for StringIO.StringIO in Python 2 and io.StringIO in Python 3.
-
-six.moves.reduce
-reduce	reduce()	functools.reduce()
-
+| from StringIO import StringIO | from io import BytesIO            | from six import BytesIO                     |
++-------------------------------+-----------------------------------+---------------------------------------------+
+| from StringIO import StringIO | from io import StringIO           | from six import StringIO                    |
++-------------------------------+-----------------------------------+---------------------------------------------+
 
 six.moves.range
 
