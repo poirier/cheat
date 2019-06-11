@@ -8,6 +8,9 @@ Writing Python code that works the same in Python 2 & 3, using six as necessary.
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | from urlparse import urlparse | from urllib.parse import urlparse | from six.moves.urllib.parse import urlparse |
 +-------------------------------+-----------------------------------+---------------------------------------------+
+| from urllib import quote      | from urllib.parse import quote    | from six.moves.urllib.parse import quote    |
+| from urllib import unquote    | from urllib.parse import unquote  | from six.moves.urllib.parse import unquote  |
++-------------------------------+-----------------------------------+---------------------------------------------+
 | dict.iteritems()              | dict.items()                      | six.iteritems(dict)                         |
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | dict.iterkeys()               | dict.keys()                       | six.iterkeys(dict)                          |
@@ -36,19 +39,19 @@ Writing Python code that works the same in Python 2 & 3, using six as necessary.
 | class Foo(BaseClass):         | class Foo(BaseClass,              | @six.add_metaclass(MetaClass)               |
 |    __metaclass__ = MetaClass  |           metaclass=MetaClass):   | class Foo(BaseClass)                        |
 +-------------------------------+-----------------------------------+---------------------------------------------+
+| basestring                    | str                               | six.string_types
++-------------------------------+-----------------------------------+---------------------------------------------+
 | str                           | bytes                             | six.binary_type                             |
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | unicode                       | str                               | six.text_type                               |
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | [int, long]                   | [int]                             | six.integer_types                           |
 +-------------------------------+-----------------------------------+---------------------------------------------+
-| iterator.next()               | next(iterator)                    | six.next(iterator)                          |
+| iterator.next()               | next(iterator)                    | next(iterator)                              |
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | zip(a, b).__iter__()          | zip(a, b)                         | ???????????                                 |
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | zip(a, b)                     | list(zip(a, b))                   | list(zip(a, b))                             |
-+-------------------------------+-----------------------------------+---------------------------------------------+
-| from urllib import quote      | from urllib.parse import quote    | from six.moves.urllib.parse import quote    |
 +-------------------------------+-----------------------------------+---------------------------------------------+
 | xmlrpclib                     | xmlrpc.client                     | six.moves.xmlrpc_client                     |
 +-------------------------------+-----------------------------------+---------------------------------------------+
