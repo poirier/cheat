@@ -19,7 +19,7 @@ admin's default one in the templates path.
 
 At least in Django 1.8+, this gives you a "View site" link for free::
 
-    % extends "admin/base.html" %}
+    {% extends "admin/base.html" %}
 
     {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
