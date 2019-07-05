@@ -50,6 +50,16 @@ Change 'alternatives' default browser or editor::
     sudo update-alternatives --set x-www-browser /usr/bin/chromium-browser
     sudo update-alternatives --set editor /usr/bin/emacs24
 
+If you get an error like::
+
+    update-alternatives: error: alternative /snap/bin/firefox for x-www-browser not registered; not setting
+
+then you can add the new alternative with::
+
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /snap/bin/firefox 50
+
+and then try again.
+
 Be prompted for which alternative you prefer for a link group::
 
     sudo update-alternatives --config x-www-browser
