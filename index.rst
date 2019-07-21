@@ -42,6 +42,7 @@ Contents:
    raspberrypi/index
    release
    rst
+   rsync
    salt
    socat
    tmux
