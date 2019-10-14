@@ -25,6 +25,30 @@ command exits, stop the container without saving any changes::
 Cleanup
 .......
 
+remove docker containers
+------------------------
+
+see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
+
+::
+
+    $ docker ps
+    $ docker ps -a
+    $ docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+
+remove docker images
+--------------------
+
+see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
+
+::
+
+    $ docker images
+    $ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+
+    $ docker images | grep "none"
+    $ docker rmi $(docker images | grep "none" | awk '/ / { print $3 }')
+
 delete volumes
 --------------
 
@@ -41,30 +65,6 @@ delete networks
     $ docker network ls
     $ docker network ls | grep "bridge"
     $ docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
-
-remove docker images
---------------------
-
-see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
-
-::
-
-    $ docker images
-    $ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-
-    $ docker images | grep "none"
-    $ docker rmi $(docker images | grep "none" | awk '/ / { print $3 }')
-
-remove docker containers
-------------------------
-
-see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
-
-::
-
-    $ docker ps
-    $ docker ps -a
-    $ docker rm $(docker ps -qa --no-trunc --filter "status=exited")
 
 Resize disk space for docker vm
 -------------------------------
