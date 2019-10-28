@@ -91,7 +91,7 @@ Projects with code under a ``src`` directory
 --------------------------------------------
 
 In this case, there's a Django app ``pkgname`` under src, with a ``templates``
-directory that needs to be included.
+directory and a ``static`` directory that need to be included.
 
 Setup.py::
 
@@ -112,10 +112,11 @@ Setup.py::
         entry_points={"console_scripts": ["manage=manage:main"]},
 
         package_data={
-            "pkgname": ["templates/*.html", "templates/include/*.html"],
+            "pkgname": ["templates/*.html", "templates/include/*.html", "static/*"],
         }
     )
 
 and MANIFEST.in::
 
     graft pkgname/templates
+    graft pkgname/static
