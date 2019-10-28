@@ -86,3 +86,36 @@ The docs recommend ``twine``
 ::
 
     twine upload dist/*
+
+Projects with code under a ``src`` directory
+--------------------------------------------
+
+In this case, there's a Django app ``pkgname`` under src, with a ``templates``
+directory that needs to be included.
+
+Setup.py::
+
+    from setuptools import setup, find_packages
+
+    setup(
+        name="pkgname",
+        version="1.9.13",
+        packages=find_packages(where="src"),
+        package_dir={"": "src", "pkgname": "src/pkgname"},
+        url="",
+        license="",
+        author="poirier",
+        author_email="",
+        description="",
+        python_requires=">=3.6",
+        install_requires=["Django<=3.0", "dj-database-url", "gunicorn", "whitenoise"],
+        entry_points={"console_scripts": ["manage=manage:main"]},
+
+        package_data={
+            "pkgname": ["templates/*.html", "templates/include/*.html"],
+        }
+    )
+
+and MANIFEST.in::
+
+    graft pkgname/templates
