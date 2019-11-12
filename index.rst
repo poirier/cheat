@@ -26,6 +26,7 @@ Contents:
    javascript/index
    jira
    kobo
+   kubernetes/index
    linux
    lirc
    lvm

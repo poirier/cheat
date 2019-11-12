@@ -1,20 +1,5 @@
-Kubernetes
-==========
-
-Misc. notes
-
-* Login to google cloud (change parms)::
-
-    gcloud auth login
-    gcloud beta container clusters get-credentials kubedemo-cluster --region us-east1 --project kubernetes-lighting-talk
-    kubectl cluster-info
-
-* Create namespace: ``kubectl create namespace tobias``
-* Set default namespace: ``kubectl config set-context --current --namespace=tobias``
-
-
-
-
+Minikube
+--------
 
 https://kubernetes.io/docs/tutorials/hello-minikube/
 
@@ -56,4 +41,3 @@ https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-in
 
 https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/
 https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/
-
