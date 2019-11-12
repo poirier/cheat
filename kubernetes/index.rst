@@ -1,6 +1,8 @@
 Kubernetes
 ==========
 
+Kubectl cheatsheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration
+
 Contents:
 
 .. toctree::
@@ -30,3 +32,8 @@ Find out the hostname & IP address of something deployed
 Use::
 
     kubectl get ingress --all-namespaces
+
+Lets encrypt
+------------
+
+https://docs.cert-manager.io/en/latest/tutorials/acme/quick-start/
