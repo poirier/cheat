@@ -16,6 +16,16 @@ To check the ubuntu version, ``ansible_distribution_version|float < 18``  (ansib
     "ansible_distribution_release": "bionic"
     "ansible_distribution_version": "18.04"
 
+Better error formatting from https://www.jeffgeerling.com/blog/2018/use-ansibles-yaml-callback-plugin-better-cli-experience
+Put this in ansible.cfg::
+
+    [defaults]
+    # FROM https://www.jeffgeerling.com/blog/2018/use-ansibles-yaml-callback-plugin-better-cli-experience
+    # Use the YAML callback plugin.
+    stdout_callback = yaml
+    # Use the stdout_callback when running ad-hoc commands.
+    bin_ansible_callbacks = True
+
 .. toctree::
 
   background
