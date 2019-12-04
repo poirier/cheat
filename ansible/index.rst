@@ -26,6 +26,9 @@ Put this in ansible.cfg::
     # Use the stdout_callback when running ad-hoc commands.
     bin_ansible_callbacks = True
 
+Just note that this can break output from 'command' or 'ansible -m setup', and you might need to
+disable it if you need that. Open issue: https://github.com/ansible/ansible/issues/39122
+
 .. toctree::
 
   background

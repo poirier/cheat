@@ -1,5 +1,5 @@
-KUBERERNETES on GKE with HELM
-=============================
+KUBERNETES on GKE with HELM
+===========================
 
 GKE is Google's hosted Kubernetes environment.
 
@@ -76,13 +76,11 @@ To *DESTROY* the deployed app (be careful!)::
 Setting up DNS
 --------------
 
-See what the hostname and address of the load balancer are:
+See what the IP address of the nginx ingress controller is by
+running::
 
-  `kubectl get ingress --all-namespaces`
+    kubectl get Service --namespace=ingress-nginx
 
-If there are no IP addresses shown, it's possible the cluster has not yet been set up
-for nginx etc.  Go back and follow the instructions about caktus-hosting-services
-again.
-
-Now set the domain name to point to that IP address. (You can just do it in your
-local /etc/hosts file if just testing.)
+Configure your hostname to point at the External IP address shown
+by this command, even if it differs from the external IP that might
+be shown with your app's ingress. You want this one, not that one.
