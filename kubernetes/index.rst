@@ -1,39 +1,25 @@
 Kubernetes
 ==========
 
-Kubectl cheatsheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration
+* https://kubernetes.io/docs/tutorials/kubernetes-basics/
+* https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/
+* https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/
+* https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   kubectl
+   microk8s
+   helm
    docker_registry
    minikube
    digital_ocean
    gke
 
-
-Misc. notes
------------
-
-* Login to google cloud (change parms)::
-
-    gcloud auth login
-    gcloud beta container clusters get-credentials kubedemo-cluster --region us-east1 --project kubernetes-lighting-talk
-    kubectl cluster-info
-
-* Create namespace: ``kubectl create namespace tobias``
-* Set default namespace: ``kubectl config set-context --current --namespace=tobias``
-
-Find out the hostname & IP address of something deployed
---------------------------------------------------------
-
-Use::
-
-    kubectl get ingress --all-namespaces
-
-Lets encrypt
-------------
+Lets encrypt on K8S
+-------------------
 
 https://docs.cert-manager.io/en/latest/tutorials/acme/quick-start/

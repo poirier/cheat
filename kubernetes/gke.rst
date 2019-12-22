@@ -1,19 +1,14 @@
-KUBERNETES on GKE with HELM
-===========================
+Kubernetes on GKE
+=================
 
 GKE is Google's hosted Kubernetes environment.
 
-Install Helm v3
----------------
+* Login to google cloud (change parms)::
 
-Install helm v3 client https://v3.helm.sh/docs/intro/install/#from-the-binary-releases
+    gcloud auth login
+    gcloud beta container clusters get-credentials kubedemo-cluster --region us-east1 --project kubernetes-lighting-talk
+    kubectl cluster-info
 
-At this time (Nov. 2019), Helm v3 is still in beta but it seems pretty stable.
-It has the great advantage over Helm v2 that there's no Tiller running in the K8S
-cluster anymore.
-
-The v3 docs don't seem quite complete yet, but for the most part, the v2 docs
-still apply.
 
 Setting up the cluster
 ----------------------
@@ -49,38 +44,3 @@ be able to access.
 * Tag your images using "us.gcr.io/PROJECTID/imagename:LABEL"
 * Now you should be able to push them: `docker push us.gcr.io/PROJECTID/imagename:LABEL`.
   https://cloud.google.com/container-registry/docs/pushing-and-pulling
-
-Installing with Helm
---------------------
-
-See https://v3.helm.sh/docs/intro/using_helm/
-
-The syntax is::
-
-    helm install <releasename> <path-to-chart> [--values <values-file-path>] [--wait]
-
-For example, for staging, the first time::
-
-    helm install example-staging example --values values_staging.yaml --wait
-
-After making changes, apply them with::
-
-    helm upgrade example-staging example --values values_staging.yaml --wait
-
-To *DESTROY* the deployed app (be careful!)::
-
-    helm delete example-staging
-
-("uninstall" works too.)
-
-Setting up DNS
---------------
-
-See what the IP address of the nginx ingress controller is by
-running::
-
-    kubectl get Service --namespace=ingress-nginx
-
-Configure your hostname to point at the External IP address shown
-by this command, even if it differs from the external IP that might
-be shown with your app's ingress. You want this one, not that one.
