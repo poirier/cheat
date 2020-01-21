@@ -9,3 +9,4 @@ Contents:
    :maxdepth: 2
 
    s3
+   subaccounts
