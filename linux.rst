@@ -6,12 +6,20 @@ VPN
 
 * Install "openconnect" and "network-manager-openconnect-gnome"
 * Set up the VPN through network manager
-* To stop Linux routing ALL traffic through the VPN, open the VPN's connection settings,
-  go to the IPv4 tab, click the "Routes" button near the bottom, check the checkbox
-  "Use this connection only for resources on its network", click "OK",
-  go to the IPv6 tab and repeat, save all the changes, then take the
-  VPN down and bring it up again.
 
+Here's a partial solution to stop Linux routing ALL traffic through the VPN.
+Unfortunately, it also turns off whatever DNS the VPN was providing, so I
+need to figure out how to fix that or *no names resolve for anything in the
+VPN...*
+
+* open the VPN's connection settings
+* go to the IPv4 tab
+* click the "Routes" button near the bottom
+* check the checkbox "Use this connection only for resources on its network"
+* click "OK"
+* go to the IPv6 tab and repeat
+* save all the changes
+* take the VPN down and bring it up again.
 
 Creating RPMS
 --------------
