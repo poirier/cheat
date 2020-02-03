@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    kubectl
+   dashboard
    microk8s
    helm
    docker_registry
