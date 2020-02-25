@@ -17,6 +17,7 @@ Contents:
    helm
    docker_registry
    minikube
+   aws
    digital_ocean
    gke
 

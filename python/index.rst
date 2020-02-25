@@ -16,6 +16,7 @@ Contents:
    six
    timezones
    tox
+   versions
    virtualenv
    xml
 
