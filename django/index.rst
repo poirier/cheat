@@ -37,6 +37,7 @@ Contents:
    security
    sentry
    settings
+   static_files
    templates
    test
    translation

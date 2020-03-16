@@ -116,7 +116,7 @@ been prepared correctly:
     COMPRESS_ENABLED = True
     COMPRESS_OFFLINE = True
 
-The preparation is the tricky part. It turns out that for compress to work,
+The preparation is the tricky part. It turns out that for the ``compress`` command to work,
 a copy of the static files must be gathered in a local directory first.
 Most of the tools we might use to compile, compress, etc. are going to
 read local files and write local output.
@@ -155,7 +155,7 @@ compress:
 .. code-block:: python
 
     # settings/compress.py
-    # Django settings when running compress
+    # Django settings when running compress command
     from .deployed import *
 
     # Override a few settings to make storage local, but URLs look remote
