@@ -1,7 +1,7 @@
-Using the django-celery-beat scheduler with Django and Celery
-=============================================================
+Draft Blog Post: Using the django-celery-beat scheduler with Django and Celery
+==============================================================================
 
-The django-celery-beat scheduler for Celery stores the
+The `django-celery-beat` scheduler for Celery stores the
 schedules for your periodic tasks in a Django database
 table, instead of a local file. This is a good idea when
 running our services in ephemeral containers where local
@@ -72,13 +72,10 @@ to change otherwise.
 Scheduling tasks with django-beat-scheduler
 -------------------------------------------
 
-If you are using django-beat-scheduler, you *must* set up your schedule by
-creating records in your database, as described
-`in django-beat-scheduler's documentation <https://django-celery-beat.readthedocs.io/en/latest/>`_.
+If you are using django-celery-beat, you must set up your schedule by creating records in your database, as described
+`in django-celery-beat's documentation <https://django-celery-beat.readthedocs.io/en/latest/>`_.
 It's not difficult to do, and it's a perfectly reasonable way to
-set up your schedule.  I just assumed that using Celery's documented way to
-set up scheduled tasks would create those records for me, and that turns out not
-to be the case.
+set up your schedule.  I just assumed that using Celery's documented way to set up scheduled tasks would create those records for me, and that turns out not to be the case.
 
 Here's an example of how you might set up a task to run periodically::
 
@@ -110,22 +107,21 @@ And here's a task to be run every morning::
         ),
     )
 
-I'm using `update_or_create` to update the tasks in the database, if needed, anytime
-we start a Django process. For routine tasks like these, we might just as well have
-created them once using a migration.
+When and where to create the schedule records
+---------------------------------------------
+
+If you're going to be setting up some of the same tasks in all environments - like a nightly cleanup task - then you can view that task data as a fixture: data that needs to get added to your database once. `I've found <https://www.caktusgroup.com/blog/2015/11/10/initial-data-django/>`_ that all things considered, using migrations works better for that than trying to do it during application startup.
+
+Tasks that aren't so much like fixtures can be added at the appropriate place and time in your application code.
 
 Time zones
 ----------
 
-The other problem area I ran into was with time zones
-`(my nemesis) <https://www.caktusgroup.com/blog/2019/03/21/coding-time-zones-and-daylight-saving-time/>`_.
-django-beat-scheduler has to be set up with the same time
-zone settings as Django.  I assumed, since it has "django" in its name,
+The other problem area I ran into was with time zones `(my nemesis) <https://www.caktusgroup.com/blog/2019/03/21/coding-time-zones-and-daylight-saving-time/>`_.
+django-celery-beat has to be set up with the same time zone settings as Django.  I assumed, since it has "django" in its name,
 that it would just follow the Django settings, but instead it follows the Celery settings.
-In my case, my Django application was using local
-time while django-beat-scheduler was using UTC. As a result, django-beat-scheduler
-seemed to always think my every 30 seconds task didn't need to run for another
-5 hours plus 30 seconds, or something like that.
+
+In my case, my Django application was using local time while django-celery-beat was using UTC. As a result, django-celery-beat seemed to always think my every 30 seconds task didn't need to run for another 5 hours plus 30 seconds, or something like that.
 
 The simplest solution in my case was to make sure my Django settings
 looked like this::
@@ -133,8 +129,34 @@ looked like this::
     USE_TZ = True
     TIME_ZONE = "UTC"
 
-django-beat-scheduler defaults to UTC, so it and Django started getting along after that.
+django-celery-beat defaults to UTC, so it and Django started getting along after that.
 
-If I had really needed Django's TIME_ZONE to be something other than UTC,
-I think I could have gotten things to work by setting CELERY_TIMEZONE to the same value. But I haven't tried that.
+If I had really needed Django's TIME_ZONE to be something other than UTC, I think I could have gotten things to work by setting CELERY_TIMEZONE to the same value. But I haven't tried that.
+
+Without time zones
+------------------
+
+If you're working on an old project that has never enabled Django's time zone support, you'll want something like this in your Django settings::
+
+USE_TZ = False
+# Configure Celery to match, or things will get confused.
+CELERY_ENABLE_UTC = False
+# Undocumented but necessary setting for django-celery-beat:
+DJANGO_CELERY_BEAT_TZ_AWARE = False
+# Just in case anything looks at these anyway (probably not necessary):
+TIME_ZONE = "UTC"
+CELERY_TIMEZONE = "UTC"
+
+As noted in the comment, DJANGO_CELERY_BEAT_TZ_AWARE is not documented, but I found it in the source when trying to figure out why django-celery-beat was trying to store timezone-aware datetimes in the database, triggering Django exceptions.  Explicitly setting it False makes django-celery-beat use naive datetimes.
+
+Django admin
+------------
+
+Another helpful feature of django-celery-beat is that its models will show up automatically in the Django admin, no extra configuration needed. Then you can easily view or edit the schedule there.
+
+Summary
+-------
+
+django-celery-beat is a very helpful aid to larger deployments, where storing Celery's schedule data in a local file isn't appropriate anymore. With these tips, I hope you'll find it helpful too.
+
 
