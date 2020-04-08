@@ -3,6 +3,30 @@ Variables
 
 .. _variables:
 
+When/how variables are resolved
+-------------------------------
+
+Here's my mental model of how this works in Ansible. I don't know for sure if it's right, but it seems to correspond with what I've seen so far.
+
+1. When Ansible is reading in all your YAML files, it stores all the values as written - in other words, it does not apply Jinja templating or try to evaluate anything.
+
+2. When Ansible needs the value of a variable, it does the following:
+
+   1. Starting with the highest precedence variables defined in the current context, Ansible looks for a definition for that variable.
+
+   2. The first one it finds, it stops.
+
+   3. It submits its value to Jinja to expand any templating in it.
+
+   4. It uses the result as the variable's value.
+
+Note that the most common time when Ansible needs to find the value of a variable is when Jinja is trying to expand a template,
+which Ansible never asks Jinja to do until the last possible moment.
+
+One useful implication is that you don't need to worry, when defining a variable, about referring to other variables that
+might not yet be defined. Ansible won't be trying to determine the value of your variable until after all the variable
+definitions have been stored and are available for lookups.
+
 Pre-defined variables
 ---------------------
 
