@@ -48,6 +48,7 @@ disable it if you need that. Open issue: https://github.com/ansible/ansible/issu
   variables
   galaxy
   facts
+  vault_yaml
 
 Misc. stuff I need to file somewhere:
 
