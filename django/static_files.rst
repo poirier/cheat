@@ -2,21 +2,22 @@ Static Files in Django
 ======================
 
 Managing static files in Django seems to be one of the most
-confusing areas for me - it should be simple, but so often, it's not.
+confusing areas for me - it seems like it should be simple!
+But so often, it's not.
 
 .. contents::
 
 Example scenarios
 -----------------
 
-The most default case during development
+The default case during development
 ........................................
 
 Suppose you haven't changed any settings related to static files, and you're running your site
 locally using `runserver`_ - how does that work?
 
 You do *not* need to run `collectstatic`_ in this case.  `STATIC_URL`_ and `STATICFILES_FINDERS`_
-are important, but `STATIC_ROOT`_ is not used at all.
+are important, but `STATIC_ROOT`_ is *not used at all*.
 
 `runserver`_ intercepts any request starting with the value of
 `STATIC_URL`_ so it will be handled by a special development-only file server.
@@ -27,7 +28,7 @@ file it finds as the response.
 
 .. _runserver: https://docs.djangoproject.com/en/stable/ref/django-admin/#runserver
 
-The most default case when deployed to production
+The most common case when deployed to production
 .................................................
 
 In the typical simple production case, you'll put a web server program like nginx listening on
@@ -47,13 +48,14 @@ Another common case for production
 .................................................
 
 Another common case in production is serving the static files using a
-completely different kind of server. It could be storage system like
+completely different kind of server. It could be a storage system like
 Amazon S3, or a content distribution network, but whatever it is, we need
 Django to copy the static files to it when we deploy, and we need Django
 to know how to build the URLs that browsers will use to fetch those files.
 
 To do this, the most important setting is
-STATICFILES_STORAGE_, which will be the package and classname of an alternative storage system class
+STATICFILES_STORAGE_, which will be the package and classname of an
+alternative storage system class
 that is likely specific to the kind of static file service you are using.
 
 As an example, the django_storages_ package provides a variety of storage systems
@@ -77,8 +79,8 @@ It renders to a URL, but where does that URL come from?
 "If the django.contrib.staticfiles app is installed, the tag will
 serve files using url() method of the storage specified by `STATICFILES_STORAGE`_."
 
-And otherwise? The tag will just stick the value
-of `STATIC_URL`_ setting in front.::
+And *otherwise* (if staticfiles is not in INSTALLED_APPS)? The tag will just stick the value
+of the `STATIC_URL`_ setting in front.::
 
         if apps.is_installed('django.contrib.staticfiles'):
             from django.contrib.staticfiles.storage import staticfiles_storage
@@ -198,6 +200,11 @@ whitenoise_ provides a couple of `alternative storage systems`_ that optionally 
 and forever caching features.
 
 .. _alternative storage systems: http://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
+
+django-pipeline
+---------------
+
+
 
 django-compressor
 -----------------
