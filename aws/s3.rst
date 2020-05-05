@@ -1,6 +1,14 @@
 S3
 ===
 
+Moving a bunch of files using cli
+---------------------------------
+
+We want to move all the files under .../ugc/photos  to be under .../ugc.old/photos/::
+
+    aws s3 mv s3://bucketname/cache/ugc/photos/ s3://bucketname/cache/ugc.old/photos/ --recursive
+
+
 Access control
 --------------
 
