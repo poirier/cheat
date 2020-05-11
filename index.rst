@@ -32,6 +32,7 @@ Contents:
    lvm
    lxde
    logitech_harmony/index
+   mercurial
    mpd
    mysql
    nginx
