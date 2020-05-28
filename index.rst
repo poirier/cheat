@@ -48,10 +48,11 @@ Contents:
    socat
    tmux
    travisci
+   ubuntu
    video
-   x11
    virtualbox
    vue
+   x11
    yaml
 
 Indices and tables
