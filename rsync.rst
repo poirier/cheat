@@ -1,6 +1,9 @@
 Rsync
 =====
 
+Trailing Slashes
+++++++++++++++++
+
 The one thing I can never remember: what it means for source and/or target
 to have trailing slashes.
 
@@ -49,3 +52,21 @@ the contents of the specified directory.::
     $ rsync -a path/of/dir/ remote:target/
     $ ssh remote ls target
     a b c
+
+Rsync to remote systems using ssh
++++++++++++++++++++++++++++++++++
+
+Example::
+
+    rsync -Hlrtz --delete-during -M--fake-super /etc/ hostname:path/etc/
+
+* -H --hard-links: preserve hard links
+* -l --links: copy symlinks as symlinks
+* -M --remote-option=XXX: send OPTION to the remote side only
+* -r --recursive: recurse into directories
+* -t --times: preserve modtimes
+* -z --compress: compress during transfer
+* --delete-during: receiver deletes during the transfer
+* --fake-super: store/recover privileged attrs using xattrs
+
+Assuming `ssh hostname` works...
