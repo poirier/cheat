@@ -46,6 +46,7 @@ Contents:
    rst
    rsync
    salt
+   shell
    socat
    tmux
    travisci
