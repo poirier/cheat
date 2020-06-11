@@ -30,6 +30,35 @@ To do things that require mysql root::
     $ mysql -u root -p  # if root has password and older Debian
     $ sudo mysql -u root   # On more recent Debian, no need for root password but must be root user
 
+Examining the data definitions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Brief overview of a table's structure::
+
+    mysql> describe auth_user;
+    +-----------------------------+--------------+------+-----+---------+----------------+
+    | Field                       | Type         | Null | Key | Default | Extra          |
+    +-----------------------------+--------------+------+-----+---------+----------------+
+    | id                          | int(11)      | NO   | PRI | NULL    | auto_increment |
+    +-----------------------------+--------------+------+-----+---------+----------------+
+
+Full table definition::
+
+    mysql> show create table auth_user;
+    show create table auth_user;
+    +-----------+--...-+
+    | Table     | Create Table ...|
+    +-----------+-...--+
+    | auth_user | CREATE TABLE `auth_user` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+    ...
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `username` (`username`),
+      CONSTRAINT ...,
+    ) ENGINE=InnoDB AUTO_INCREMENT=159799 DEFAULT CHARSET=utf8 |
+    +-----------+-...--+
+
+
 Users and permissions
 ~~~~~~~~~~~~~~~~~~~~~
 
