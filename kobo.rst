@@ -6,13 +6,15 @@ Kobo ereader
 Activating without connecting to kobo on the internet
 -----------------------------------------------------
 
+.. warning:: The SQL statement below may need to change with updates to the Kobo firmware.
+
 * Start up the kobo. It'll ask if you want to setup over wifi or not. Say not.
 * Plug the kobo into your computer using a USB cable.
 * On my laptop, it mounts automatically at /media/usb0; I don't know if I set that up somehow in the past.
 * Use sqlite3 to add a dummy user::
 
     $ sqlite3 /media/usb0/.kobo/KoboReader.sqlite3
-    sqlite> INSERT INTO user (UserID, UserKey, UserDisplayName, UserEmail) values("00000000-0000-0000-0000-000000000000","00000000-0000-0000-0000-000000000000","MyDummyUser@dummy.com","MyDummyUser@dummy.com");
+    sqlite> INSERT INTO user values("00000000-0000-0000-0000-000000000000","00000000-0000-0000-0000-000000000000","MyDummyUser@dummy.com","MyDummyUser@dummy.com","000011");
     sqlite> .quit
 
 Before rebooting, continue by manually updating the latest firmware, see next section.
@@ -28,8 +30,10 @@ to ``.kobo``), and copy font files there.
 Manually updating firmware
 --------------------------
 
-* Download a zipfile with the latest firmware for your Kobo device from
-  `this wiki page <https://wiki.mobileread.com/wiki/Kobo_Firmware_Releases>`_
+The most recent firmware may now be at https://pgaskin.net/KoboStuff/kobofirmware.html.
+Older versinos may be found at https://wiki.mobileread.com/wiki/Kobo_Firmware_Releases.
+
+* Download a zipfile with the latest firmware for your Kobo device from one of the links above.
 * The Kobo should be mounted over USB as above.
 * Change to the kobo's ``.kobo`` directory
 * Unpack the zipfile containing the firmware update
