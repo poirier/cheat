@@ -1,3 +1,5 @@
+.. index:: django; nginx
+
 .. _nginx:
 
 NGINX

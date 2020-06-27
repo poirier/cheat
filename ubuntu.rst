@@ -1,8 +1,13 @@
+.. index:: ! ubuntu
+
 Ubuntu notes
 ============
 
 Verbose boot
 ------------
+
+.. index:: ubuntu;; grub
+.. index:: ubuntu;; plymouth
 
 1. Edit ``/etc/default/grub``, find "splash" and remove from the boot command line.
 2. Run ``sudo update-grub``.

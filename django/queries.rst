@@ -1,3 +1,5 @@
+.. index:: django; queries
+
 =====================
 Queries and Querysets
 =====================

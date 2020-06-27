@@ -1,8 +1,12 @@
 Git
 ===
 
+..index:: ! git
+
 Disaster recovery
 -----------------
+
+.. index:: git reflog
 
 ``git reflog`` will list all the recent commits, whether they're reachable from
 any branch or tag or not.   Find the one you want, check it out by its commit,
@@ -10,6 +14,8 @@ and then you can make that a branch with ``git branch <new-name>`` (I think).>
 
 Undoing things
 --------------
+
+.. index:: git reset, git undo
 
 If you've committed some changes, then for some reason decide you didn't
 want to commit them yet - but still want the changes present in your local
@@ -30,6 +36,8 @@ changes - gone::
 
 Fetching
 --------
+
+.. index:: git fetch
 
 Update all local remote tracking branches from all remotes::
 
@@ -58,6 +66,8 @@ check its log. The temporary local branch will eventually be garbage collected::
 Branches and checkouts
 ----------------------
 
+.. index:: git checkout, git branch
+
 Check out an existing branch::
 
     git checkout <branch>
@@ -79,6 +89,8 @@ http://stackoverflow.com/questions/1683531/how-to-import-existing-git-repository
 Cleaning
 --------
 
+.. index:: git clean, git remote prune
+
 Delete untracked files (be careful!)::
 
     git clean -fdx
@@ -95,6 +107,8 @@ Prune branches that track remote branches that no longer exist
 
 Pulls
 -----
+
+.. index:: pull request
 
 Easier access to pull requests on Github.  Add to config::
 
@@ -153,6 +167,8 @@ Handy aliases for config::
 Submodules
 ----------
 
+.. index:: git submodule
+
 This will typically fix things::
 
     git submodule update --init --recursive
@@ -166,6 +182,8 @@ Add a new submodule [http://git-scm.com/book/en/Git-Tools-Submodules]
 
 Combining feature branches
 --------------------------
+
+.. index:: git rebase
 
 Suppose you have branch A and branch B, which branched off of master
 at various times, and you want to create a branch C that contains

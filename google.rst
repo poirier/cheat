@@ -1,6 +1,8 @@
 Google APIs
 ===========
 
+..index:: ! google
+
 Google APIs and Docs
 
 `Google Apps <https://developers.google.com/google-apps/>`_

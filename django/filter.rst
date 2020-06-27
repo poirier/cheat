@@ -1,3 +1,6 @@
+.. index:: django; filtering and pagination
+.. index:: django; pagination and filtering
+
 Filtering and Pagination with Django
 ====================================
 

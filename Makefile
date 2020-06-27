@@ -56,6 +56,10 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+dash: html
+	doc2dash --name cheat --destination $(BUILDDIR) $(BUILDDIR)/html
+	cd $(BUILDDIR) && tar --exclude='.DS_Store' -cvzf cheat.tgz cheat.docset
+
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo

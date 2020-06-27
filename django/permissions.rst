@@ -1,3 +1,5 @@
+.. index:: django; permissions
+
 ===========
 Permissions
 ===========

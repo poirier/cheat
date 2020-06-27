@@ -7,6 +7,8 @@ and http://www.bogpeople.com/networking/openssl.shtml.
 End-user Functions
 ------------------
 
+.. index:: openssl; create key
+
 Create key
 ~~~~~~~~~~
 
@@ -32,6 +34,8 @@ Extract public key::
 
 Getting Certificates
 ~~~~~~~~~~~~~~~~~~~~
+
+.. index:: openssl; certificate operations
 
 Create Certificate Request and Unsigned Key::
 

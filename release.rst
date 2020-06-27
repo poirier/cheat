@@ -1,7 +1,11 @@
+.. index:: ! releasing
+
 Release - how to
 ================
 
 How to release
+
+.. index:: git; git flow
 
 This is a checklist for releasing a new version of *something*
 if we're using the

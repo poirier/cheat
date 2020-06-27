@@ -1,4 +1,4 @@
-.. index:: ! Django
+.. index:: ! django
 
 Django
 =============
@@ -18,6 +18,7 @@ Contents:
    data
    database
    ddt
+   django_celery_beat
    dokku
    drf_serializers
    eb
@@ -47,8 +48,7 @@ Contents:
 
 Misc to file:
 
-.. index::
-    single: django; circular imports
+.. index:: django; circular imports
 
 Avoid circular imports::
 

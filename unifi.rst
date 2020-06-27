@@ -1,3 +1,6 @@
+.. index::
+    pair: unifi; ubiquity
+
 Unifi
 =====
 

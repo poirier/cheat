@@ -1,3 +1,5 @@
+.. index:: django; home page
+
 Quick And Dirty Home Page
 =========================
 

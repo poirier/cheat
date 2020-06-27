@@ -1,3 +1,5 @@
+.. index:: ! shell
+
 Shell
 =====
 

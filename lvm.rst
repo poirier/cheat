@@ -1,3 +1,5 @@
+.. index:: ! lvm
+
 LVM
 ===
 
@@ -19,6 +21,8 @@ LV
 Physical volumes
 ----------------
 
+.. index:: pvdisplay, pvcreate, pvs
+
 * List physical volumes : ``pvdisplay`` , or ``pvs`` for briefer output
 * Info about one PV : ``pvdisplay <PV name>``
 * Partition type for LVM: ``8e``
@@ -26,6 +30,8 @@ Physical volumes
 
 Volume groups
 -------------
+
+.. index:: vgcreate, vgextend, vgreduce, vgdisplay, vgs
 
 * Create a volume group : ``vgcreate <NewVGName> <PVname> [<PVname>...]``
 * Add PV to VG : ``vgextend <VGname> <PVname>``
@@ -47,6 +53,8 @@ Volume groups
 Logical volumes
 ---------------
 
+.. index:: lvdisplay, lvs, lvcreate, lvextend, lvreduce
+
 * List logical volumes : ``lvdisplay``, or ``lvs`` for briefer output
 * Create LV : ``lvcreate -L<SIZE> -n<NewLVName> <VGname>``   (SIZE=<num><units>, e.g. 1.47TiB)  or -l<EXTENTS>
 * Device name of the logical volume = ``/dev/<VGname>/<LVname>``
@@ -55,6 +63,8 @@ Logical volumes
     Add ``-r`` to resize the filesystem at the same time. Otherwise, be *sure* to shrink the filesystem first.
 
 * Remove LV:
+
+.. index:: umount, lvemove
 
 A logical volume must be closed before it can be removed::
 
@@ -66,6 +76,8 @@ A logical volume must be closed before it can be removed::
 
 Resize file system after enlarging LV
 -------------------------------------
+
+.. index:: ext2fs, resize2fs
 
 Either of these will use all the available space.
 

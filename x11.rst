@@ -1,3 +1,5 @@
+.. index:: ! X11
+
 X11 Window System
 =================
 
@@ -8,7 +10,9 @@ Looking around on Ubuntu
 
 /etc/X11 is a good place to start
 
-Xsession is invoked by the display manager.
+.. index:: X11; Xsession
+
+`Xsession` is invoked by the display manager.
 
 See 'man 5 Xsession'
 
@@ -26,6 +30,8 @@ Also look at /etc/kde4/kdm:
 
 Which directories kdm looks in for different desktop sessions -
 It might just use the first of these where it finds anything??????
+
+.. index:: X11; xessions
 
   /usr/share/xsessions
   /var/lib/menu-xdg/xsessions    (no such dir)

@@ -1,3 +1,5 @@
+.. index:: django; security
+
 .. _security:
 
 Security

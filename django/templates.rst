@@ -1,3 +1,6 @@
+.. index:: django; templates
+.. index:: django; template tags
+
 Templates
 =========
 

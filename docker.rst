@@ -1,6 +1,8 @@
 Docker
 ======
 
+.. index:: ! docker
+
 Terminology
 ...........
 

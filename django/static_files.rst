@@ -1,3 +1,5 @@
+.. index:: django; static files
+
 Static Files in Django
 ======================
 

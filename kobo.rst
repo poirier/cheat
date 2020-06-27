@@ -3,6 +3,8 @@
 Kobo ereader
 ============
 
+.. index:: kobo; activation
+
 Activating without connecting to kobo on the internet
 -----------------------------------------------------
 
@@ -21,6 +23,8 @@ Before rebooting, continue by manually updating the latest firmware, see next se
 
 Adding fonts
 ------------
+
+.. index:: kobo; fonts
 
 `instructions <https://www.mobileread.com/forums/showpost.php?p=2404011&postcount=1>`_
 

@@ -1,6 +1,8 @@
 i3
 ==
 
+.. index:: ! i3
+
 My i3 bindings
 
 "Ŵ" is the "windows" key
