@@ -7,10 +7,12 @@ Unifi
 Where things are in the Unifi UI...
 
 Override DNS address for dhcp clients
-    Settings > Networks > LAN EDIT > DHCP Name Server > Manual > enter IP addresses
+    old Settings > Networks > LAN EDIT > DHCP Name Server > Manual > enter IP addresses
+
+    new Settings > Networks > Local Networks > (next to LAN) Edit > DHCP Controls > DHCP Name Server
 
 Port forwarding
-    Settings > Routing & Firewall > Port Forwarding
+    old Settings > Routing & Firewall > Port Forwarding
 
     new Settings > Gateway > Port Forwarding
 
