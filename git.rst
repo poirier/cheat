@@ -6,7 +6,7 @@ Disaster recovery
 
 ``git reflog`` will list all the recent commits, whether they're reachable from
 any branch or tag or not.   Find the one you want, check it out by its commit,
-and then you can make that a branch with ``git branch <new-name>`` (I think).>
+and then you can make that a branch with ``git branch <new-name>`` (I think).
 
 Undoing things
 --------------

@@ -7,6 +7,7 @@ Contents:
    :maxdepth: 2
 
    asyncio
+   devenv
    fixing_style
    mock
    packaging

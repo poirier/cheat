@@ -20,6 +20,7 @@ Contents:
    ddt
    dokku
    drf_serializers
+   dump_export
    eb
    email
    fabric
