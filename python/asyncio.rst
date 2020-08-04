@@ -4,7 +4,7 @@ Asyncio
 What is it
 ----------
 
-``asyncio`` is a library included in Python 3.5 that supports a programming model where
+``asyncio`` is a library included in Python 3.5+ that supports a programming model where
 sometimes, operations that would normally block the thread until some other event happened
 (like getting a response from a network connection) instead allow other code to run on
 that thread while waiting.
@@ -46,9 +46,15 @@ Event loops
 Async code can only run inside an `event loop`. The event loop is the driver code
 that manages the cooperative multitasking.
 
-(I think) a typical pattern would be to get or create an event loop, set up some
-things to be run by it, then start the event loop running and have it run until
-the program is finished.
+The typical usage pattern would be something like::
+
+    import asyncio
+
+    async def func(args):
+        # do stuff...
+        return result
+
+    result = asyncio.run(func(args))
 
 If it's useful for some reason, you can create multiple threads and run different
 event loops in each of them. For example, Django uses the main thread to wait for
@@ -69,6 +75,7 @@ Coroutines
 * To execute a `coroutine object`, either:
 
    * use it in an expression with ``await`` in front of it, or
+   * use asyncio.run(coroutine_object()), or
    * schedule it with `ensure_future() <https://docs.python.org/3/library/asyncio-task.html#asyncio.ensure_future>`_
      or `create_task() <https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.AbstractEventLoop.create_task>`_.
 

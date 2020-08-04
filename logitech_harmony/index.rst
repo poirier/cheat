@@ -1,7 +1,20 @@
 Logitech Harmony
 ================
 
+Harmony Hub
+...........
+
+To change which button invokes which activity on the remote, do:
+
+* MENU
+* Harmony Setup
+* Add/Edit Devices
+* REMOTE & HUB
+* BUTTON CUSTOMIZATION
+* ACTIVITY CONTROL BUTTONS
+
 Programming it using Linux
+..........................
 
 I have the Harmony One model (no longer produced).
 

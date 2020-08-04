@@ -36,6 +36,7 @@ Contents:
    mpd
    mysql
    nginx
+   nixos
    openssl
    org-mode
    postfix

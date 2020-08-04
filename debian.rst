@@ -1,8 +1,13 @@
 Debian
 ======
 
+.. index:: ! debian
+
 Timezone
 --------
+
+.. index:: debian; timezone
+.. index:: debian; dpkg-reconfigure
 
 Set system timezone::
 
@@ -10,6 +15,8 @@ Set system timezone::
 
 Services
 --------
+
+.. index:: debian; update-rc.d
 
 ``update-rc.d``:
 
@@ -34,6 +41,8 @@ Making a new init script:
 Packages
 --------
 
+.. index:: debian; dpkg
+
 * List packages that match a pattern:  ``dpkg -l <pattern>``
 * List contents of a package: ``dpkg -L packagename``
 * Show packages that installed files matching pattern: ``dpkg -S pattern``
@@ -44,6 +53,9 @@ Packages
 
 Alternatives
 ------------
+
+.. index:: debian; alternatives
+.. index:: debian; update-alternatives
 
 Change 'alternatives' default browser or editor::
 
@@ -71,6 +83,9 @@ Find out what the top-level link groups are::
 Set xdg program to open/browse a directory (DOES NOT WORK) (do NOT use sudo)::
 
     xdg-mime default /usr/share/applications/Thunar.desktop x-directory/normal
+
+.. index::
+    triple: xdg; xdg-settings; debian
 
 Change 'xdg' default browser (for user)::
 

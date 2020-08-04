@@ -1,8 +1,12 @@
+.. postgres:: ! postgres
+
 Postgres
 ========
 
 Snippets
 --------
+
+.. index:: postgres; psql
 
 * In psql::
 
@@ -83,6 +87,8 @@ etc. You can set some environment variables to use as defaults for things::
 Create user
 -----------
 
+.. index:: postgres; createuser
+
 This is pretty standard.  To create user ``$username`` with plain text password
 ``$password``::
 
@@ -108,6 +114,9 @@ password it otherwise has auth for.  E.g. to allow local connections via both un
 
 Create database
 ---------------
+
+.. index::
+    pair: postgres; createdb
 
 If you need a database owned by ``$project_user``, you can:
 
@@ -205,6 +214,9 @@ This is pretty standard and can be done by the project user::
 Drop database
 -------------
 
+.. index::
+    pair: drop database; postgres
+
 When it comes time to drop a database, only master has the permission, but
 master can only drop databases it owns, so it takes two steps.  Also,
 you can't drop the database you're connected to, so you need to connect
@@ -220,6 +232,9 @@ has to be connected to some other database when doing it, though.)
 
 Drop user
 ---------
+
+.. index::
+    pair: dropuser; postgres
 
 This is standard too.  Just beware that you cannot drop a user if anything
 they own still exists, including things like permissions on databases.::

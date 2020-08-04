@@ -1,3 +1,5 @@
+.. index:: django; sentry
+
 Sentry on a Django site
 =======================
 

@@ -1,3 +1,5 @@
+.. index:: ! nginx
+
 Nginx
 =====
 
@@ -6,6 +8,8 @@ if you don't already where it is.
 
 Redirect non-SSL to SSL
 -----------------------
+
+.. index:: nginx; ssl redirection
 
 From https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx::
 
@@ -26,6 +30,8 @@ From https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in
 
 Most useful variables
 ---------------------
+
+.. index:: nginx; variables
 
 $host
     in this order of precedence: host name from the request line, or host name from the “Host” request header field, or the server name matching a request
@@ -55,7 +61,9 @@ $server_port
 Variables in configuration files
 --------------------------------
 
-See above for "variables" that get set automaticaly for each request
+.. index:: nginx; using variables
+
+See above for "variables" that get set automatically for each request
 (and that we cannot modify).
 
 The ability to set variables at runtime and control logic flow based on them

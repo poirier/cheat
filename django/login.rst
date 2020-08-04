@@ -1,3 +1,6 @@
+.. index:: django; login
+.. index:: django; logout
+
 Django login and logout
 =======================
 

@@ -1,6 +1,8 @@
 HAProxy
 =======
 
+.. index:: ! haproxy
+
 Make sure to use the docs corresponding to the version you are using.
 
 1.5: https://cbonte.github.io/haproxy-dconv/1.5/configuration.html
