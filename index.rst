@@ -49,6 +49,7 @@ Contents:
    salt
    shell
    socat
+   systemd
    tmux
    travisci
    ubuntu

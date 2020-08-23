@@ -11,7 +11,7 @@ To change which button invokes which activity on the remote, do:
 * Add/Edit Devices
 * REMOTE & HUB
 * BUTTON CUSTOMIZATION
-* ACTIVITY CONTROL BUTTONS
+* ACTIVITY LAUNCH BUTTONS
 
 Programming it using Linux
 ..........................
