@@ -20,20 +20,20 @@ Xsession redirects stdout & stderr to $HOME/.xsession-errors almost first thing
 
 Xsession.d/* has a bunch of scripts that are sourced in order by Xsession:
 
-  20x11-common_process-args: sets STARTUP if arg passed to Xsession
-  40x11-common_xsessionrc: will source $HOME/.xsessionrc if it is readable
-  50x11-common_determine-startup: will set STARTUP to ~/.xsession or ~/.Xsession but ONLY if the display manager has not already set a startup command by passing it to Xsession - or so the comments say...
+*  20x11-common_process-args: sets STARTUP if arg passed to Xsession
+*  40x11-common_xsessionrc: will source $HOME/.xsessionrc if it is readable
+*  50x11-common_determine-startup: will set STARTUP to ~/.xsession or ~/.Xsession but ONLY if the display manager has not already set a startup command by passing it to Xsession - or so the comments say...
 
 Also look at /etc/kde4/kdm:
 
-  kdmrc:  LOTS of useful config stuff - read the comments
+*  kdmrc:  LOTS of useful config stuff - read the comments
 
 Which directories kdm looks in for different desktop sessions -
 It might just use the first of these where it finds anything??????
 
 .. index:: X11; xessions
 
-  /usr/share/xsessions
-  /var/lib/menu-xdg/xsessions    (no such dir)
-  /etc/kde4/kdm/sessions                (empty)
-  /usr/share/kde4/apps/kdm/sessions   (a zillion files, I suspect it doesn't look here since others come first)
+*  /usr/share/xsessions
+*  /var/lib/menu-xdg/xsessions    (no such dir)
+*  /etc/kde4/kdm/sessions                (empty)
+*  /usr/share/kde4/apps/kdm/sessions   (a zillion files, I suspect it doesn't look here since others come first)

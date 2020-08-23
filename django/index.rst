@@ -21,6 +21,7 @@ Contents:
    django_celery_beat
    dokku
    drf_serializers
+   dump_export
    eb
    email
    fabric
