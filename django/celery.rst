@@ -5,6 +5,88 @@ Celery
 
 http://docs.celeryproject.org/en/latest/
 
+RELIABLY setting up a Django project with Celery
+------------------------------------------------
+
+The Celery docs are woefully insufficient.
+
+* To configure Celery in our Django settings, use the (new as of 4.0) settings names as documented
+  `here <http://docs.celeryq.org/en/latest/userguide/configuration.html#configuration>`_
+  *BUT* prefix each one with ``CELERY_`` and change it to all uppercase.
+  E.g. the docs say to set ``broker_url``, but instead we will set ``CELERY_BROKER_URL``
+  in our Django settings.
+
+* Decide on what name to your for your Celery application.  Here I'm going to call it "example_celeryapp".
+
+* Somewhere (I don't think it'll much matter where when we get done),
+  add code to create the Celery application::
+
+    from celery import Celery
+
+    # Don't try to guess which django settings we should be using.
+    if "DJANGO_SETTINGS_MODULE" not in os.environ:
+        raise Exception(
+            "DJANGO_SETTINGS_MODULE must be set in the environment before running celery."
+        )
+
+    # The app name is "example_celeryapp" to match "-A example_celeryapp" that we pass to
+    # beat and the workers.
+    app = Celery("example_celeryapp")
+    # - namespace='CELERY' means all celery-related configuration keys
+    #   should have a `CELERY_` prefix.
+    app.config_from_object("django.conf:settings", namespace="CELERY")
+
+Note that we're not using ``app.autodiscover_tasks()`` - it would need to run after
+all the apps were configured in order to reliably work, and thus far, Django doesn't
+offer any way to run things then.  Instead, we're going to have to register each Django
+app's tasks as it is ready.
+
+* In each Django app that needs tasks, create a tasks.py. Import our celery app
+  from whereever we put it previously, and use ``@app.tasks(options)`` as a decorator
+  on each task::
+
+    from somewhere import app
+
+    @app.task(ignore_result=True)
+    def some_task(arg1, arg2):
+        ...
+
+* `Set up a ready method <https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready>`_ for the app.
+  In the ready method (and not before), import its tasks file::
+
+    from django.apps import AppConfig
+
+    class MyApplicationConfig(AppConfig):
+      name = 'myapplication'
+      verbose_name = 'myapplication'
+
+      def ready():
+        # Register celery tasks
+        import myapplication.tasks
+
+* Your servers will need some directories for Celery to use at run-time. If you're using Ansible, you might do something like::
+
+    - name: create dirs for celery to use
+      file:
+          state: directory
+          owner: "{{ run_as_user }}"
+          group: "{{ run_as_group }}"
+          path: "{{ item }}"
+          mode: 0755
+      loop:
+          - /var/log/celery
+          - "{{ pidfiles_dir }}"
+
+
+* When starting workers, pass ``-A`` with your celery app name. E.g., if you're creating a systemd service,
+  ``{{ venv_dir }}`` is your virtualenv, etc, your command might be::
+
+    {{ venv_dir }}/bin/celery worker -A example_celeryapp --loglevel INFO --concurrency 2 --logfile /var/log/celery/%%n%%I.log --pidfile {{ pidfiles_dir }}/celery-%%n%%I.pid
+
+* Similarly when starting beat::
+
+    {{ venv_dir }}/bin/celery beat -A example_celeryapp --loglevel INFO --logfile /var/log/celery/beat.log --pidfile {{ pidfiles_dir }}/celery-beat.pid
+
 Useful settings
 ---------------
 
