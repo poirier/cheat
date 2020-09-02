@@ -16,10 +16,9 @@ The Celery docs are woefully insufficient.
   E.g. the docs say to set ``broker_url``, but instead we will set ``CELERY_BROKER_URL``
   in our Django settings.
 
-* Decide on what name to your for your Celery application.  Here I'm going to call it "example_celeryapp".
+* Decide on what name to use for your Celery application.  Here I'm going to call it "example_celeryapp".
 
-* Somewhere (I don't think it'll much matter where when we get done),
-  add code to create the Celery application::
+* Somewhere add code to create the Celery application::
 
     from celery import Celery
 
@@ -36,8 +35,11 @@ The Celery docs are woefully insufficient.
     #   should have a `CELERY_` prefix.
     app.config_from_object("django.conf:settings", namespace="CELERY")
 
+It doesn't really matter where we put this, because we'll import it from all
+our tasks files and it'll get loaded when we need it to.
+
 Note that we're not using ``app.autodiscover_tasks()`` - it would need to run after
-all the apps were configured in order to reliably work, and thus far, Django doesn't
+all the Django apps were configured in order to reliably work, and thus far, Django doesn't
 offer any way to run things then.  Instead, we're going to have to register each Django
 app's tasks as it is ready.
 
@@ -51,8 +53,8 @@ app's tasks as it is ready.
     def some_task(arg1, arg2):
         ...
 
-* `Set up a ready method <https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready>`_ for the app.
-  In the ready method (and not before), import its tasks file::
+* `Set up a ready method <https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready>`_
+  for the Django app. In the ready method (and not before), import its tasks file::
 
     from django.apps import AppConfig
 
@@ -95,6 +97,9 @@ http://docs.celeryproject.org/en/latest/configuration.html
 CELERY_TASK_ALWAYS_EAGER: If this is True, all tasks will be executed locally by blocking until the task returns. apply_async() and Task.delay() will return an EagerResult instance, which emulates the API and behavior of AsyncResult, except the result is already evaluated.
 
 That is, tasks will be executed locally instead of being sent to the queue.
+
+This is useful mainly when running tests, or running locally without Celery
+workers.
 
 CELERY_TASK_EAGER_PROPAGATES: If this is True, eagerly executed tasks (applied by task.apply(), or when the CELERY_TASK_ALWAYS_EAGER setting is enabled), will propagate exceptions.
 
