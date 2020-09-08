@@ -53,20 +53,3 @@ This assumes a headless install on a RPi.
 * Delete the old ``pi`` user::
 
     sudo deluser --remove-all-files pi
-
-fd81:910:aeeb:0:f607:3571:987b:4cda
-
-│ Configure your devices to use the Pi-hole as their DNS server      │
-                                                          │ using:                                                             │
-                                                          │                                                                    │
-                                                          │ IPv4:        192.168.4.132                                         │
-                                                          │ IPv6:        fd81:910:aeeb:0:f607:3571:987b:4cda                   │
-                                                          │                                                                    │
-                                                          │ If you set a new IP address, you should restart the Pi.            │
-                                                          │                                                                    │
-                                                          │ The install log is in /etc/pihole.                                 │
-                                                          │                                                                    │
-                                                          │ View the web interface at http://pi.hole/admin or                  │
-                                                          │ http://192.168.4.132/admin                                         │
-                                                          │                                                                    │
-                                                          │ Your Admin Webpage login password is CdQc6cBY
