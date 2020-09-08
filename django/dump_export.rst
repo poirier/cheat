@@ -6,6 +6,9 @@ In docs:
 * /ref/django-admin.html#dumpdata
 * /topics/serialization.html#topics-serialization-natural-keys
 
+Dumping
+-------
+
 Syntax::
 
     django-admin dumpdata --output=outputfile.json --indent=2 [app_label[.ModelName] [app_label[.ModelName] ...]]
@@ -44,3 +47,12 @@ E.g.::
     def natural_key(self):
         return (self.task.label, self.url)
     natural_key.dependencies = ["appname.Model1", "appname.Model2"]
+
+Compressing dumps
+-----------------
+
+Dumps can be big but they compress very well and can be restored without
+uncompressing, e.g. with bzip2::
+
+    $ bzip2 bigdump.json
+    $ python manage.py loaddata bigdump.json.bz2
