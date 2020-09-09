@@ -10,6 +10,7 @@ Contents:
    ansible/index
    aws/index
    bootstrap
+   cookiecutter
    debian
    diet
    django/index

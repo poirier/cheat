@@ -62,6 +62,32 @@ Full table definition::
 Users and permissions
 ~~~~~~~~~~~~~~~~~~~~~
 
+Cannot login as root
+,,,,,,,,,,,,,,,,,,,,
+
+See `this stackoverflow question <https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost>`_,
+the first answer as of today.
+
+Best answer seems to be to just create another user to use.
+(This is not quite what the answer on stackoverflow suggests, but I don't understand
+how creating a second user with the same problem as root would help.)
+
+I'm going to name the new user ``toor`` in this example (root backwards)::
+
+    $ sudo mysql -u root # I had to use "sudo" since is new installation
+
+    mysql> USE mysql;
+    mysql> CREATE USER 'toor'@'localhost' IDENTIFIED BY '';
+    mysql> GRANT ALL PRIVILEGES ON *.* TO 'toor'@'localhost';
+    mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='toor';
+    mysql> FLUSH PRIVILEGES;
+    mysql> exit;
+
+    $ service mysql restart
+
+Non-root users
+,,,,,,,,,,,,,,
+
 In the client::
 
     mysql> SELECT user, host from mysql.user;                           # List existing users
@@ -76,8 +102,8 @@ In the client::
     mysql> EXIT
     Bye
 
-Change user password
-~~~~~~~~~~~~~~~~~~~~
+Change any user password
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Note: default host is '%' which will not let you connect via unix socket, must set password for host 'localhost' to allow that::
 
