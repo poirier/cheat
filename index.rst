@@ -51,6 +51,7 @@ Contents:
    shell
    socat
    systemd
+   tasmota
    tmux
    travisci
    ubuntu
