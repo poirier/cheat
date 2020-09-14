@@ -67,6 +67,7 @@ Upgrade firmware:
 
 * Go to the download site `http://ota.tasmota.com/tasmota/ <http://ota.tasmota.com/tasmota/>`_.
 * Find the latest ``tasmota.bin.gz`` and *copy the link* (do *NOT* download).
+* Go to the web page for your Tasmota device.
 * Click "Firmware Upgrade".
 * Find "Update by web server" and paste the link into the "OTA URL" field.
 * Start the upgrade.
