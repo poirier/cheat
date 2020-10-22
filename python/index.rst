@@ -10,6 +10,7 @@ Contents:
    beautifulsoup
    devenv
    fixing_style
+   gitpython
    mock
    packaging
    pip
