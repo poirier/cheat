@@ -91,4 +91,33 @@ Configure MQTT and enable discovery.
 Time zone.
 
 If you're going to use the built-in Tasmota timer function, the device's time zone
-will need to be set. I haven't done that (using time triggers from Homeassistant instead).
+will need to be set.
+
+Let's work this out. https://tasmota.github.io/docs/Commands/ and search for TimeSTD::
+
+    Set policies for the beginning of daylight saving time (DST) and return back to standard time (STD)
+    0 = reset parameters to firmware defaults
+    H,W,M,D,h,T
+    H = hemisphere (0 = northern hemisphere / 1 = southern hemisphere)
+    W = week (0 = last week of month, 1..4 = first .. fourth)
+    M = month (1..12)
+    D = day of week (1..7 1 = sunday 7 = saturday)
+    h = hour (0..23)
+    T = timezone (-780..780) (offset from UTC in MINUTES - 780min / 60min=13hrs)
+    Example: TIMEDST 1,1,10,1,2,660
+    _If timezone is NOT 99, DST is not used (even if displayed) see
+
+USA rules:
+https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst
+
+daylight saving time in the United States:
+
+begins at 2:00 a.m. on the second Sunday of March (at 2 a.m. the local time time skips ahead to 3 a.m. so there is one less hour in the day)
+ends at 2:00 a.m. on the first Sunday of November (at 2 a.m. the local time becomes 1 a.m. and that hour is repeated, so there is an extra hour in the day)
+
+So the commands for EST5EDT will be::
+
+    TimeDST 0,2,3,1,2,-300
+    TimeSTD 0,1,11,1,2,-240
+    TimeZone 99
+

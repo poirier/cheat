@@ -1,23 +1,51 @@
 MPD
 ===
 
-Fixing on Ubuntu
-----------------
+https://www.musicpd.org/
 
-On Ubuntu, mpd is installed broken. You'll have to go read
-`this page <https://help.ubuntu.com/community/MPD>`_ and do
-some work to fix things so mpd will actually work on Ubuntu.
-Sigh.
+Getting the service running
+---------------------------
+
+At one time, mpd was installed broken on Ubuntu. As of 20.04, it's set up
+pretty well by default. I don't know when this was fixed.
+
+On Ubuntu 20.04, by default mpd is set up to run as a system service, so
+that's good. And the default ``/etc/mpd.conf`` file tells it to drop root privileges
+and run as the ``mpd`` user.
+
+As a system service, it's much easier to use ALSA for output than
+Pulseaudio, and the default configuration does that.
+
+To use ALSA, the ``mpd`` user has to belong to the ``audio`` group,
+and it does.
+
+One thing I'll change in ``/etc/mpd.conf`` is to listen either on all
+interfaces, or at least some besides localhost, so I can control it from
+other systems.
+
+The default configuration uses the default ALSA hardware device. If
+that's not what you want, you can see
+https://www.musicpd.org/doc/html/plugins.html#alsa-plugin
+and use ``aplay -L`` to get a list of all the possible values
+for ``device``.  E.g. ``hw:CARD=PCH,DEV=3``.
+
+MPC client
+==========
+
+Doc: https://www.musicpd.org/doc/mpc/html/
+
+Playlist commands
+-----------------
 
 .. IMPORTANT::
     To play *anything*, you must first get it into the current playlist.
     Even if you just want to play one thing.
 
-Playlist commands
------------------
+Commands for the playlist - unless otherwise specified, these operate
+on the current playlist:
 
-Commands that change the playlist:
-
+playlist
+    List the playlist
 clear
     Empty the playlist (stops playing if anything was playing)
 crop
@@ -35,11 +63,21 @@ insert <file>
     still be played next.
 mv|move <from> <to>
     Move item at position <from> to be at position <to>.
+shuffle
+    Shuffle the items in the playlist
+
+Commands for persistent playlists:
+
+lsplaylists
+    List all saved playlists
+playlist <playlist>
+    List items in playlist <playlist>
 save <name>
-    Save current playlist as database playlist with name <name>.
+    Save current playlist with name <name>.
 load <name>
-    *Add* contents of database playlist named <name> to the
-    current playlist.
+    *Add* contents of saved playlist named <name> to the
+    current playlist.  (You can use ``clear`` first to empty the
+    current playlist.)
 rm <name>
     Delete database playlist named <name> from database.
 
@@ -48,10 +86,10 @@ Playing things
 
 Status:
 
-playlist [-f <format>]
-    List songs in current playlist. See "man mpc" for format string syntax.
 current
     Show what's playing right now
+playlist [-f <format>]
+    List songs in current playlist. See "man mpc" for format string syntax.
 
 Control:
 

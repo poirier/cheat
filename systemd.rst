@@ -1,6 +1,39 @@
 Systemd
 =======
 
+Service files
+-------------
+
+`service file man page <https://www.freedesktop.org/software/systemd/man/systemd.service.html#>`_
+
+Next section says where to put the file.
+
+After adding, run::
+
+    # systemctl enable "unitname"
+    # systemctl start "unitname"
+
+Example/template::
+
+   [Unit]
+    Description={{ description }}
+    Wants=network-online.target
+    After=network-online.target
+
+    [Service]
+    Type=simple
+    ExecStart={{ command }}
+    Restart=on-failure  (or "always", "on-success", ...)
+    # Run as:
+    User={{ user }}
+    Group={{ groupname }}
+    # SupplementaryGroups=name1 name2 name3
+    WorkingDirectory={{ directory }}
+
+    [Install]
+    WantedBy=multi-user.target
+
+
 Unit search paths
 -----------------
 

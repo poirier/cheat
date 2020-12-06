@@ -1,6 +1,9 @@
 Asyncio
 =======
 
+NOTE: This was written around the time of Python 3.6. Things
+have changed since then.
+
 What is it
 ----------
 
