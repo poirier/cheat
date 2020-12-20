@@ -50,6 +50,7 @@ Contents:
    salt
    shell
    socat
+   sso_magic
    systemd
    tasmota
    tmux

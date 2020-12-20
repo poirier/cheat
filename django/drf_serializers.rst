@@ -260,7 +260,7 @@ But this doesn't seem to be good enough::
 
     ValidationError: {'model': [ErrorDetail(string='Incorrect type. Expected pk value, received dict.', code='incorrect_type')]}
 
-Maybe we have to do pass just the PK of the model object to use the serializer as-is, and this works::
+Maybe we have to do pass just the PK of the model object to use the serializer as-is::
 
         thing_data = {'text': 'thing text'}
         thing_serializer = ThingSerializer(data=model_data)
