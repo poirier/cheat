@@ -43,6 +43,25 @@ Here's an attempt at a useful table of contents.
 
   * `Pipenv command reference <https://pipenv.pypa.io/en/latest/cli/>`_
 
+    * Most of these "options" are basically additional commands, except there's no documentation other than the one-liners included here, so I haven't bothered giving links for these:
+
+      * --where - output project home information
+      * --venv - output virtualenv information
+      * --py - output Python interpreter information
+      * --envs - Output Environment Variable options.
+      * --rm - remove the virtualenv
+      * --bare - minimal output
+      * --completion - output completion (to be executed by the shell)
+      * --man - display manpage
+      * --support - Output diagnostic information for use in GitHub issues.
+      * --site-packages, --no-site-packages - Enable or disable site-packages for the virtualenv.
+      * --python <python> - Specify which version of Python virtualenv should use.
+      * --three, --two - Use Python 3/2 when creating virtualenv.
+      * --clear - Clears caches (pipenv, pip, and pip-tools).
+      * -v, --verbose - verbose mode
+      * --pypi-mirror <pypi-mirror>
+      * --version - show the version and exit
+
     * `check - Checks for PyUp Safety security vulnerabilities and against PEP 508 markers provided in Pipfile. <https://pipenv.pypa.io/en/latest/cli/#pipenv-check>`_
     * `clean - Uninstalls all packages not specified in Pipfile.lock. <https://pipenv.pypa.io/en/latest/cli/#pipenv-clean>`_
     * `graph - Displays currently-installed dependency graph information. <https://pipenv.pypa.io/en/latest/cli/#pipenv-graph>`_
@@ -127,7 +146,9 @@ is connected to where pipenv is installed, or is always that path?
 
 .. note:: is there a way to tell pipenv to use some other algorithm to generate the path to the virtualenv?
 
-There's no command (that I've found) to delete a virtualenv, or to prune old ones. That's on you.
+You can delete a virtualenv with ``pipenv --rm``.
+
+There's no command (that I've found) to prune old ones. That's on you.
 
 Converting from a requirements file
 -----------------------------------
