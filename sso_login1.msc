@@ -1,0 +1,35 @@
+# MSC for SSO login
+# mscgen -T png -i sso_login1.msc -o sso_login1.png
+# mscgen -T png -i sso_login1.msc -o sso_login1_inline.png
+msc {
+  # change width smaller for inline
+  # set width to 800 for "full size"
+  #width = "550";
+  width = "800";
+
+  "mail server"  [textcolor="black", arclinecolor="black", linecolor="black"],
+  "browser"  [textcolor="#3f7f3f", arclinecolor="#3f7f3f", linecolor="#3f7f3f"],
+  "sso server" [textcolor="blue", arclinecolor="blue", linecolor="blue"];
+
+  "browser" box "browser" [ label = "1. User enters https://mail.example.com into browser address bar." , textcolor="#3f7f3f" ];
+
+  "browser" => "mail server" [ label = "2. GET page on mail server", textcolor="#3f7f3f"  ];
+
+  "mail server" => "browser" [ label = "3. Redirect to https://sso.example.com/login?service=mail.example.com", textcolor="black"];
+
+  "browser" => "sso server" [ label = "4. GET https://sso.example.com/login?service=mail.example.com", textcolor="#3f7f3f" ];
+
+  "sso server" => "browser" [ label = "5. Login form", textcolor="blue"];
+
+  "browser" box "browser" [ label = "6. Browser displays login form", textcolor="#3f7f3f" ];
+  "browser" box "browser" [ label = "7. User fills in and submits form", textcolor="#3f7f3f" ];
+  "browser" => "sso server" [ label = "8. POST form data", textcolor="#3f7f3f" ];
+  "sso server" box "sso server" [ label = "Validate login credentials and access to mail", textcolor="blue"];
+  "sso server" => "browser" [ label = "9. Redirect to https://mail.example.com/sso?username=fred&ticket=a83md93msdf, with cookie", textcolor="blue"];
+  "browser" => "mail server" [ label = "10. GET https://mail.example.com/sso?username=fred&ticket=a83md93msdf", textcolor="#3f7f3f"];
+  "mail server" => "sso server" [ label = "11. Ask if username, ticket are valid", textcolor="black"];
+  "sso server" => "mail server" [ label = "12. Confirm", textcolor="blue"];
+  "mail server" => "browser" [ label = "13. Respond with web page + cookie", textcolor="black"];
+  "browser" box "browser" [ label = "14. Remember cookie, display page", textcolor="#3f7f3f" ];
+  "browser" => "mail server" [ label = "15. All future requests include cookie", textcolor="#3f7f3f" ];
+}
