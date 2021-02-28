@@ -1,8 +1,11 @@
 OpenSSL
 =======
 
-Some of this from http://www.coresecuritypatterns.com/blogs/?p=763
-and http://www.bogpeople.com/networking/openssl.shtml.
+Some of this from http://www.coresecuritypatterns.com/blogs/?p=763,
+http://www.bogpeople.com/networking/openssl.shtml,
+and (most recently) from
+https://www.feistyduck.com/library/openssl-cookbook/,
+which was at the 3rd edition (Feb 2021) when I downloaded it.
 
 End-user Functions
 ------------------
@@ -12,11 +15,38 @@ End-user Functions
 Create key
 ~~~~~~~~~~
 
+The Cookbook recommends putting passphrases on key files, but says it
+doesn't really worsen security on a production web server to put the
+passphrase in a file next to the key file --- if an attacker is
+on the system, they can probably extract the decrypted key from the
+web server memory anyway. The point of the passphrase is to protect
+the key file when it's not deployed to your production server.
+
 Create a 2048-bit key pair::
 
-    openssl genrsa 2048 > myRSA-key.pem
-    openssl genrsa -out blah.key.pem
-    openssl genrsa -out blah.key.pem 2048
+    $ openssl genpkey -out fd.key \
+    -algorithm RSA \
+    -pkeyopt rsa_keygen_bits:2048 \
+    -aes-128-cbc
+    ..........................................+++++
+    ...................................................................+++++
+    Enter PEM pass phrase: ************
+    Verifying - Enter PEM pass phrase: ************
+
+The key file is text, but inscrutable. You can see what's actually
+there using::
+
+    $ openssl pkey -in fd.key -text -noout
+    Enter pass phrase for fd.key: ****************
+    RSA Private-Key: (2048 bit, 2 primes)
+    modulus:
+    00:be:79:08:22:1a:bc:78:3c:17:34:4a:d3:5f:2b:
+    ... [much more output elided]
+
+The "key" is actually a private/public key pair.
+You can extract just the public part::
+
+    $ openssl pkey -in fd.key -pubout -out fd-public.key
 
 Create a password-protected 2048-bit key pair::
 
@@ -102,11 +132,11 @@ understand one or the other, some understand both:
 
       OpenSSL uses the PEM format by default, but you can tell it to process DER format certificates...you just need to know which you are dealing with.
 
-The command to view an X.509 certificate is::
+The command to view an X.509 certificate in DER format is::
 
     openssl x509 -in filename.cer -inform der -text
 
-You can specifiy -inform pem if you want to look at a PEM-format certificate
+Specify ``-inform pem`` if you want to look at a PEM-format certificate.
 
 Convert Between Formats
 ~~~~~~~~~~~~~~~~~~~~~~~

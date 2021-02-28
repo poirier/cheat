@@ -1,0 +1,143 @@
+ESP8266
+=======
+
+Started with https://www.esp8266.com/wiki/doku.php?id=getting-started-with-the-esp8266
+
+I have a NodeMCU LoLin , "new NodeMcu V3", "wemos.cc"
+Back also says "Use 9600bps baud rate"
+
+(http://wemos.cc/ is an Apache web server "site testing" page.)
+
+When I plug in the board to my laptop USB port, part of the syslog output
+tells me it's on ttyUSB0.
+
+https://www.cyberciti.biz/hardware/5-linux-unix-commands-for-connecting-to-the-serial-console/ has some
+useful info. It suggests the ``cu`` command to connect. After trying a few things, I got this to work::
+
+  $ sudo apt-get install cu
+  $ cu -l /dev/ttyUSB0 -s 115200
+
+.. code-block::
+
+  ... lots of other output ...
+  [E][ssd1306_i2c:031]: Communication with SSD1306 failed!
+  [C][captive_portal:169]: Captive Portal:
+  [C][ota:029]: Over-The-Air Updates:
+  [C][ota:030]:   Address: office.local:8266
+  [W][ota:036]: Last Boot was an unhandled reset, will proceed to safe mode in 3 restarts
+  [C][api:095]: API Server:
+  [C][api:096]:   Address: office.local:6053
+  [D][api.connection:604]: Client 'Home Assistant 2021.1.5 (192.168.1.2)' connected successfully!
+
+However, it's not responding to "AT" like the esp8266 wiki says it should. I'm guessing that's because
+it's already running a program.
+
+Arduino IDE
+-----------
+
+Downloads at `https://www.arduino.cc/en/software <https://www.arduino.cc/en/software>`_.
+I got 1.8.13, for Linux 64bit (non-ARM).  Download was a ``.tar.xz`` file.
+
+`Installation instructions? <https://www.arduino.cc/en/Guide>`_.
+Scroll *way* down and find a link to `https://www.arduino.cc/en/Guide/Linux <https://www.arduino.cc/en/Guide/Linux>`_.
+It says to extract it and run "install.sh". Okay.::
+
+    $ tar xJf ~/Downloads/arduino-1.8.13-linux64.tar.xz
+    $ cd arduino-1.8.13
+    $ ./install.sh
+    Adding desktop shortcut, menu item and file associations for Arduino IDE...
+
+
+    ln: failed to create symbolic link '/usr/local/bin/arduino': Permission denied
+    Adding symlink failed. Hope that's OK. If not then rerun as root with sudo.
+     done!
+
+Good enough.  There's a file ``arduino`` in the directory that I'm guessing will start it.
+Yes!
+
+Now look at
+`https://github.com/esp8266/Arduino <https://github.com/esp8266/Arduino>`_
+which is a project that adds ESP8266 support to the Arduino IDE.:
+
+* in Arduino IDE, open "File/Preferences"
+* find the "Additonal Boards Manager URLs" field and paste
+  ``https://arduino.esp8266.com/stable/package_esp8266com_index.json`` -
+  but mine already had that there!
+* Click OK
+* Open "Tools/.../Boards Managers".
+* Install esp8266 if not already installed.  (I have it - maybe from an
+  earlier install?  Yeah, I seem to have a directory ``~/.arduino15`` with
+  stuff in it.
+* From "Tools/Board", select my ESP8266 board.  Using a magnifying glass
+  on my board, I seem to have the "ESP-12E" variant, so I selected
+  "NodeMCU 1.0 (ESP-12E module)".
+
+Documentation for the ESP8266 support for Arduino IDE is at
+https://arduino-esp8266.readthedocs.io/en/2.7.4_a/. But
+*it is not a tutorial*. Come back to it later.
+
+Continuing at https://www.esp8266.com/wiki/doku.php?id=start-with-esp-12-arduino ...
+
+* In Tools/PORT:xxx, select "/dev/ttyUSB0"
+* Make sure baud is 115200.
+* Open “File” → “Examples” → “Examples for NodeMCU 1.0 (ESP-12E Module)” → “ESP8266” → “BlinkWithoutDelay”
+Add the following Line on top of the example:
+#define LED_BUILTIN 2
+This is needed because the example is written for a ESP-01 module and not for ESP-12. The blue LED is on internal PIN 2 not on PIN 1.
+There seems to be some confusion on Port numbering. On the board this pin is labeled TXD0.
+
+Put board in programming mode. From earlier on this page, "For programing mode: While holding the FLASH button down, momentarily press “RESET”, then release the FLASH button"
+
+In Arduino push the upload button (Blue arrow →) and wait until 100% is reached. While uploading the blue LED on the board is flashing.
+
+Not having much luck try this.
+* unplug board
+* hold FLASH button
+* keep holding FLASH while plugging in board
+* release FLASH button
+* try upload from Arduino IDE again
+
+Drat. After it says "done uploading", I'm still getting the slow LED blink for failure.
+
+After this, try ``cu -l /dev/ttyUSB0 -s 115200" and hit RESET again - and get
+gibberish on output. We're losing ground...
+
+Maybe look at https://www.electronicshub.org/getting-started-with-nodemcu/ ?
+
+Ah, interesting::
+
+  Another beautiful thing about NodeMCU is its inclusion of on-board USB to UART Controller, which is CP2102 IC in my case. An interesting thing about this CP2102 IC is that the GPIO 0 and RST pins of the ESP8266 SoC are controlled by the DTR (Data Terminal Ready) and RTS (Request to Send) pins of the CP2102 IC.
+
+  So, when ever you try to upload any sketch from Arduino IDE, the CP2102 IC will automatically select the Programming mode and also Resets the board. Once the programming is done, it configures the ESP8266 back to Normal Running mode. Beautiful.
+
+also::
+
+  The NodeMCU has two on-board LEDs. The first LED comes with the ESP-12E Module and is connected to GPIO 2 of ESP8266 SoC. The second LED is on the break-out board (near the CP2102 IC) and is connected to GPIO 16.
+
+Tried uploading the Blinky example from this page.
+Just getting the single slow-blinking LED. Ought to see both LEDs
+blinking... maybe edit program to make sure it's not doing what it's supposed to?
+Changed second delay from 1 to 3 seconds, should be noticeable.
+*YES* it does seem like it's on for 1, off for 3!
+It's just that the other LED isn't coming on at all...
+Swap the two delays... upload... or try... "protocol error"?
+unplug, replug. wait a few seconds. try upload... looking better, uploading...
+Yes, now LED is on about 3, off about 1.
+So what's with the other LED?
+
+Maybe look at https://www.esp8266.com/wiki/doku.php?id=nodemcu&s[]=nodemcu
+
+Link for hardware "devkit" to https://github.com/nodemcu/nodemcu-devkit
+
+Also: https://lowvoltage.github.io/2017/07/09/Onboard-LEDs-NodeMCU-Got-Two
+
+Looking now at my NodeMCU with a magnifying glass, I'm not sure that there *is* a 2nd LED!
+
+Maybe try esphome next?
+
+Yeah, got that going...
+
+Some notes:
+
+I want to stop the LED from blinking the whole time it's on.
+It's on GPIO 2.
