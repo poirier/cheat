@@ -14,6 +14,7 @@ Contents:
    admin
    apps
    celery
+   celery_starting
    compressor
    data
    database

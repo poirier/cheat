@@ -10,6 +10,9 @@ RELIABLY setting up a Django project with Celery
 
 The Celery docs are woefully insufficient.
 
+* Unlike many Django packages, you do not need to add Celery to ``INSTALLED_APPS``
+  in settings.
+
 * To configure Celery in our Django settings, use the (new as of 4.0) settings names as documented
   `here <http://docs.celeryq.org/en/latest/userguide/configuration.html#configuration>`_
   *BUT* prefix each one with ``CELERY_`` and change it to all uppercase.

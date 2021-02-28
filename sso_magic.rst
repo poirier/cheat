@@ -81,7 +81,7 @@ Instead of using large random numbers for tokens, the SSO server could create a 
 Magic
 --------
 
-To me it's almost magical how a few basic tools in the web protocols can be used to provide such a complex and useful behavior.
+To me it's almost magical how a few basic tools in the web protocols can be used to provide such a complex and useful behavior. 
 
 
 
@@ -93,45 +93,76 @@ Reading the rest of this post is optional. All the important points are covered 
 
 But for those who delight in the details, let's step through what might be happening when you log in to a set of sites that are using SSO. I won't claim that all SSO implementations work exactly like this, but this will illustrate the principles that many are based on.
 
-The numbers in this diagram correspond to the numbered steps below.
+.. image:: https://storage.googleapis.com/cw-p1w5jpim0sdhkccw8gr/media/images/All/sso_login1_inline.png
+   :scale: 100%
+   :align: center
+   :alt: Diagram of logging in for the first service.
+   :target: https://storage.googleapis.com/cw-p1w5jpim0sdhkccw8gr/media/images/All/sso_login1.png
 
-.. figure:: sso_login1_inline.png
-    :scale: 100%
+The numbers in this diagram correspond to these numbered steps.
 
-    Diagram of logging in for the first service. (`full size <_images/sso_login1_inline.png>`_)
+1. USER: I type the address of the service I want, say ``https://mail.example.com``, into my browser and hit Enter.
 
-USER: I type the address of the service I want, say https://mail.example.com, into my browser and hit Enter.
-BROWSER: My browser sends an HTTP GET request to mail.example.com.
-MAIL SERVER: The mail server looks at the request for a cookie that would show that I already had a logged-in session with that server, but doesn't find it. So it starts the login process by responding to the request with a redirect to a URL at the single sign-on server, say https://sso.example.com/login. The location URL also identifies the service that the user is trying to access, perhaps by appending a query parameter, so that the full location URL might be ``https://sso.example.com/login?service=mail.example.com``.
-BROWSER: When it sees a redirect response, my browser immediately sends a GET request to sso.example.com, requesting the URL ``https://sso.example.com/login?service=mail.example.com``.
-SSO SERVER: Like the mail server, the SSO server looks in the request for a cookie that would show the user had already logged in. Not seeing one, the SSO server responds with a web page containing a login form. The form asks for a username and password, and says to submit its input back to ``https://sso.example.com/login?service=mail.example.com``.
-BROWSER: receiving the web page response, the browser displays it to me, the user.
-USER: I see the login form, enter a valid username and password, and click Submit.
-BROWSER: The browser sees that the form data is supposed to be sent to sso.example.com, and so the browser sends a POST request to sso.example.com with the URL ``https://sso.example.com/login?service=mail.example.com`` and containing the username and password
-SSO SERVER: The SSO server receives the username and password, and uses some method (not important here) to see if the username and password are valid — in other words, do they prove that someone who is supposed to be able to access this SSO service seems to be at the browser? If the credentials are valid, the SSO server responds with a redirect to another URL on the mail server (the service the user was trying to log in to), say ``https://mail.example.com/sso``, with a query parameter indicating the username. The SSO server also generates a string we'll call a *ticket* and includes that as well. We end up with ``https://mail.example.com/sso?username=fred&ticket=a83md93msdf``. The response also contains a cookie.
-BROWSER: The browser first sees the cookie in the response and makes a note that it should include that cookie when it makes future requests to ``sso.example.com``. Then, since the response is a redirect, the browser sends a new GET to mail.example.com for the URL ``https://mail.example.com/sso?username=fred&ticket=a83md93msdf``.
-MAIL SERVER: The mail server cannot assume from this request that the user has actually logged in successfully. After all, anyone could type a URL like that into their browser. So the mail server sends a request to the SSO server to ask whether that username and ticket are really okay to access the mail service.
-SSO SERVER: The SSO server checks that it did validate that user to use the mail service and give out that ticket, and sends a positive response.
-MAIL SERVER: Receiving confirmation from the SSO server that this user has properly authenticated themselves and is allowed to access the mail service, the mail server responds with a web page, but also includes a new cookie, whose value the mail server will be able to recognize again on future requests from this browser.
-BROWSER: The browser first sees the cookie in the response and makes a note that it should include that cookie when it makes future requests to ``mail.example.com``.  Then it displays the web page to the user.
-USER: I see the web page and start reading my mail. From here on, all my requests to ``mail.example.com`` include the cookie that lets the mail server know that I have logged in.
+2. BROWSER: My browser sends an HTTP GET request to ``mail.example.com``.
+
+3. MAIL SERVER: The mail server looks at the request for a cookie that would show that I already had a logged-in session with that server, but doesn't find it. So it starts the login process by responding to the request with a redirect to a URL at the single sign-on server, say ``https://sso.example.com/login``. The location URL also identifies the service that the user is trying to access, perhaps by appending a query parameter, so that the full location URL might be ``https://sso.example.com/login?service=mail.example.com``.
+
+4. BROWSER: When it sees a redirect response, my browser immediately sends a GET request to ``sso.example.com``, requesting the URL ``https://sso.example.com/login?service=mail.example.com``.
+
+5. SERVER: Like the mail server, the SSO server looks in the request for a cookie that would show the user had already logged in. Not seeing one, the SSO server responds with a web page containing a login form. The form asks for a username and password, and says to submit its input back to ``https://sso.example.com/login?service=mail.example.com``. 
+
+6. BROWSER: receiving the web page response, the browser displays it to me, the user.
+
+7. USER: I see the login form, enter a valid username and password, and click Submit.
+
+8. BROWSER: The browser sees that the form data is supposed to be sent to ``sso.example.com``, and so the browser sends a POST request to ``sso.example.com`` with the URL ``https://sso.example.com/login?service=mail.example.com`` and containing the username and password
+
+9. SSO SERVER: The SSO server receives the username and password, and uses some method (not important here) to see if the username and password are valid — in other words, do they prove that someone who is supposed to be able to access this SSO service seems to be at the browser? If the credentials are valid, the SSO server responds with a redirect to another URL on the mail server (the service the user was trying to log in to), say ``https://mail.example.com/sso``, with a query parameter indicating the username. The SSO server also generates a string we'll call a *ticket* and includes that as well. We end up with ``https://mail.example.com/sso?username=fred&ticket=a83md93msdf``. The response also contains a cookie.
+
+10. BROWSER: The browser first sees the cookie in the response and makes a note that it should include that cookie when it makes future requests to ``sso.example.com``. Then, since the response is a redirect, the browser sends a new GET to mail.example.com for the URL ``https://mail.example.com/sso?username=fred&ticket=a83md93msdf``. 
+
+11. MAIL SERVER: The mail server cannot assume from this request that the user has actually logged in successfully. After all, anyone could type a URL like that into their browser. So the mail server sends a request to the SSO server to ask whether that username and ticket are really okay to access the mail service.
+
+12. SSO SERVER: The SSO server checks that it did validate that user to use the mail service and give out that ticket, and sends a positive response.
+
+13. MAIL SERVER: Receiving confirmation from the SSO server that this user has properly authenticated themselves and is allowed to access the mail service, the mail server responds with a web page, but also includes a new cookie, whose value the mail server will be able to recognize again on future requests from this browser.
+
+14. BROWSER: The browser first sees the cookie in the response and makes a note that it should include that cookie when it makes future requests to ``mail.example.com``.  Then it displays the web page to the user.
+
+15. USER: I see the web page and start reading my mail. From here on, all my requests to ``mail.example.com`` include the cookie that lets the mail server know that I have logged in.
 
 So far, this just seems like an incredibly convoluted way to log in to read my mail. The user doesn't see anything more complicated than a simple login, but behind the scenes, there is a lot going on.
 
 But now let's see what happens when the user checks their calendar.
 
+.. image:: https://storage.googleapis.com/cw-p1w5jpim0sdhkccw8gr/media/images/All/sso_login2_inline.png
+   :align: center
+   :alt: Diagram of logging in for a second service
+   :target: https://storage.googleapis.com/cw-p1w5jpim0sdhkccw8gr/media/images/All/sso_login2.png
 
-USER: I type the address of the service I want, say https://calendar.example.com, into my browser and hit Enter.
-BROWSER: My browser sends an HTTP GET request to calendar.example.com.
-CALENDAR SERVER: The calendar server looks at the request for a cookie that would show that I already had a logged-in session with that server, but doesn't find it. So it starts the login process by responding to the request with a redirect to a URL at the single sign-on server, say https://sso.example.com/login. The location URL also identifies the service that the user is trying to access, perhaps by appending a query parameter, so that the full location URL might be ``https://sso.example.com/login?service=calendar.example.com``.
-BROWSER: When it sees a redirect response, my browser immediately sends a GET request to the location specified in the redirect. In this case, it sends a GET to sso.example.com, requesting the URL ``https://sso.example.com/login?service=calendar.example.com``.
-SSO SERVER: Like the calendar server, the SSO server looks in the request for a cookie that would show the user had already logged in. This time it finds one. The cookie tells it who the user is. The server just checks that this user is allowed to use the calendar server, then bypasses the whole login process and responds with a redirect such as ``https://calendar.example.com/sso?username=fred&ticket=ooac56hrg9fguhiosd``.
-BROWSER: Since the response is a redirect, the browser sends a new GET to calendar.example.com for the URL ``https://calendar.example.com/sso?username=fred&ticket=ooac56hrg9fguhiosd``.
-CALENDAR SERVER: The calendar server sends a request to the SSO server to ask whether that username and ticket are really okay to access the calendar service.
-SSO SERVER: The SSO server checks that it did validate that user to use the calendar service and give out that ticket, and sends a positive response.
-CALENDAR SERVER: Receiving confirmation from the SSO server that this user has properly authenticated themselves and is allowed to access the calendar service, the calendar server responds with a web page, but also includes a new cookie, whose value the calendar server will be able to recognize again on future requests from this browser.
-BROWSER: The browser first sees the cookie in the response and makes a note that it should include that cookie when it makes future requests to ``calendar.example.com``.  Then it displays the web page to the user.
-USER: I see the web page and start looking at my calendar. From here on, all my requests to ``calendar.example.com`` include the cookie that lets the calendar server know that I have logged in.
+The numbers in this diagram correspond to these numbered steps.
+
+1. USER: I type the address of the service I want, say https://calendar.example.com, into my browser and hit Enter.
+
+2. BROWSER: My browser sends an HTTP GET request to calendar.example.com.
+
+3. CALENDAR SERVER: The calendar server looks at the request for a cookie that would show that I already had a logged-in session with that server, but doesn't find it. So it starts the login process by responding to the request with a redirect to a URL at the single sign-on server, say https://sso.example.com/login. The location URL also identifies the service that the user is trying to access, perhaps by appending a query parameter, so that the full location URL might be ``https://sso.example.com/login?service=calendar.example.com``.
+
+4. BROWSER: When it sees a redirect response, my browser immediately sends a GET request to the location specified in the redirect. In this case, it sends a GET to sso.example.com, requesting the URL ``https://sso.example.com/login?service=calendar.example.com``.
+
+5. SSO SERVER: Like the calendar server, the SSO server looks in the request for a cookie that would show the user had already logged in. This time it finds one. The cookie tells it who the user is. The server just checks that this user is allowed to use the calendar server, then bypasses the whole login process and responds with a redirect such as ``https://calendar.example.com/sso?username=fred&ticket=ooac56hrg9fguhiosd``.
+
+6. BROWSER: Since the response is a redirect, the browser sends a new GET to calendar.example.com for the URL ``https://calendar.example.com/sso?username=fred&ticket=ooac56hrg9fguhiosd``.
+
+7. CALENDAR SERVER: The calendar server sends a request to the SSO server to ask whether that username and ticket are really okay to access the calendar service.
+
+8. SSO SERVER: The SSO server checks that it did validate that user to use the calendar service and give out that ticket, and sends a positive response.
+
+9. CALENDAR SERVER: Receiving confirmation from the SSO server that this user has properly authenticated themselves and is allowed to access the calendar service, the calendar server responds with a web page, but also includes a new cookie, whose value the calendar server will be able to recognize again on future requests from this browser.
+
+10. BROWSER: The browser first sees the cookie in the response and makes a note that it should include that cookie when it makes future requests to ``calendar.example.com``.  Then it displays the web page to the user.
+
+11. USER: I see the web page and start looking at my calendar. From here on, all my requests to ``calendar.example.com`` include the cookie that lets the calendar server know that I have logged in.
 
 
 Quite a bit still happened behind the scenes, *but* the user never saw it. From their point of view, they entered the calendar URL and immediately saw their calendar. They did not have to log in again.

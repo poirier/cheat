@@ -1,0 +1,28 @@
+# MSC for SSO login after logged in once
+# mscgen -T png -i sso_login2.msc -o sso_login2.png
+# mscgen -T png -i sso_login2.msc -o sso_login2_inline.png
+msc {
+  # change width smaller for inline
+  # set width to 800 for "full size"
+  #width = "550";
+  width = "800";
+
+  "calendar server" [textcolor="black", arclinecolor="black", linecolor="black"],
+  "browser" [textcolor="#3f7f3f", arclinecolor="#3f7f3f", linecolor="#3f7f3f"],
+  "sso server" [textcolor="blue", arclinecolor="blue", linecolor="blue"];
+
+  |||;
+
+  "browser" box "browser" [ label = "1. User enters https://calendar.example.com into browser address bar.", textcolor="#3f7f3f" ];
+  "browser" => "calendar server" [ label = "2. GET page on calendar server", textcolor="#3f7f3f" ];
+  "calendar server" => "browser" [ label = "3. Redirect to https://sso.example.com/login?service=calendar.example.com", textcolor="black"];
+  "browser" => "sso server" [ label = "4. GET https://sso.example.com/login?service=calendar.example.com", textcolor="#3f7f3f"];
+  "sso server" => "browser" [ label = "5. Redirect to https://calendar.example.com/sso?username=fblack&ticket=a83md93msdf, with cookie", textcolor="blue"];
+  "browser" => "calendar server" [ label = "6. GET https://calendar.example.com/sso?username=fblack&ticket=a83md93msdf", textcolor="#3f7f3f"];
+  "calendar server" => "sso server" [ label = "7. Ask if username, ticket are valid", textcolor="black"];
+  "sso server" => "calendar server" [ label = "8. Confirm", textcolor="blue"];
+
+  "calendar server" => "browser" [ label = "9. Respond with web page + cookie", textcolor="black"];
+  "browser" box "browser" [ label = "10. Remember cookie, display page", textcolor="#3f7f3f"];
+  "browser" => "calendar server" [ label = "11. All future requests include cookie", textcolor="#3f7f3f"];
+}
