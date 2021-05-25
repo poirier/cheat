@@ -139,7 +139,7 @@ can write ``:ref:`any text <my-label>``` instead.
 Cheatsheets
 -----------
 
-Copied from http://docs.sphinxdocs.com/en/latest/cheatsheet.html - thanks
+Copied from https://sphinx-tutorial.readthedocs.io/cheatsheet/ - thanks
 to Read The Docs.
 
 BUGS:

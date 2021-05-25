@@ -2,7 +2,8 @@ Asyncio
 =======
 
 NOTE: This was written around the time of Python 3.6. Things
-have changed since then.
+have changed since then. I've started an updated version
+`here <async>`_.
 
 What is it
 ----------

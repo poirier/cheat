@@ -34,6 +34,7 @@ Contents:
    lxde
    logitech_harmony/index
    mercurial
+   mikrotik_openwrt
    mpd
    mysql
    nginx
