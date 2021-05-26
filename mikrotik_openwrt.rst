@@ -6,8 +6,8 @@ Installing OpenWRT on Mikrotik hAP |ac2|
 Useful links
 ------------
 
-* `Mikrotik hAP |ac2| product page <https://mikrotik.com/product/hap_ac2>`_
-* `OpenWRT Mikrotik hAP |ac2| page <https://openwrt.org/toh/mikrotik/mikrotik_hap_ac2>`_
+* `Mikrotik hAP ac2 product page <https://mikrotik.com/product/hap_ac2>`_
+* `OpenWRT Mikrotik hAP ac2 page <https://openwrt.org/toh/mikrotik/mikrotik_hap_ac2>`_
 * `OpenWRT common Mikrotik page <https://openwrt.org/toh/mikrotik/common>`_
 
 State of OpenWRT support
@@ -64,7 +64,7 @@ Steps
 Download the files
 ..................
 
-Go to the `OpenWRT Mikrotik hAP |ac2| page <https://openwrt.org/toh/mikrotik/mikrotik_hap_ac2>`_,
+Go to the `OpenWRT Mikrotik hAP ac2 page <https://openwrt.org/toh/mikrotik/mikrotik_hap_ac2>`_,
 scroll down to "Installation",
 and download both the "Firmware OpenWrt snapshot Install"
 and "Firmware OpenWrt snapshot Upgrade" files. The filenames will look like

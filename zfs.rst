@@ -76,11 +76,15 @@ want to create child datasets to actually store stuff in.
 
 .. code-block:: bash
 
-    # zfs create poolname/dataset1
+    # zfs create -p poolname/dataset1
     # zfs list
     NAME               USED  AVAIL     REFER  MOUNTPOINT
     poolname           516K  3.51T       96K  /poolname
     poolname/dataset1   96K  3.51T       96K  /poolname/dataset1
+
+(``-p`` creates all non-existing parent datasets, inheriting mountpoints
+from their parents. Any ``-o`` options on this command are not applied
+to parent datasets created due to ``-p``.)
 
 Suppose you decide you don't want that dataset anymore.
 
@@ -88,6 +92,11 @@ Suppose you decide you don't want that dataset anymore.
 
     # zfs destroy poolname/dataset1
     #
+
+Compression
+-----------
+
+WRITE ME  (Enable compression with compression=on. Specifying on instead of lz4 or another specific algorithm will always pick the best available compression algorithm.)
 
 Mounting ZFS datasets
 ---------------------
