@@ -81,8 +81,11 @@ Continuing at https://www.esp8266.com/wiki/doku.php?id=start-with-esp-12-arduino
 * In Tools/PORT:xxx, select "/dev/ttyUSB0"
 * Make sure baud is 115200.
 * Open “File” → “Examples” → “Examples for NodeMCU 1.0 (ESP-12E Module)” → “ESP8266” → “BlinkWithoutDelay”
+
 Add the following Line on top of the example:
+
 #define LED_BUILTIN 2
+
 This is needed because the example is written for a ESP-01 module and not for ESP-12. The blue LED is on internal PIN 2 not on PIN 1.
 There seems to be some confusion on Port numbering. On the board this pin is labeled TXD0.
 

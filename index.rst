@@ -63,6 +63,7 @@ Contents:
    vue
    x11
    yaml
+   zfs
 
 Indices and tables
 ==================
