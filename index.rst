@@ -40,6 +40,7 @@ Contents:
    nginx
    nixos/index
    openssl
+   openwrt
    org-mode
    postfix
    postgres
