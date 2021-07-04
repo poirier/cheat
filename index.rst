@@ -17,6 +17,7 @@ Contents:
    docker
    elasticsearch/index
    elixir
+   esp2866
    git
    google
    gulp

@@ -3,29 +3,124 @@
 Nginx
 =====
 
-`Nginx docs are here <http://nginx.org/en/docs/>`_ but good luck finding anything there
+`Nginx docs are here <http://nginx.org/en/docs/>`_, but good luck finding anything there
 if you don't already where it is.
 
-Redirect non-SSL to SSL
------------------------
+I *HIGHLY RECOMMEND* going to
+`https://ssl-config.mozilla.org <https://ssl-config.mozilla.org>`_
+to generate a base config file, then customizing it.
+
+.. contents::
+
+
+Let's Encrypt
+-------------
+
+Let's Encrypt's `certbot <https://certbot.eff.org>`_ utility has an ``nginx``
+option that doesn't do what I initially thought it did. It does not try to
+automatically figure out from your nginx config what you're trying to do and update
+your config correctly to use a Let's Encrypt certificate.
+
+Instead, the ``nginx`` option temporarily changes your nginx configuration
+to serve the response to the Let's Encrypt http challenge, does the certificate
+request, restores your configuration, then tells you where it put the resulting
+certificate and key (if successful)::
+
+    root@junebug:~# certbot certonly -m dan@poirier.us --test-cert --agree-tos --cert-name=testit --non-interactive --nginx -d www.example.com
+    Saving debug log to /var/log/letsencrypt/letsencrypt.log
+    Plugins selected: Authenticator nginx, Installer nginx
+    Obtaining a new certificate
+    Performing the following challenges:
+    http-01 challenge for www.example.com
+    Waiting for verification...
+    Cleaning up challenges
+
+    IMPORTANT NOTES:
+     - Congratulations! Your certificate and chain have been saved at:
+       /etc/letsencrypt/live/testit/fullchain.pem
+       Your key file has been saved at:
+       /etc/letsencrypt/live/testit/privkey.pem
+       Your cert will expire on 2021-09-20. To obtain a new or tweaked
+       version of this certificate in the future, simply run certbot
+       again. To non-interactively renew *all* of your certificates, run
+       "certbot renew"
+
+The nice things about this is that
+you don't have to configure nginx yourself in a way that will let it both
+start without having a certificate yet and serve the certbot challenge.
+
+.. warning:: If something goes wrong, certbot can leave an instance of nginx running that is not managed by your service manager (e.g. systemd) and mess things up until you kill it manually.
+
+Commented config file
+---------------------
+
+FIND OUT: what happens if we get a port 443 ssl request for a hostname
+that we're not serving? Does nginx reject it completely, or try to serve
+it with some existing hostname configuration?
+
+This started from https://ssl-config.mozilla.org but is heavily modified.
+
+.. code-block::
+
+    # Put this at
+    # /etc/nginx/conf.d/00-default-vhost.conf
+    # It returns a 410 for any port 80 request for a domain name we're not serving with
+    # a more specific configuration.
+    server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+
+      server_name _;
+      return 410;
+      log_not_found off;
+      server_tokens off;
+    }
+
+
+Now for each site ``mysite.example.com`` that you want to serve...
 
 .. index:: nginx; ssl redirection
 
-From https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx::
+.. code-block::
+    # /etc/nginx/sites-enabled/mysite.example.com.conf
+    server {
+      listen 80;            # http://nginx.org/en/docs/http/ngx_http_core_module.html#listen
+      listen [::]:80;
+      server_name example.com www.example.com;  # http://nginx.org/en/docs/http/ngx_http_core_module.html#server_name
+
+      location '/.well-known/acme-challenge' {
+        # Don't redirect Let's Encrypt to https
+        root        /var/www/mysite.example.com;
+      }
+
+      location / {
+        # Redirect to https
+        return 301 https://$host$request_uri;
+      }
+    }
 
     server {
-        listen   80;
-        listen   [::]:80;
-        listen   443 default_server ssl;
+      listen 443 ssl http2;                     # http://nginx.org/en/docs/http/ngx_http_core_module.html#listen
+      listen [::]:443 ssl http2;
+      server_name example.com www.example.com;  # http://nginx.org/en/docs/http/ngx_http_core_module.html#server_name
 
-        server_name www.example.com;
+      root /var/www/mysite.example.com;
 
-        ssl_certificate        /path/to/my/cert;
-        ssl_certificate_key  /path/to/my/key;
+      # modern SSL configuration
+      ssl_protocols TLSv1.3;
+      ssl_prefer_server_ciphers off;
 
-        if ($scheme = http) {
-            return 301 https://$server_name$request_uri;
-        }
+      ssl_certificate /path/to/signed_cert_plus_intermediates;
+      ssl_certificate_key /path/to/private_key;
+      ssl_session_timeout 1d;
+      ssl_session_cache shared:MySiteExampleCom:10m;  # about 40000 sessions
+      ssl_session_tickets off;
+
+      # HSTS (ngx_http_headers_module is required) (63072000 seconds)
+      # Do NOT uncomment this until you're SURE your https is working and will
+      # continue working. You might set max-age very short for testing until
+      # then. Do an internet search for more about HSTS.
+      # add_header Strict-Transport-Security "max-age=63072000" always;
     }
 
 Most useful variables
@@ -127,3 +222,35 @@ Examples::
 
     The values of variables you set this way can *ONLY* be used in ``if`` conditions,
     and maybe rewrite directives; don't try to use them elsewhere.
+
+Let's Encrypt
+-------------
+
+Based rather loosely on `https://certbot.eff.org/lets-encrypt/pip-nginx <https://certbot.eff.org/lets-encrypt/pip-nginx>`_.
+
+* Before you start, your site must already be on the internet accessible using all the domain names you
+  want certificates for, at port 80, and without
+  any automatic redirect to port 443. If that makes you paranoid, you can configure nginx to redirect
+  80 to 443 except for /.well-known/acme-challenge. Here's an unsupported example::
+
+    server {
+      listen 80;
+
+      location '/.well-known/acme-challenge' {
+        root        /var/www/demo;
+      }
+
+      location / {
+        if ($scheme = http) {
+          return 301 https://$server_name$request_uri;
+        }
+    }
+
+* Install certbot. Assuming Ubuntu, "sudo apt install certbot python3-certbot-nginx" should do it.
+* Run "sudo certbot certonly --nginx" and follow the instructions.
+* Set up automatic renewal. This will add a cron command to do it::
+
+    echo "0 0,12 * * * root /usr/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
+
+* run "sudo certbot renew --dry-run" to test renewal
+

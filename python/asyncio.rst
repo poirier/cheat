@@ -1,4 +1,4 @@
-Asyncio
+Asyncio (superseded by `async <async>`_ page)
 =======
 
 NOTE: This was written around the time of Python 3.6. Things

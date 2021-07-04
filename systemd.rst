@@ -70,3 +70,11 @@ User Unit Search Path::
         /usr/lib/systemd/user/*
         $XDG_RUNTIME_DIR/systemd/generator.late/*
 
+Journalctl
+----------
+
+* -e: skip to the end
+* -x: more verbose about errors in the log
+* -f: like tail -f, keep showing new entries
+* -t, --identifier=syslog_identifier: show messages for syslog_identifier; Can be specified multiple times
+* -g, --grep=pattern: what it sounds like

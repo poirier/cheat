@@ -102,7 +102,7 @@ Not having much luck try this.
 
 Drat. After it says "done uploading", I'm still getting the slow LED blink for failure.
 
-After this, try ``cu -l /dev/ttyUSB0 -s 115200" and hit RESET again - and get
+After this, try "cu -l /dev/ttyUSB0 -s 115200" and hit RESET again - and get
 gibberish on output. We're losing ground...
 
 Maybe look at https://www.electronicshub.org/getting-started-with-nodemcu/ ?

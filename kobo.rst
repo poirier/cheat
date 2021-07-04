@@ -47,38 +47,6 @@ Older versinos may be found at https://wiki.mobileread.com/wiki/Kobo_Firmware_Re
 Within a minute or so, the Kobo should notice the update, install it,
 and reboot.
 
-KFMon Files monitor
--------------------
-
--- probably better to use KSM for me
--- But KSM 09 seems to break WIFI? Maybe?
-
-* `github project <https://github.com/NiLuJe/kfmon>`_
-* `more recent install instructions
-  <https://github.com/koreader/koreader/wiki/Installation-on-Kobo-devices#alternate-installation-method-based-on-kfmon>`_
-  are here (combined with install KOReader instructions)
-* For historical interest only:
-  `original discussion <https://www.mobileread.com/forums/showthread.php?t=218283>`_
-  but the download link there no longer works, and you shouldn't use that old
-  version anyway.
-
-Installing KSM 09
--------------------
-
-* do NOT use the regular KSM 09 download, see the warning in the first post
-* https://www.mobileread.com/forums/showthread.php?t=293804
-
-Installing KSM (Kobo Start Menu) 08
---------------------------------
-
-* `instructions <https://www.mobileread.com/forums/showthread.php?t=240302>`_
-* `download v8 zipfile <https://www.mobileread.com/forums/showthread.php?t=266821>`_
-* follow the instructions, they're not bad
-* One thing easy to miss: once it's starting okay,
-  "From the home menu select "tools" > "activate" > "set runmenu settings.msh."
-  There you will find the options "always," "once," etc. Choose "always" to make
-  the Kobo Start Menu appear after each time you power the device on.)"
-
 Installing Koreader
 -------------------
 
@@ -92,11 +60,10 @@ Many from `here <https://www.mobileread.com/forums/showthread.php?t=242906>`_.
 
 * Start Koreader with the last opened file: When in Koreader's File Manager click on the top. A menu will open. Check "Start with last opened file".
 
-* Make Defaults:
-In some parts of the menu within a book in Koreader you can do a long tap on an entry.
-This will not submit the corresponding event but will pop up a question like "Set [whatever you clicked] as a default for [whatever option group this belongs to]".
-You can e.g. set the default font, font size, font-weight and so on for new books (books that are not in history right now).
-Right now this will not work with menus that use "decrease/increase" instead of the actual values.
+* Make Defaults: In some parts of the menu within a book in Koreader you can do a long tap on an entry.
+  This will not submit the corresponding event but will pop up a question like "Set [whatever you clicked] as a default for [whatever option group this belongs to]".
+  You can e.g. set the default font, font size, font-weight and so on for new books (books that are not in history right now).
+  Right now this will not work with menus that use "decrease/increase" instead of the actual values.
 
 Other Screen gestures (some gestures are not recognized by all devices, and some settings are not available for all neither):
 
