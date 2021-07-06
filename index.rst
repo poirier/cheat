@@ -1,6 +1,9 @@
 Welcome to Dan's Cheat Sheets's documentation!
 ==============================================
 
+This information is primarily for my own use. Parts may be incomplete,
+out of date, or just mistaken.
+
 Contents:
 
 .. toctree::
@@ -53,6 +56,7 @@ Contents:
    salt
    shell
    socat
+   sonos
    sso_magic
    systemd
    tasmota
