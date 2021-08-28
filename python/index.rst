@@ -17,6 +17,7 @@ Contents:
    pip
    pipenv
    piptools
+   pyenv
    six
    timezones
    tox

@@ -70,6 +70,15 @@ First, make it a pool.
     NAME               USED  AVAIL     REFER  MOUNTPOINT
     poolname           516K  3.51T       96K  /poolname
 
+    # zpool status -LP rpool
+      pool: rpool
+     state: ONLINE
+      scan: none requested
+    config:
+            NAME         STATE      READ WRITE CKSUM
+            rpool        ONLINE        0     0     0
+              /dev/sda7  ONLINE        0     0     0
+
 Notice that the pool is kind of a dataset of its own, and even gets
 mounted by default, but you usually
 want to create child datasets to actually store stuff in.
