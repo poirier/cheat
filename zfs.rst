@@ -207,3 +207,85 @@ the pools possible to import, then run it again to import a specific pool.
     #
 
 As part of importing, the pool's datasets will be mounted according to their properties.
+
+Space used
+----------
+
+This gets really complicated. See chapter 6 of
+`FreeBSD Mastery: ZFS <https://www.tiltedwindmillpress.com/product/fmzfs/>`_ for all
+the gory details.
+
+Looking at pools
+
+.. code-block:: bash
+
+    # zpool get allocated,size,capacity
+    NAME   PROPERTY   VALUE  SOURCE
+    bpool  allocated  720M   -
+    bpool  size       1.88G  -
+    bpool  capacity   37%    -
+    rpool  allocated  18.1G  -
+    rpool  size       232G   -
+    rpool  capacity   7%     -
+    spool  allocated  1.68T  -
+    spool  size       3.62T  -
+    spool  capacity   46%    -
+
+    # zpool get allocated,size,capacity,free spool
+    NAME   PROPERTY   VALUE  SOURCE
+    spool  allocated  1.68T  -
+    spool  size       3.62T  -
+    spool  capacity   46%    -
+    spool  free       1.95T  -
+
+But what's using up all the space in our pools? That's harder.
+
+You can get a start with ``zfs list``.
+
+.. code-block:: bash
+
+    # zfs list
+    NAME                                               USED  AVAIL     REFER  MOUNTPOINT
+    rpool                                             18.1G   207G       96K  /
+    rpool/ROOT                                        15.0G   207G       96K  none
+    rpool/ROOT/ubuntu_u9xzty                          15.0G   207G     3.58G  /
+    rpool/ROOT/ubuntu_u9xzty/srv                        96K   207G       96K  /srv
+    rpool/ROOT/ubuntu_u9xzty/usr                      3.23M   207G       96K  /usr
+    rpool/ROOT/ubuntu_u9xzty/usr/local                3.13M   207G     2.16M  /usr/local
+    rpool/ROOT/ubuntu_u9xzty/var                      7.27G   207G       96K  /var
+    rpool/ROOT/ubuntu_u9xzty/var/games                  96K   207G       96K  /var/games
+    rpool/ROOT/ubuntu_u9xzty/var/lib                  6.88G   207G     2.38G  /var/lib
+    rpool/ROOT/ubuntu_u9xzty/var/lib/AccountsService   816K   207G      104K  /var/lib/AccountsService
+    rpool/ROOT/ubuntu_u9xzty/var/lib/NetworkManager   1.68M   207G      172K  /var/lib/NetworkManager
+    rpool/ROOT/ubuntu_u9xzty/var/lib/apt               303M   207G      104M  /var/lib/apt
+    rpool/ROOT/ubuntu_u9xzty/var/lib/dpkg              126M   207G     39.2M  /var/lib/dpkg
+    rpool/ROOT/ubuntu_u9xzty/var/log                   401M   207G      192M  /var/log
+    rpool/ROOT/ubuntu_u9xzty/var/mail                   96K   207G       96K  /var/mail
+    rpool/ROOT/ubuntu_u9xzty/var/snap                  760K   207G      592K  /var/snap
+    rpool/ROOT/ubuntu_u9xzty/var/spool                1.45M   207G      144K  /var/spool
+    rpool/ROOT/ubuntu_u9xzty/var/www                   108K   207G      108K  /var/www
+    rpool/USERDATA                                    3.03G   207G       96K  /
+    rpool/USERDATA/devpi_ps1uzq                        394M   207G      394M  /home/devpi
+    rpool/USERDATA/homeassistant_79drum               1.15G   207G      513M  /home/homeassistant
+    rpool/USERDATA/hometheater_s261g2                  125M   207G     93.0M  /home/hometheater
+    rpool/USERDATA/root_ndpbl6                         793M   207G      791M  /root
+    rpool/USERDATA/strange_dyi0il                      618M   207G      225M  /home/strange
+
+This shows a bunch of nested datasets, and each dataset's USED space includes that of all the
+nested datasets, so you can't just add them up as-is.
+
+The AVAIL column is a bit more useful, but you have to remember that because snapshots and
+clones use Copy-On-Write, the AVAIL space could seemingly contain many times that much data.
+
+You might think from this example that REFER tells you the unique space used by each dataset
+and you could just add that up, but again, no. Multiple datasets can REFER to the same
+collection of data. (Again, snapshots and clones do this.)
+
+Deleting stuff doesn't necessarily free space.
+
+1. ZFS can take some time to asynchronously update snapshots and clones, so you might see
+   the statistics continue to change for a while.
+2. Stuff you delete might be referred to elsewhere, so until you find and remove all the
+   references, that space will still be in use.
+
+I'm not going into this any deeper here. Go read chapter 6 of the book.
