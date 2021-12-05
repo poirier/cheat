@@ -33,6 +33,7 @@ disable it if you need that. Open issue: https://github.com/ansible/ansible/issu
 
   background
   block
+  cheatsheet
   conditionals
   configuration
   hostpatterns

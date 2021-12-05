@@ -5,6 +5,9 @@ Pyenv
 
 `Pyenv commands reference <https://github.com/pyenv/pyenv/blob/master/COMMANDS.md>`_
 
+cd $(pyenv root) && git pull
+  Update pyenv's list of available versions
+
 pyenv versions
   Lists the Python versions that pyenv currently has installed
 

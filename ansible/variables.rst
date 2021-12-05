@@ -159,9 +159,9 @@ available for that particular host.
 
 :ref:`facts_example`  is an example from one of my machines.
 
-The Ansible docs show an example (`here <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts>`_)
-And here's
-`another example <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts>`_.
+The Ansible docs randomly move their example of facts around from release
+to release, but as of Dec 2021,
+`the docs' example of Ansible facts is here <https://docs.ansible.com/ansible/latest/user_guide/playbooks_vars_facts.html#vars-and-facts>`_.
 
 The top of the output will look like::
 

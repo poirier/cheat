@@ -21,6 +21,7 @@ Contents:
    elasticsearch/index
    elixir
    esp2866
+   freebsd
    git
    google
    gulp
@@ -77,4 +78,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

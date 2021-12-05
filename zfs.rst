@@ -105,7 +105,15 @@ Suppose you decide you don't want that dataset anymore.
 Compression
 -----------
 
-WRITE ME  (Enable compression with compression=on. Specifying on instead of lz4 or another specific algorithm will always pick the best available compression algorithm.)
+Enable compression with compression=on. Specifying on instead of lz4 or another specific algorithm will always pick the best available compression algorithm.
+
+.. code-block:: bash
+
+    # zfs set compress=on dataset
+    # zfs get compress rpool
+    NAME   PROPERTY     VALUE     SOURCE
+    rpool  compression  on        local
+
 
 Mounting ZFS datasets
 ---------------------
