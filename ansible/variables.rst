@@ -30,7 +30,7 @@ definitions have been stored and are available for lookups.
 Pre-defined variables
 ---------------------
 
-`Ansible defines some variables for you <https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts>`_
+`Ansible defines some variables for you <https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html>`_.
 
 These are not mentioned when you list Facts (see below) - go figure.
 

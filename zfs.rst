@@ -297,3 +297,11 @@ Deleting stuff doesn't necessarily free space.
    references, that space will still be in use.
 
 I'm not going into this any deeper here. Go read chapter 6 of the book.
+
+NFS Export
+----------
+
+If you want, you can have ZFS handle NFS export of a dataset, rather than adding
+it to ``/etc/exports``.
+This `blog post <https://blog.programster.org/sharing-zfs-datasets-via-nfs>`_
+has more details.

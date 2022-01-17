@@ -45,9 +45,27 @@ List all non-automatically installed packages with `pkg query <https://www.freeb
 
     pkg query -e '%a=0' %o
 
+Mark packages as automatically installed::
+
+    pkg set --automatic 1 <pkgname>
+
 List files for a package::
 
     pkg query '%Fp' python39-3.9.7
+
+List a package's dependencies::
+
+    # pkg query '%do %dv' emby-server
+    x11/libX11 1.7.2,1
+    x11-fonts/fontconfig 2.13.94_1,1
+    security/gnutls 3.6.16
+    ...
+
+List a package's reverse dependencies::
+
+    # pkg query '%ro %rv' python39
+    databases/py-sqlite3 3.9.9_7
+    devel/py-setuptools 57.0.0
 
 Find the package that installed a file (see if there's a more efficient way? Actually this is quite fast anyway)::
 
@@ -55,6 +73,11 @@ Find the package that installed a file (see if there's a more efficient way? Act
     net/rsync: /usr/local/bin/rsync
     net/rsync: /usr/local/bin/rsync-ssl
 
+Upgrade a package, or all packages, with
+`pkg-upgrade <https://www.freebsd.org/cgi/man.cgi?query=pkg-upgrade&apropos=0&sektion=0&manpath=FreeBSD+13.0-RELEASE+and+Ports&arch=default&format=html>`_::
+
+    pkg upgrade <pkgname>
+    pkg upgrade    # upgrade all possible
 
 Show message that a package would have printed after installation::
 
