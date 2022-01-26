@@ -1,5 +1,6 @@
 Better Python dependency management with pip-tools
 ==================================================
+.. contents::
 
 I recently looked into whether I could use `pip-tools <https://github.com/jazzband/pip-tools>`_ to improve my workflow around projects' Python dependencies.My conclusion was that pip-tools would help on some projects, but it wouldn't do everything I wanted, and I couldn't use it everywhere.(I tried pip-tools version 2.0.2 in August 2018. If there are newer versions, they might fix some of the things I ran into when trying pip-tools.)
 
@@ -188,4 +189,3 @@ Conclusions
 I don't feel that I can trust pip-tools when I need to install packages from Git URLs.
 
 But many projects don't need to install packages from Git URLs, and for those, I think adding pip-tools to my workflow might be a win. I'm going to try it with some real projects and see how that goes for a while.
-

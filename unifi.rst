@@ -3,6 +3,7 @@
 
 Unifi
 =====
+.. contents::
 
 Where things are in the Unifi UI...
 

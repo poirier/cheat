@@ -1,5 +1,6 @@
 My Python Development Environment
 =================================
+.. contents::
 
 This is how to set up the One True Development Environment for Python.
 
@@ -62,7 +63,7 @@ So, I switched to using `pythonz <https://github.com/saghul/pythonz>`_. It autom
 uninstall — of any version x.y.z of python I want (just run ``pythonz install 3.7.7``).
 
 Pythonz doesn't put all those Python versions on the path. Instead, I can find a particular
-executable by running:
+executable by running::
 
     $ pythonz locate 3.7.7
     /home/dpoirier/.pythonz/pythons/CPython-3.7.7/bin/python3

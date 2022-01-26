@@ -1,5 +1,6 @@
 Timezones in Python
 ===================
+.. contents::
 
 Key points
 -----------

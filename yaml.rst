@@ -1,5 +1,6 @@
 YAML
 ====
+.. contents::
 
 YAML syntax
 -----------
@@ -53,4 +54,3 @@ A list of dictionaries::
             age: 15
         -   name: Jenny Smith
             age 12
-

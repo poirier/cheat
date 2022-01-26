@@ -6,6 +6,8 @@ Raspberry Pi
 
    usbdrive
 
+.. contents::
+
 Basic setup
 -----------
 

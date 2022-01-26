@@ -1,5 +1,6 @@
 synchronize
 ===========
+.. contents::
 
 The Ansible synchronize module gets its own page because it is a bitch.
 

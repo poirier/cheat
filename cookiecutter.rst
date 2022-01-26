@@ -1,5 +1,6 @@
 Cookiecutter
 ============
+.. contents::
 
 https://cookiecutter.readthedocs.io/en/latest/usage.html
 

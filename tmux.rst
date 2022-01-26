@@ -2,6 +2,7 @@
 
 Tmux
 ====
+.. contents::
 
 My tmux char: C-g (control-g)
 
@@ -45,4 +46,3 @@ Bindings::
       Split current pane into two:
         Top and bottom: -
         Left and right: |
-

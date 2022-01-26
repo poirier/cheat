@@ -1,5 +1,6 @@
 Time zones and Daylight Saving Time—Oh, the Horror
 ====================================================
+.. contents::
 
 (formatted draft online at
 https://cheat.readthedocs.io/en/latest/python/timezones_blogpost.html)
@@ -198,4 +199,3 @@ Conclusion
 
 Working with human times correctly is complicated, unintuitive,
 and needs a *lot* of careful attention to detail to get right. Further, some of the oft-given advice, like always working in UTC, can cause problems of its own.
-

@@ -4,6 +4,8 @@ Ansible
 This is growing into a minimal Ansible reference of sorts,
 since Ansible's own docs have nothing like a reference.
 
+.. contents::
+
 * `Ansible <http://docs.ansible.com/>`_.
 * `list of keys that common playbook objects can take <http://docs.ansible.com/ansible/playbooks_directives.html>`_.
 * `Release tarballs <http://releases.ansible.com/ansible/>`_

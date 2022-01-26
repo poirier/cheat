@@ -24,6 +24,7 @@ Contents:
    versions
    virtualenv
    xml
+.. contents::
 
 Most minimal logging
 --------------------
@@ -91,5 +92,3 @@ Running it::
 Disabling a warning in code::
 
    # pylint: disable-msg=E1101
-
-

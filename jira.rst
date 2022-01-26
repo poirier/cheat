@@ -1,5 +1,6 @@
 JIRA
 ====
+.. contents::
 
 Preface: the JIRA documentation is among the worst I have *ever* seen.
 

@@ -1,5 +1,6 @@
 Travis CI
 =========
+.. contents::
 
 Magic syntax to run tox tests with multiple Python versions (as of Nov 1, 2017 anyway)::
 

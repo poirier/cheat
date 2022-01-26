@@ -1,5 +1,6 @@
 Pyenv
 =====
+.. contents::
 
 `Pyenv <https://github.com/pyenv/pyenv>`_
 
@@ -31,5 +32,3 @@ pyenv uninstall
 
 pyenv which <command>
   Displays the full path to the executable that pyenv will invoke when you run the given command.  E.g. ``pyenv which python3``.
-
-

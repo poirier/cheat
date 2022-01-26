@@ -1,5 +1,6 @@
 Elixir
 ======
+.. contents::
 
 Basic types
 -----------
@@ -256,5 +257,3 @@ changed using ``put_elem/3``::
     2
     iex> put_elem({:ok, "hello"}, 1, "world"})
     {:ok, "world"}
-
-

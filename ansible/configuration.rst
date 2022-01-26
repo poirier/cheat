@@ -3,6 +3,8 @@ Configuration
 
 .. _configuration-file:
 
+.. contents::
+
 Configuration file
 ------------------------
 
@@ -134,4 +136,3 @@ set in ssh_args, the control path setting is not used.
 Example::
 
     ssh_args = -C -o ControlMaster=auto -o ControlPersist=300s -o ForwardAgent=yes -o ControlPath=./ansible_ssh_conn_%h
-

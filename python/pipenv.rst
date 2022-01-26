@@ -1,6 +1,11 @@
 Pipenv
 ======
 
+Note: I do not use pipenv. There are too many problems (a quick
+Internet search will give you a good sampling).
+
+.. contents::
+
 `Pipenv docs <https://pipenv.pypa.io/en/latest/>`_
 
 From the docs:

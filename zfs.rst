@@ -1,5 +1,6 @@
 ZFS
 ===
+.. contents::
 
 I learned most of this from Michael W. Lucas's book
 `FreeBSD Mastery: ZFS <https://www.tiltedwindmillpress.com/product/fmzfs/>`_.

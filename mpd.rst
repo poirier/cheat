@@ -1,5 +1,6 @@
 MPD
 ===
+.. contents::
 
 https://www.musicpd.org/
 

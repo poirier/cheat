@@ -1,5 +1,6 @@
 Virtual environments
 ====================
+.. contents::
 
 Using Python virtual environments
 ---------------------------------

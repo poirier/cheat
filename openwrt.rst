@@ -1,5 +1,6 @@
 OpenWRT
 =======
+.. contents::
 
 * `Table of Hardware <https://openwrt.org/toh/start>`_
 

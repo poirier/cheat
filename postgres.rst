@@ -2,6 +2,7 @@
 
 Postgres
 ========
+.. contents::
 
 Snippets
 --------

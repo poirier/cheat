@@ -1,5 +1,6 @@
 Org mode (Emacs)
 ================
+.. contents::
 
 http://orgmode.org/org.html
 See also http://orgmode.org/orgcard.pdf

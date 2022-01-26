@@ -2,6 +2,7 @@
 
 X11 Window System
 =================
+.. contents::
 
 Startup
 -------

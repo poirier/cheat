@@ -1,5 +1,6 @@
 Loops
 =====
+.. contents::
 
 See http://docs.ansible.com/playbooks_loops.html
 

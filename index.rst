@@ -21,7 +21,7 @@ Contents:
    elasticsearch/index
    elixir
    esp2866
-   freebsd
+   freebsd/index
    git
    google
    gulp

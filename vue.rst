@@ -3,6 +3,9 @@ Vue
 
 WORK IN PROGRESS: a Vue pattern for a component to edit the properties of some object
 -------------------------------------------------------------------------------------
+This is never going to be finished. I do not use Vue anymore.
+
+.. contents::
 
 Usage::
 

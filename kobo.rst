@@ -2,6 +2,7 @@
 
 Kobo ereader
 ============
+.. contents::
 
 .. index:: kobo; activation
 

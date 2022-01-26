@@ -1,5 +1,6 @@
 Task
 ====
+.. contents::
 
 .. _tasks-file:
 
@@ -113,4 +114,3 @@ Handler
 -----------
 
 Same syntax as a :ref:`task`, it just gets triggered under different circumstances.
-

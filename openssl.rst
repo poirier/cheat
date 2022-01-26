@@ -1,5 +1,6 @@
 OpenSSL
 =======
+.. contents::
 
 Some of this from http://www.coresecuritypatterns.com/blogs/?p=763,
 http://www.bogpeople.com/networking/openssl.shtml,
@@ -241,4 +242,3 @@ Creating Self-Signed Certificate from Generated Key::
     openssl req -new -x509 -key blah.key.pem -out blah.crt.pem
 
 Use only when you've no CA and will only be generating one key/certificate (useless for anything that requires signed certificates on both ends)
-

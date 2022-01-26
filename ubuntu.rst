@@ -2,6 +2,7 @@
 
 Ubuntu notes
 ============
+.. contents::
 
 Verbose boot
 ------------

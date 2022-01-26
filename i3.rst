@@ -1,5 +1,6 @@
 i3
 ==
+.. contents::
 
 .. index:: ! i3
 

@@ -2,6 +2,7 @@
 
 Tags
 ====
+.. contents::
 
 When you apply tags to things, you can then control whether
 they're executed by adding command line options.
@@ -70,4 +71,3 @@ and ``--skip-tags=untagged`` does the opposite of ``--tags=untagged``.
 
 If a play or task is tagged ``always``, then it will be executed
 *unless* ansible is invoked with ``skip-tags=always``.
-

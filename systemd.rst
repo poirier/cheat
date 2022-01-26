@@ -1,5 +1,6 @@
 Systemd
 =======
+.. contents::
 
 Service files
 -------------

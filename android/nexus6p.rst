@@ -1,6 +1,8 @@
 Nexus 6P
 ========
 
+.. contents::
+
 This information is specific to the Google/Huawei Nexus 6P.
 See also `more universal android info </android/>`_.
 
@@ -59,4 +61,3 @@ Custom recovery
 ................
 
 This is a pre-req to install custom ROM.
-

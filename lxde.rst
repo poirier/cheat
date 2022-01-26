@@ -1,5 +1,6 @@
 LXDE
 ====
+.. contents::
 
 Using LXDE desktop with i3 window manager.
 

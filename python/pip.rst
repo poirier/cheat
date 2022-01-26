@@ -1,5 +1,6 @@
 Pip
 ===
+.. contents::
 
 Based on `A Better Pip Workflow <http://www.kennethreitz.org/essays/a-better-pip-workflow>`_,
 from a `hackernews comment by blaze33 <https://news.ycombinator.com/item?id=11211114>`_:

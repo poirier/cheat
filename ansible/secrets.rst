@@ -1,5 +1,6 @@
 Secrets
 =======
+.. contents::
 
 Ansible handles secrets using a feature called
 `Vault <https://docs.ansible.com/ansible/playbooks_vault.html>`_.

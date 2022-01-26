@@ -1,5 +1,6 @@
 Docker
 ======
+.. contents::
 
 .. index:: ! docker
 
@@ -74,5 +75,3 @@ Resize disk space for docker vm
 ::
 
     $ docker-machine create --driver virtualbox --virtualbox-disk-size "40000" default
-
-

@@ -1,5 +1,6 @@
 MySQL with Django
 =================
+.. contents::
 
 Ubuntu: need to install (to use MySQL with Django)::
 

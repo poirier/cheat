@@ -1,5 +1,6 @@
 Variables
 =========
+.. contents::
 
 .. _variables:
 

@@ -1,5 +1,6 @@
 Beautiful Soup
 ==============
+.. contents::
 
 Intro
 -----

@@ -1,5 +1,6 @@
 Video
 =====
+.. contents::
 
 Video tools to use on Linux
 

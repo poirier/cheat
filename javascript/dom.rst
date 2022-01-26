@@ -4,13 +4,21 @@ DOM operations with JavaScript
 Finding elements by selector
 ----------------------------
 
-https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll
+https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
 
 .. code-block:: javascript
 
     items = document.querySelectorAll('a.class-name')
 
 Returns a `NodeList <https://developer.mozilla.org/en-US/docs/Web/API/NodeList>`_.
+
+https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+
+.. code-block:: javascript
+
+    element = document.getElementById('the-id')
+
+Returns a `Element <https://developer.mozilla.org/en-US/docs/Web/API/Element>`_.
 
 Iterating over elements
 -----------------------

@@ -2,6 +2,7 @@
 
 Shell
 =====
+.. contents::
 
 Scripting
 ---------

@@ -1,5 +1,6 @@
 LIRC: linux infrared remote control
 ===================================
+.. contents::
 
 `LIRC <http://lirc.org>`_
 
@@ -95,5 +96,3 @@ for your remote - and you know which one it is.
 
 If the easy approach doesn't work
 ---------------------------------
-
-

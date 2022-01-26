@@ -2,6 +2,7 @@
 
 Rsync
 =====
+.. contents::
 
 Trailing Slashes
 ++++++++++++++++

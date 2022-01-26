@@ -1,5 +1,6 @@
 Async Python
 ============
+.. contents::
 
 It took me a while to understand JavaScript's approach to asynchronous execution.
 At some point, though, it started to make sense, and I was able to do what I

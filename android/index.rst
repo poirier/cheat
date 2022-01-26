@@ -8,6 +8,8 @@ Contents:
 
    nexus6p
 
+.. contents::
+
 The following information is not specific to any Android device.
 See the links just above for device-specific info.
 
@@ -74,4 +76,3 @@ With fastboot
 
         fastboot flash boot boot.img
         fastboot reboot
-

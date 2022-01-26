@@ -1,5 +1,6 @@
 Google APIs
 ===========
+.. contents::
 
 ..index:: ! google
 

@@ -1,5 +1,6 @@
 Ansible Galaxy
 ==============
+.. contents::
 
 Links
 -----

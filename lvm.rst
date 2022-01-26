@@ -2,6 +2,7 @@
 
 LVM
 ===
+.. contents::
 
 LVM on Linux
 

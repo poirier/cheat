@@ -1,5 +1,6 @@
 The Magic of Single Sign-On
 ================================
+.. contents::
 
 I remember being really impressed the first time I encountered single sign-on (SSO), in which I could access multiple websites after just logging in once. But I was even more impressed when I learned that underlying SSO are just a few, basic HTTP features.
 

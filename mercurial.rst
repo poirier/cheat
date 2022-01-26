@@ -1,5 +1,6 @@
 Mercurial
 =========
+.. contents::
 
 `Quick start <https://www.mercurial-scm.org/quickstart>`_.
 
@@ -40,4 +41,3 @@ Commit changes
 .. code-block:: bash
 
     $ hg commit -m "Message"
-

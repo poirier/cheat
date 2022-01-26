@@ -1,5 +1,6 @@
 Tox
 ===
+.. contents::
 
 
 Command line

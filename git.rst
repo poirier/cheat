@@ -1,5 +1,6 @@
 Git
 ===
+.. contents::
 
 ..index:: ! git
 

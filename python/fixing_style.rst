@@ -1,5 +1,6 @@
 How to Fix your Python Code's Style
 =========================================
+.. contents::
 
 (A formatted version of this draft is at https://cheat.readthedocs.io/en/latest/python/fixing_style.html.)
 

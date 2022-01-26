@@ -1,5 +1,6 @@
 reStructuredText
 ================
+.. contents::
 
 REST reStructuredText notes
 (see also Sphinx notes)

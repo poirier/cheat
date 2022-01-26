@@ -1,5 +1,6 @@
 HAProxy
 =======
+.. contents::
 
 .. index:: ! haproxy
 

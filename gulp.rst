@@ -1,5 +1,6 @@
 Gulp Tasks
 ==========
+.. contents::
 
 Because gulp tasks are actually from another package,
 `orchestrator <https://github.com/robrich/orchestrator>`_,

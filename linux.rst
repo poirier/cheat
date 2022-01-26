@@ -1,5 +1,6 @@
 Linux Notes, Misc.
 ==================
+.. contents::
 
 VPN
 ---

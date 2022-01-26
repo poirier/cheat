@@ -1,5 +1,6 @@
 Invoking
 ========
+.. contents::
 
 Ad-hoc
 ------

@@ -1,5 +1,6 @@
 Diet
 ====
+.. contents::
 
 Foods with low glycemic index
 -----------------------------

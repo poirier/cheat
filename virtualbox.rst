@@ -1,5 +1,6 @@
 Virtualbox
 ==========
+.. contents::
 
 List running VMs::
 

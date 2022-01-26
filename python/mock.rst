@@ -1,5 +1,6 @@
 How Mock Can Improve Your Unit Tests
 ====================================
+.. contents::
 
 Mocking is a little tricky to learn to use, but it's really handy to have in
 your testing toolbox.

@@ -1,5 +1,8 @@
 Salt Stack
 ==========
+.. contents::
+
+(I have not used this in *years*. Salt was horrible.)
 
 https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html
 

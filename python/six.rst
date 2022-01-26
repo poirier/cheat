@@ -1,5 +1,6 @@
 Six
 ===
+.. contents::
 
 Writing Python code that works the same in Python 2 & 3, using six as necessary.
 

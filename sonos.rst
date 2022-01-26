@@ -1,5 +1,6 @@
 Sonos
 =====
+.. contents::
 
 Music library on Linux
 ----------------------

@@ -1,5 +1,6 @@
 Roles
 =====
+.. contents::
 
 .. _role:
 
@@ -102,4 +103,3 @@ role
 
 Embedding modules in roles
 --------------------------
-

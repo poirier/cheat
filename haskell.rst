@@ -1,5 +1,6 @@
 Haskell
 =======
+.. contents::
 
 By analogy to Python...
 

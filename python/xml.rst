@@ -1,5 +1,6 @@
 XML in Python
 =============
+.. contents::
 
 
 Formatting an etree Element
@@ -16,5 +17,3 @@ Like this::
         bytes = StringIO()
         tree.write(bytes, encoding='UTF-8')
         return bytes.getvalue().decode('utf-8')
-
-

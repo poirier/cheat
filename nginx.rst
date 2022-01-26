@@ -2,6 +2,7 @@
 
 Nginx
 =====
+.. contents::
 
 `Nginx docs are here <http://nginx.org/en/docs/>`_, but good luck finding anything there
 if you don't already where it is.
@@ -253,4 +254,3 @@ Based rather loosely on `https://certbot.eff.org/lets-encrypt/pip-nginx <https:/
     echo "0 0,12 * * * root /usr/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
 
 * run "sudo certbot renew --dry-run" to test renewal
-

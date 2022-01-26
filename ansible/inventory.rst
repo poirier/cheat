@@ -3,6 +3,8 @@ Inventory
 
 .. _inventory-directory:
 
+.. contents::
+
 Inventory directory
 --------------------------
 

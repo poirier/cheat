@@ -1,5 +1,6 @@
 IPv6
 ====
+.. contents::
 
 Localhost
 ---------

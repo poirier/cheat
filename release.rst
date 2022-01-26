@@ -2,6 +2,7 @@
 
 Release - how to
 ================
+.. contents::
 
 How to release
 

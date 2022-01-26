@@ -2,6 +2,7 @@ Debian
 ======
 
 .. index:: ! debian
+.. contents::
 
 Timezone
 --------

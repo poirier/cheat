@@ -1,5 +1,6 @@
 Python Packaging
 ================
+.. contents::
 
 `The authoritative docs <https://packaging.python.org/en/latest/>`_.
 

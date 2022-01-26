@@ -1,5 +1,6 @@
 Playbook
 ========
+.. contents::
 
 .. _playbook-directory:
 
