@@ -23,6 +23,7 @@ Contents:
    esp2866
    freebsd/index
    git
+   go
    google
    gulp
    haproxy

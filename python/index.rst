@@ -10,6 +10,7 @@ Contents:
    asyncio
    beautifulsoup
    devenv
+   devpi
    fixing_style
    gitpython
    mock

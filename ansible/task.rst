@@ -105,6 +105,8 @@ when
         when: <varname>|failed
         when: <varname>|skipped
         when: <varname>|success
+vars
+    Define (or re-define) variables while running this task
 
 Additional keys might be required and optional depending on the module being used.
 
