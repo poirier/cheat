@@ -5,6 +5,47 @@ Just some notes so far.
 
 .. code:: go
 
+  // string to bytes[]
+  []byte("string")
+
+  // make a Reader from a byte array
+  import bytes
+  ba := []byte{....}
+  reader = bytes.NewReader(ba)
+
+  // regexes
+  regex := regexp.MustCompile(pattern)
+  match := regex.FindString(topic)
+  if match != "" {
+    queueCall(sub.handler, topic, payload)
+  }
+
+  // channels
+
+  /* A new, initialized channel value can be made using the built-in
+  function make, which takes the channel type and an optional
+  capacity as arguments: */
+
+  make(chan int, 100)
+
+Files
+-----
+
+.. code:: go
+
+  // write a file
+  data := []byte{"xxxx"}
+  err := os.WriteFile("/tmp/dat1", data, 0644)
+
+  // read a file
+  var data []byte
+  bytes = os.ReadFile(path string)
+
+Arrays and Slices
+-----------------
+
+.. code:: go
+
   // declare array
   q := [...]int{1, 2, 3}
 
@@ -19,7 +60,12 @@ Just some notes so far.
   // append to slice
   a = append(a, subscriptions)
 
-  // maps
+Maps and Structs
+----------------
+
+.. code:: go
+
+  // maps and structs
 
   // A new, empty map value is made using the built-in function make,
   // which takes the map type and an optional capacity hint as arguments:
@@ -39,12 +85,6 @@ Just some notes so far.
     "LF":     "Enter",
   }
 
-  // Embedding a file
-  import _ embed
-
-  //go:embed index.html
-  var indexpage []byte
-
   // Declaring a struct type and adding a method to it
   type indexHandler struct {
       webAddress string
@@ -52,6 +92,22 @@ Just some notes so far.
   }
   func (*indexHandler)ServeHTTP(w http.ResponseWriter, req *http.Request) {
   }
+
+Embed
+-----
+
+.. code:: go
+
+  // Embedding a file
+  import _ embed
+
+  //go:embed index.html
+  var indexpage []byte
+
+Templates
+---------
+
+.. code:: go
 
   // Using HTML templates
   import "html/template"
@@ -66,6 +122,11 @@ Just some notes so far.
       log.Fatal("Webserver:", err)
   }
 
+Switches
+--------
+
+.. code:: go
+
   // Switch
   switch topic {
   case "homecinema/input":
@@ -77,6 +138,11 @@ Just some notes so far.
   default:
     fmt.Printf("[%s]: %s\n\n", topic, payload)
   }
+
+HTTP
+----
+
+.. code:: go
 
   // HTTP GET
   res, err := http.Get(url)
@@ -93,18 +159,3 @@ Just some notes so far.
   if err != nil {
     log.Fatal(err)
   }
-
-  // regexes
-  regex := regexp.MustCompile(pattern)
-  match := regex.FindString(topic)
-  if match != "" {
-    queueCall(sub.handler, topic, payload)
-  }
-
-  // channels
-
-  /* A new, initialized channel value can be made using the built-in
-  function make, which takes the channel type and an optional
-  capacity as arguments: */
-
-  make(chan int, 100)
