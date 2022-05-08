@@ -7,8 +7,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-  packages
-  jails
+   packages
+   jails
 
 .. contents::
 

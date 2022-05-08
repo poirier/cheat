@@ -3,6 +3,14 @@ Go programming
 
 Just some notes so far.
 
+.. toctree::
+
+  database
+  restclient
+  webserver
+
+And some miscellaneous notes...
+
 .. code:: go
 
   // string to bytes[]
@@ -79,7 +87,7 @@ Maps and Structs
   }
   anim := gif.GIF{LoopCount: nframes}
 
-  // struct literal
+  // map literal
   var mapGoToWhatHomecinemaWants = map[string]string{
     "Delete": "Del",
     "LF":     "Enter",
@@ -93,6 +101,11 @@ Maps and Structs
   func (*indexHandler)ServeHTTP(w http.ResponseWriter, req *http.Request) {
   }
 
+  // struct literal (or any composite) is
+  // TYPENAME{value,value,...} or
+  // TYPENAME{fieldname: value, fieldname: value, ...}
+  indexHandler{webAddress: "127.0.0.1", brokerAddress: "1600"}
+
 Embed
 -----
 
@@ -104,8 +117,8 @@ Embed
   //go:embed index.html
   var indexpage []byte
 
-Templates
----------
+Templates - using from code
+---------------------------
 
 .. code:: go
 
@@ -121,6 +134,40 @@ Templates
   if err != nil {
       log.Fatal("Webserver:", err)
   }
+
+Template language
+-----------------
+
+* https://pkg.go.dev/text/template@go1.18.1
+* https://pkg.go.dev/html/template@go1.18.1
+
+Assume the context passed in is something like::
+
+    {
+      X: 29
+      Y: func (a, b int) string { ... }
+      Z: []int{1, 2, 3}
+    }
+
+Then we might have a template. "pipeline" is basically an expression
+or a chain of expressions.
+
+.. code::
+
+    <div>The value of x is {{ .X }}.</div>
+    {{ /* comment */ }}
+    {{ $internalvariable := 3 }}
+    {{ if pipeline }} ... {{ else }} ... {{ end }}
+    {{ range $index, $element := pipeline }}
+       {{ /* iteration over pipeline */ }}
+    {{ end }}
+    {{ with pipeline }}{{ /* in here, . has the value of pipeline;
+       unless pipeline's value is empty, in which case this whole
+       thing disappears. */}}
+    {{ end }}
+    {{ call .Y 27 32 }}
+    {{ index .Z 1 /* Z[1] */ }}
+    {{ slice .Z 1 /* Z[1:] */ }}
 
 Switches
 --------
