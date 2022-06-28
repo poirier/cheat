@@ -4,8 +4,88 @@ Denon
 Some notes on controlling a Denon receiver over TCP/IP.
 Some of this might be specific to the model I own.
 
+Connecting
+----------
+
+Make HTTP requests to port 80 on the Denon.
+
+For many commands, use ``GET /MainZone/index.put.asp?cmd0={command}``.
+
+Send key
+--------
+
+``GET /keypress/{key}``.
+
+Power on and off
+----------------
+
+* ``GET /MainZone/index.put.asp?cmd0=PutZone_OnOff/ON``
+* ``GET /MainZone/index.put.asp?cmd0=PutZone_OnOff/OFF``
+
+Getting state
+-------------
+
+To get the current state, ``GET /goform/formMainZone_MainZoneXml.xml``.
+
+Useful parts of the response include:
+
+* ``<Mute><value>on</value></Mute>`` if muted
+* ``<Power><value>ON</value></Power>`` if power is on
+* e.g. ``<MasterVolume><value>-28.0</value></MasterVolume>`` (see below for values
+  used for volume)
+* If power is on, ``<InputFuncSelect><value>DVD</value></InputFuncSelect>`` gives
+  the currently selected input.
+
+Example response::
+
+    <?xml version="1.0" encoding="utf-8" ?>
+    <item>
+    <FriendlyName><value>Denon</value></FriendlyName>
+    <Power><value>ON</value></Power>
+    <ZonePower><value>ON</value></ZonePower>
+    <RenameZone><value>LIVING RM
+    </value></RenameZone>
+    <TopMenuLink><value>ON</value></TopMenuLink>
+    <VideoSelectDisp><value>OFF</value></VideoSelectDisp>
+    <VideoSelect><value></value></VideoSelect>
+    <VideoSelectOnOff><value>OFF</value></VideoSelectOnOff>
+    <VideoSelectLists>
+        <value index='ON' >On</value>
+        <value index='OFF' >Off</value>
+    </VideoSelectLists>
+    <ECOModeDisp><value>ON</value></ECOModeDisp>
+    <ECOMode><value></value></ECOMode>
+    <ECOModeLists>
+        <value index='ON'  table='ECO : ON' param=''/>
+        <value index='OFF'  table='ECO : OFF' param=''/>
+        <value index='AUTO'  table='ECO : AUTO' param=''/>
+    </ECOModeLists>
+    <AddSourceDisplay><value>FALSE</value></AddSourceDisplay>
+    <ModelId><value>2</value></ModelId>
+    <BrandId><value>DENON_MODEL</value></BrandId>
+    <SalesArea><value>1</value></SalesArea>
+    <InputFuncSelect><value>DVD</value></InputFuncSelect>
+    <NetFuncSelect><value>NET</value></NetFuncSelect>
+    <selectSurround><value>Stereo                         </value></selectSurround>
+    <VolumeDisplay><value>Absolute</value></VolumeDisplay>
+    <MasterVolume><value>-28.0</value></MasterVolume>
+    <Mute><value>off</value></Mute>
+    <RemoteMaintenance><value></value></RemoteMaintenance>
+    <SubwooferDisplay><value>FALSE</value></SubwooferDisplay>
+    <Zone2VolDisp><value>TRUE</value></Zone2VolDisp>
+    <SleepOff><value>Off</value></SleepOff>
+    </item>
+
+
 Volume
 ------
+
+To toggle being muted,
+``GET /MainZone/index.put.asp?cmd0=PutVolumeMute/TOGGLE``.
+(See above for how to find out if it's currently muted.)
+
+To set volume,
+``GET /MainZone/index.put.asp?cmd0=PutMasterVolumeSet/{denon_volume}``.
 
 Setting the volume on the Denon is kind of weird, because the range of
 numbers is not 0-100 or anything sensible like that, it's
@@ -41,10 +121,12 @@ and so
 
    denon volume = decimal volume * 97.5 - 79.5
 
-
-
 Inputs
 ------
+
+To change inputs,
+``GET /MainZone/index.put.asp?cmd0=PutZone_InputFunction/{code}``.
+Keep reading to learn how to figure out the ``code`` to use.
 
 The most confusing thing about trying to control the Denon over the network
 is that each input source has multiple names and ways to identify it.
