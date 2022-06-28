@@ -25,8 +25,6 @@ C-u C-c C-s       Unschedule a task (remove schedule date/time)
 Keys outside org-mode::
 
     Key     What
-    C-c g   my gtd file
-    C-c c t   Create task
     C-c a X     Agenda view X
 
     C-c l      org-store-link

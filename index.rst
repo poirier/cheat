@@ -12,7 +12,9 @@ Contents:
    android/index
    ansible/index
    aws/index
+   beancount
    bootstrap
+   browser_extensions
    cookiecutter
    debian
    diet
