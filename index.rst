@@ -17,6 +17,7 @@ Contents:
    browser_extensions
    cookiecutter
    debian
+   denon
    diet
    django/index
    docker
