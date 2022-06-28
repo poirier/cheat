@@ -56,6 +56,7 @@ Contents:
    python/index
    raspberrypi/index
    release
+   roku
    rst
    rsync
    salt
