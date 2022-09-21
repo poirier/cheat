@@ -46,6 +46,7 @@ Contents:
    mikrotik_openwrt
    mpd
    mysql
+   netgear_wndr_3800
    nginx
    nixos/index
    openssl

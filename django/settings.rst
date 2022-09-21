@@ -23,10 +23,10 @@ Generate a secret key:
 .. code-block:: python
 
     from django.utils.crypto import get_random_string
-    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-    SECRET_KEY = get_random_string(50, chars)
+    chars = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)"
+    return get_random_string(50, chars)
 
-(https://github.com/django/django/blob/master/django/core/management/commands/startproject.py#L26)
+(https://github.com/django/django/blob/12617fbd859b1244e91bcf182a2fdf356b388821/django/core/management/utils.py#L79)
 
 .. _envvars:
 
@@ -58,4 +58,3 @@ And if they're not all strings, use ast::
 You can load them into a shell this way::
 
     export $(cat .env | grep -v ^# | xargs)
-

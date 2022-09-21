@@ -194,3 +194,7 @@ pseudoxml:
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
+
+docset: html
+	doc2dash -n cheat _build/html
+	tar -czf cheat_docset.tgz cheat.docset

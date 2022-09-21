@@ -130,14 +130,23 @@ Keep reading to learn how to figure out the ``code`` to use.
 
 The most confusing thing about trying to control the Denon over the network
 is that each input source has multiple names and ways to identify it.
+There are three sets of names for the inputs.
 
-* You can "rename" inputs via the web interface. These new names are used:
+1. The **labels** printed on the remote control, and also displayed in the Denon's web interface's virtual online remote control.  (Except that there's a remote button with "Internet Radio" printed on it, but no such source. Pressing it sets the source to "Online Music" and then drills down into the "Internet Radio" part of that.)  Examples: "CBL/SAT", "Blu-ray", "GAME", "TV AUDIO".
+
+2. The **internal names** used in the API to command the receiver to change inputs. More on these below.  Examples: "SAT/CBL", "BD", "GAME", "TV".
+
+3. What I'll call the **display names**, which the user can edit anytime via the receiver setup. These are displayed:
 
    * on the front panel
    * in the web interface, displaying the currently selected input
-   * in the API, returning the currently selected input
+   * **in the API, returning the currently selected input**
    * in the API, included in the status return inside "VideoSelectLists"
-     as the text inside the <value> tags:
+     as the text inside the <value> tags. Notice that here they are space-filled
+     to their maximum length, while the value shown as the currently selected
+     input is stripped of whitespace. Also note that this list seems incomplete;
+     possibly it only lists the sources whose display names have been changed
+     from their defaults?::
 
         <VideoSelectLists>
             <value index='ON' >On</value>
@@ -151,18 +160,10 @@ is that each input source has multiple names and ways to identify it.
             <value index='MPLAY'>My media pla</value>
         </VideoSelectLists>
 
-   It is bizarre to me that the API returns the user's renamed name
-   of the current input. And yet, the web interface's remote control
-   page does not use these names.  Keep reading.
-
-* The label on the remote control. Also used in the Denon's web interface's
-  virtual online remote control. These never change.
-
-* The code used in the API to select a source. These never change, and do not
-  match the remote control labels, nor the values returned in the API to tell
-  you what input is currently selected.  They can be seen as the value of "index"
-  in the XML excerpt above. Also as the final value in each line in the Javascript
-  below, excerpted from the Denon web interface's code:
+The "internal names" are the codes used in the API to select a source. They can be
+seen as the value of "index" in the XML excerpt above, e.g. "MPLAY", and also
+as the final value in each line in the Javascript below, excerpted from the
+Denon web interface's code::
 
         appendSource($("div#S3 div.btn31"), $("<div>CBL/SAT</div>"), "SAT/CBL");
         appendSource($("div#S3 div.btn32"), $("<div>DVD</div>"), "DVD");
@@ -180,7 +181,66 @@ is that each input source has multiple names and ways to identify it.
         appendSource($("div#S3 div.btn314"), $("<div>Media Server</div>"), "SERVER");
         appendSource($("div#S3 div.btn315"), $("<div>Internet Radio</div>"), "IRP");
 
+Identifying renamed sources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-One more weirdness: There's a remote button labeled "Internet Radio", but
-there's no corresponding source. Pressing it sets the source to "Online Music"
-and then drills down into the "Internet Radio" part of that.
+The VideoSelectLists portion of the status response lists the display
+names of some input sources... maybe just the ones that have changed from
+their defaults?
+
+You can find out what more of the current names of the sources are by loading
+/SETUP/INPUTS/SOURCERENAME/d_Rename.asp, which returns an HTML page.
+This is the page a user could use in the web interface to rename the inputs,
+and it includes showing the current names, so you can parse it to find
+out that information.
+
+Warning: Even here, **not all** of the input sources are shown, I guess
+not all are renameable?
+
+Warning: Neither the string inside ``<TD><B>...</B></TD>``, nor
+the tail of the value of the input name attribute, exactly match any
+of the other sets of names in all cases...
+
+Part of response::
+
+      <tr>
+        <TD><B>CBL/SAT</B></td>
+        <TD><INPUT type='text' name='textFuncRenameSATCBL' value="CBL/SAT" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameSATCBL' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>DVD</B></td>
+        <TD><INPUT type='text' name='textFuncRenameDVD' value="DVD" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameDVD' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>Blu-ray</B></td>
+        <TD><INPUT type='text' name='textFuncRenameBD' value="Blu-ray" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameBD' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>Game</B></td>
+        <TD><INPUT type='text' name='textFuncRenameGAME' value="GAME" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameGAME' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>Media Player</B></td>
+        <TD><INPUT type='text' name='textFuncRenameMPLAY' value="MEDIA PLAYER" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameMPLAY' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>TV Audio</B></td>
+        <TD><INPUT type='text' name='textFuncRenameTV' value="TV AUDIO" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameTV' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>AUX1</B></td>
+        <TD><INPUT type='text' name='textFuncRenameAUX1' value="AUX 1" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameAUX1' value='off'></td>
+      </tr>
+      <tr>
+        <TD><B>AUX2</B></td>
+        <TD><INPUT type='text' name='textFuncRenameAUX2' value="AUX 2" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameAUX2' value='off'></td>
+      </tr>
+        <TD><B>CD</B></td>
+        <TD><INPUT type='text' name='textFuncRenameCD' value="CD" size='20' maxlength='12'><INPUT type='hidden' name='setFuncRenameCD' value='off'></td>
+      </tr>
+
+Device Information
+------------------
+
+To find out basic info about the device, GET /goform/formMainZone_MainZoneXml.xml
+and the response looks like::
