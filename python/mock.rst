@@ -167,7 +167,7 @@ check in the usual way that its return value is ``None``.
 
 .. note::
 
-    I try to use ``mock.object.patch`` instead of ``mock.object`` when I can,
+    I try to use ``mock.patch.object`` instead of ``mock.object`` when I can,
     because it makes more sense to me when I try to figure out where to apply
     the mock. But both methods have their uses.
 
@@ -199,7 +199,7 @@ is created.
 
     class TestClass(TestCase):
         def test_object_all(self):
-            with mock.object.patch(SomeClass, "some_function") as mock_function:
+            with mock.patch.object(SomeClass, "some_function") as mock_function:
                 mock_function.return_value = 3
                 self.assertEqual(3, function_to_test())
 
