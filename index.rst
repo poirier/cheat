@@ -6,9 +6,9 @@ out of date, or just mistaken.
 
 .. raw:: html
 
-<p>On Mastodon:
-<a rel="me" href="https://hachyderm.io/@danpoirier">https://hachyderm.io/@danpoirier</a>
-</p>
+    <p>On Mastodon:
+    <a rel="me" href="https://hachyderm.io/@danpoirier">https://hachyderm.io/@danpoirier</a>
+    </p>
 
 Contents:
 
