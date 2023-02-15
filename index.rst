@@ -4,6 +4,12 @@ Welcome to Dan's Cheat Sheets's documentation!
 This information is primarily for my own use. Parts may be incomplete,
 out of date, or just mistaken.
 
+.. raw:: html
+
+<p>On Mastodon:
+<a rel="me" href="https://hachyderm.io/@danpoirier">https://hachyderm.io/@danpoirier</a>
+</p>
+
 Contents:
 
 .. toctree::
