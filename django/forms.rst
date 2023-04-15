@@ -6,7 +6,12 @@ Forms
 * https://docs.djangoproject.com/en/stable/topics/forms/
 * https://docs.djangoproject.com/en/stable/ref/forms/api/
 
-A basic form::
+.. contents::
+
+A basic form
+------------
+
+.. code-block:: python
 
     from django import forms
 
@@ -14,7 +19,10 @@ A basic form::
         subject = forms.CharField(max_length=100)
 
 
-Processing a form in a view function::
+Processing a form in a view function
+------------------------------------
+
+.. code-block:: python
 
     def contact(request):
         if request.method == 'POST': # If the form has been submitted...
@@ -32,7 +40,10 @@ Processing a form in a view function::
 
 https://docs.djangoproject.com/en/stable/topics/forms/modelforms/
 
-A model form::
+A model form
+------------
+
+.. code-block:: python
 
     from django.forms import ModelForm, ValidationError
 
@@ -74,7 +85,10 @@ A model form::
     f.save()
 
 
-Render form in template::
+Render form in template
+-----------------------
+
+.. code-block:: django
 
     <!-- Using table - avoid that part - but this does show how to render the fields individually -->
           <form {% if form.is_multipart %}enctype="multipart/form-data"{% endif %} action="" method="post" class="uniForm">{% csrf_token %}
@@ -134,9 +148,11 @@ Render form in template::
 
 
 Read-only form
-==============
+--------------
 
-Call this on the form::
+Call this on the form:
+
+.. code-block:: python
 
     def make_form_readonly(form):
         """
@@ -163,7 +179,9 @@ Call this on the form::
             field.readonly = True
             field.display_value = display_value
 
-Do things like this in the templates::
+Do things like this in the templates:
+
+.. code-block:: django
 
     {# Date field #}
     {% if field.field.readonly %}
@@ -189,3 +207,45 @@ Do things like this in the templates::
           {% endfor %}
         </select>
     {% endif %}
+
+Upload files
+------------
+
+Template:
+
+.. code-block:: django
+
+    <form action="{% url 'links:import_bookmarks' %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button class="btn btn-primary" type="submit">Import file</button>
+    </form>
+
+Form class:
+
+.. code-block:: python
+
+    class ImportForm(forms.Form):
+        file = forms.FileField()
+
+View:
+
+.. code-block:: python
+
+    @login_required
+    def import_view(request):
+        if request.method == "POST":
+            form = ImportForm(request.POST, request.FILES)
+            if form.is_valid():
+                handle_uploaded_import(request, request.FILES["file"])
+                return redirect("links:bookmarks")
+            messages.error(request, "Form not valid")
+        else:
+            form = ImportForm()
+        return render(request, "import.html", {"form": form})
+
+    def handle_uploaded_import(request, file):
+        messages.info(request, "importing pages & sections")
+        with transaction.atomic():
+            data = json.load(file)
+            # ...
