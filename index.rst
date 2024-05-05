@@ -19,10 +19,12 @@ Contents:
    ansible/index
    aws/index
    beancount
+   booting
    bootstrap
    browser_extensions
    cookiecutter
    debian
+   debian_repo
    denon
    diet
    django/index
@@ -32,6 +34,7 @@ Contents:
    esp2866
    freebsd/index
    git
+   gitolite
    go/index
    google
    gulp
@@ -63,6 +66,7 @@ Contents:
    python/index
    raspberrypi/index
    release
+   restic
    roku
    rst
    rsync
@@ -80,6 +84,7 @@ Contents:
    video
    virtualbox
    vue
+   walkthroughs/index
    x11
    yaml
    zfs

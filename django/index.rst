@@ -21,6 +21,7 @@ Contents:
    ddt
    django_celery_beat
    dokku
+   drf_blog_post
    drf_serializers
    dump_export
    eb

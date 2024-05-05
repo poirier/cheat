@@ -4,6 +4,7 @@ Tasmota
 * `tasmota <https://tasmota.github.io/docs/>`_
 * `tuya-convert <https://github.com/ct-Open-Source/tuya-convert>`_
 * `HomeAssistant <https://www.home-assistant.io/docs/mqtt/discovery/>`_
+
 .. contents::
 
 Setup

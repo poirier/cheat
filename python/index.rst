@@ -21,6 +21,7 @@ Contents:
    pyenv
    six
    timezones
+   timezones_blogpost
    tox
    versions
    virtualenv
