@@ -30,6 +30,7 @@ Contents:
    filter
    forms
    home
+   jinja
    logging
    login
    middleware
